@@ -11,180 +11,94 @@
             box-sizing: border-box;
         }
         
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.02);
+            --bg-card-hover: rgba(255, 255, 255, 0.05);
+            --accent-gradient: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+            --text-primary: #ffffff;
+            --text-secondary: #8b9dc3;
+            --text-muted: #5a6a8a;
+            --border-subtle: rgba(255, 255, 255, 0.05);
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            background-image: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(124, 58, 237, 0.06) 0%, transparent 50%);
             min-height: 100vh;
-            color: #fff;
-            padding: 20px;
+            color: var(--text-primary);
+            padding: 40px 20px;
         }
         
         .nav {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 8px;
+            margin-bottom: 50px;
         }
         
         .nav-btn {
-            padding: 12px 30px;
+            padding: 14px 32px;
             border: none;
-            border-radius: 8px;
+            border-radius: 100px;
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.1);
-            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-subtle);
         }
         
         .nav-btn.active {
-            background: linear-gradient(90deg, #00d4ff, #7c3aed);
-            color: #fff;
+            background: var(--accent-gradient);
+            color: var(--text-primary);
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.25);
         }
         
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .nav-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-primary);
         }
         
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            font-size: 42px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 8px;
         }
         
         .header p {
-            color: #94a3b8;
+            color: var(--text-secondary);
+            font-size: 15px;
         }
         
         .last-updated {
             text-align: center;
-            color: #64748b;
-            font-size: 0.9rem;
-            margin-bottom: 30px;
-        }
-        
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .column {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .column h2 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .status-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        
-        .not-started .status-dot {
-            background: #ef4444;
-            box-shadow: 0 0 10px #ef4444;
-        }
-        
-        .in-progress .status-dot {
-            background: #f59e0b;
-            box-shadow: 0 0 10px #f59e0b;
-            animation: pulse 2s infinite;
-        }
-        
-        .completed .status-dot {
-            background: #22c55e;
-            box-shadow: 0 0 10px #22c55e;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        .task-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .task-title {
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        
-        .task-description {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        
-        .task-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.8rem;
-            color: #64748b;
-        }
-        
-        .priority {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-        }
-        
-        .priority.high {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-        }
-        
-        .priority.medium {
-            background: rgba(245, 158, 11, 0.2);
-            color: #f59e0b;
-        }
-        
-        .priority.low {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #64748b;
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-bottom: 50px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
         
         .stats {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-bottom: 40px;
+            gap: 60px;
+            margin-bottom: 60px;
         }
         
         .stat {
@@ -192,43 +106,169 @@
         }
         
         .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
+            font-size: 56px;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 8px;
         }
         
         .stat-label {
-            color: #64748b;
-            font-size: 0.9rem;
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 500;
         }
         
-        .stat.not-started .stat-number { color: #ef4444; }
-        .stat.in-progress .stat-number { color: #f59e0b; }
-        .stat.completed .stat-number { color: #22c55e; }
+        .stat.red .stat-number { color: #ef4444; text-shadow: 0 0 40px rgba(239, 68, 68, 0.4); }
+        .stat.amber .stat-number { color: #f59e0b; text-shadow: 0 0 40px rgba(245, 158, 11, 0.4); }
+        .stat.green .stat-number { color: #22c55e; text-shadow: 0 0 40px rgba(34, 197, 94, 0.4); }
         
-        /* Journal Styles */
-        .journal-entry {
-            background: rgba(255, 255, 255, 0.03);
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .column {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 28px;
+            border: 1px solid var(--border-subtle);
+            backdrop-filter: blur(40px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .column:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+        
+        .column h2 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        .not-started .status-dot { background: #ef4444; box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+        .in-progress .status-dot { background: #f59e0b; box-shadow: 0 0 20px rgba(245, 158, 11, 0.5); }
+        .completed .status-dot { background: #22c55e; box-shadow: 0 0 20px rgba(34, 197, 94, 0.5); }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.9); }
+        }
+        
+        .task-card {
+            background: rgba(255, 255, 255, 0.02);
             border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-subtle);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .task-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateX(4px);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .task-title {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+        
+        .task-description {
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-subtle);
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        
+        .priority {
+            padding: 6px 12px;
+            border-radius: 100px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .priority.high { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        .priority.medium { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+        .priority.low { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        
+        .journal-entry {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-subtle);
+            backdrop-filter: blur(40px);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .journal-date {
-            font-size: 0.9rem;
+            font-size: 12px;
             color: #00d4ff;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
         
         .journal-section {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
         .journal-section-title {
+            font-size: 11px;
             font-weight: 600;
             color: #7c3aed;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
+            margin-bottom: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
         }
         
         .journal-section ul {
@@ -237,36 +277,48 @@
         }
         
         .journal-section li {
-            padding: 5px 0;
+            padding: 8px 0;
             padding-left: 20px;
             position: relative;
-            color: #cbd5e1;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
         }
         
         .journal-section li::before {
-            content: "•";
+            content: "";
             position: absolute;
             left: 0;
-            color: #64748b;
+            top: 16px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
         }
         
         .feeling {
-            display: inline-block;
-            padding: 8px 16px;
-            background: linear-gradient(90deg, rgba(0, 212, 255, 0.2), rgba(124, 58, 237, 0.2));
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: rgba(0, 212, 255, 0.08);
+            border-radius: 100px;
+            font-size: 13px;
+            color: #00d4ff;
+            margin-top: 8px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
         }
         
         footer {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 60px;
             padding: 20px;
-            color: #475569;
-            font-size: 0.8rem;
+        }
+        
+        footer p {
+            color: var(--text-muted);
+            font-size: 11px;
+            letter-spacing: 0.1em;
         }
         
         footer a {
@@ -274,36 +326,39 @@
             text-decoration: none;
         }
         
-        .hidden {
-            display: none !important;
+        .hidden { display: none !important; }
+        
+        @media (max-width: 768px) {
+            .stats { gap: 30px; }
+            .stat-number { font-size: 40px; }
+            .header h1 { font-size: 32px; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🎯 Nars Dashboard</h1>
-        <p>Brian's Digital Chief of Staff</p>
-    </div>
-    
     <nav class="nav">
-        <button class="nav-btn active" onclick="showPage('tasks')">📋 Tasks</button>
-        <button class="nav-btn" onclick="showPage('journal')">📓 Journal</button>
+        <button class="nav-btn active" data-page="tasks">Tasks</button>
+        <button class="nav-btn" data-page="journal">Journal</button>
     </nav>
+    
+    <header class="header">
+        <h1>Nars</h1>
+        <p>Brian's Digital Chief of Staff</p>
+    </header>
     
     <div class="last-updated" id="lastUpdated"></div>
     
-    <!-- Tasks Page -->
     <div id="tasksPage">
         <div class="stats">
-            <div class="stat not-started">
+            <div class="stat red">
                 <div class="stat-number" id="countNotStarted">0</div>
                 <div class="stat-label">Not Started</div>
             </div>
-            <div class="stat in-progress">
+            <div class="stat amber">
                 <div class="stat-number" id="countInProgress">0</div>
                 <div class="stat-label">In Progress</div>
             </div>
-            <div class="stat completed">
+            <div class="stat green">
                 <div class="stat-number" id="countCompleted">0</div>
                 <div class="stat-label">Completed</div>
             </div>
@@ -327,29 +382,34 @@
         </div>
     </div>
     
-    <!-- Journal Page -->
     <div id="journalPage" class="hidden">
-        <div style="max-width: 800px; margin: 0 auto;" id="journalEntries"></div>
+        <div id="journalEntries"></div>
     </div>
     
     <footer>
-        <p>Updated automatically by Nars 🐕</p>
-        <p>Data: <a href="tasks.json">tasks.json</a> | <a href="journal.json">journal.json</a></p>
+        <p>Automated by Nars</p>
     </footer>
     
     <script>
-        function showPage(page) {
-            document.getElementById('tasksPage').classList.toggle('hidden', page !== 'tasks');
-            document.getElementById('journalPage').classList.toggle('hidden', page !== 'journal');
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-        }
+        let currentPage = 'tasks';
+        
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentPage = this.dataset.page;
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('tasksPage').classList.toggle('hidden', currentPage !== 'tasks');
+                document.getElementById('journalPage').classList.toggle('hidden', currentPage !== 'journal');
+            });
+        });
         
         async function loadTasks() {
             try {
                 const response = await fetch('tasks.json');
                 const data = await response.json();
-                document.getElementById('lastUpdated').textContent = 'Last updated: ' + new Date(data.lastUpdated).toLocaleString();
+                document.getElementById('lastUpdated').textContent = 'Updated ' + new Date(data.lastUpdated).toLocaleString('en-US', { 
+                    month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' 
+                });
                 renderTasks(data);
             } catch (error) {
                 console.error('Error loading tasks:', error);
@@ -360,7 +420,6 @@
             document.getElementById('countNotStarted').textContent = data.tasks.notStarted.length;
             document.getElementById('countInProgress').textContent = data.tasks.inProgress.length;
             document.getElementById('countCompleted').textContent = data.tasks.completed.length;
-            
             renderTasksList('notStartedTasks', data.tasks.notStarted);
             renderTasksList('inProgressTasks', data.tasks.inProgress);
             renderTasksList('completedTasks', data.tasks.completed);
@@ -398,49 +457,33 @@
             const container = document.getElementById('journalEntries');
             container.innerHTML = data.entries.map(entry => `
                 <div class="journal-entry">
-                    <div class="journal-date">📅 ${entry.date} ${entry.time ? '• ' + entry.time : ''}</div>
-                    
+                    <div class="journal-date">${entry.date}</div>
+                    ${entry.whatIDid ? `
                     <div class="journal-section">
-                        <div class="journal-section-title">✅ What I Did</div>
-                        <ul>
-                            ${entry.whatIDid.map(item => `<li>${item}</li>`).join('')}
-                        </ul>
-                    </div>
-                    
+                        <div class="journal-section-title">What I Did</div>
+                        <ul>${entry.whatIDid.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>` : ''}
+                    ${entry.keyLearnings ? `
                     <div class="journal-section">
-                        <div class="journal-section-title">💡 Key Learnings</div>
-                        <ul>
-                            ${entry.keyLearnings.map(item => `<li>${item}</li>`).join('')}
-                        </ul>
-                    </div>
-                    
-                    <div class="journal-section">
-                        <div class="journal-section-title">🤝 Collaboration Improvements</div>
-                        <ul>
-                            ${entry.collaborationImprovements.whatICanDoBetter.map(item => `<li><strong>Me:</strong> ${item}</li>`).join('')}
-                            ${entry.collaborationImprovements.whatBrianCanDoBetter.map(item => `<li><strong>Brian:</strong> ${item}</li>`).join('')}
-                        </ul>
-                    </div>
-                    
+                        <div class="journal-section-title">Key Learnings</div>
+                        <ul>${entry.keyLearnings.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>` : ''}
                     ${entry.howImFeeling ? `
                     <div class="journal-section">
-                        <div class="journal-section-title">💭 How I'm Feeling</div>
+                        <div class="journal-section-title">How I'm Feeling</div>
                         <div class="feeling">${entry.howImFeeling}</div>
-                    </div>
-                    ` : ''}
+                    </div>` : ''}
                 </div>
             `).join('');
         }
         
-        // Load initial data
         loadTasks();
         loadJournal();
         
-        // Refresh every 60 seconds
         setInterval(() => {
             loadTasks();
-            loadJournal();
-        }, 60000);
+            if (currentPage === 'journal') loadJournal();
+        }, 30000);
     </script>
 </body>
 </html>
