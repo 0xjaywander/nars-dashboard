@@ -17,6 +17,58 @@
             min-height: 100vh;
             color: #1d1d1f;
             padding: 60px 20px;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark {
+            background: #000000;
+            color: #f5f5f7;
+        }
+        
+        body.dark .column,
+        body.dark .journal-entry {
+            background: #1c1c1e;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark .column:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        body.dark .task-card {
+            background: #2c2c2e;
+        }
+        
+        body.dark .task-card:hover {
+            background: #3a3a3c;
+        }
+        
+        body.dark .column h2,
+        body.dark .header p,
+        body.dark .last-updated,
+        body.dark .task-description,
+        body.dark .journal-section-title,
+        body.dark .journal-date,
+        body.dark .feeling,
+        body.dark footer p,
+        body.dark .empty-state {
+            color: #86868b;
+        }
+        
+        body.dark .column h2 {
+            border-bottom-color: #2c2c2e;
+        }
+        
+        body.dark .task-meta {
+            color: #48484a;
+        }
+        
+        body.dark .nav-btn:hover:not(.active) {
+            color: #f5f5f7;
+        }
+        
+        body.dark .journal-section li::before {
+            background: #48484a;
         }
         
         .nav {
@@ -43,8 +95,16 @@
             color: #1d1d1f;
         }
         
+        body.dark .nav-btn.active {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
         .nav-btn:hover:not(.active) {
             color: #1d1d1f;
+        }
+        
+        body.dark .nav-btn:hover:not(.active) {
+            color: #f5f5f7;
         }
         
         .header {
@@ -60,6 +120,10 @@
             margin-bottom: 8px;
         }
         
+        body.dark .header h1 {
+            color: #f5f5f7;
+        }
+        
         .header p {
             font-size: 21px;
             font-weight: 400;
@@ -71,6 +135,32 @@
             font-size: 13px;
             color: #86868b;
             margin-bottom: 60px;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+        
+        body.dark .theme-toggle {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
         }
         
         .stats {
@@ -91,6 +181,10 @@
             line-height: 1;
             margin-bottom: 8px;
             color: #1d1d1f;
+        }
+        
+        body.dark .stat-number {
+            color: #f5f5f7;
         }
         
         .stat-label {
@@ -154,6 +248,10 @@
             background: #f0f0f5;
         }
         
+        body.dark .task-card:hover {
+            background: #3a3a3c;
+        }
+        
         .task-card:last-child {
             margin-bottom: 0;
         }
@@ -164,6 +262,10 @@
             color: #1d1d1f;
             margin-bottom: 6px;
             line-height: 1.4;
+        }
+        
+        body.dark .task-title {
+            color: #f5f5f7;
         }
         
         .task-description {
@@ -232,6 +334,10 @@
             letter-spacing: 0.05em;
         }
         
+        body.dark .journal-section-title {
+            color: #f5f5f7;
+        }
+        
         .journal-section ul {
             list-style: none;
             padding-left: 0;
@@ -244,6 +350,10 @@
             color: #515154;
             font-size: 15px;
             line-height: 1.5;
+        }
+        
+        body.dark .journal-section li {
+            color: #c7c7cc;
         }
         
         .journal-section li::before {
@@ -280,17 +390,33 @@
             color: #aeaeb2;
         }
         
-        .hidden { display: none !important; }
+        .hidden {
+            display: none !important;
+        }
         
         @media (max-width: 768px) {
-            .stats { gap: 40px; }
-            .stat-number { font-size: 48px; }
-            .header h1 { font-size: 36px; }
-            .header p { font-size: 18px; }
+            .stats {
+                gap: 40px;
+            }
+            .stat-number {
+                font-size: 48px;
+            }
+            .header h1 {
+                font-size: 36px;
+            }
+            .header p {
+                font-size: 18px;
+            }
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">🌙</button>
+    
     <nav class="nav">
         <button class="nav-btn active" data-page="tasks">Tasks</button>
         <button class="nav-btn" data-page="journal">Journal</button>
@@ -348,6 +474,20 @@
     <script>
         let currentPage = 'tasks';
         
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            localStorage.setItem('darkMode', isDark ? 'true' : 'false');
+            document.querySelector('.theme-toggle').textContent = isDark ? '☀️' : '🌙';
+        }
+        
+        // Load theme preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+            document.querySelector('.theme-toggle').textContent = '☀️';
+        }
+        
         document.querySelectorAll('.nav-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 currentPage = this.dataset.page;
@@ -362,8 +502,10 @@
             try {
                 const response = await fetch('tasks.json');
                 const data = await response.json();
-                document.getElementById('lastUpdated').textContent = new Date(data.lastUpdated).toLocaleDateString('en-US', { 
-                    weekday: 'long', month: 'long', day: 'numeric' 
+                document.getElementById('lastUpdated').textContent = new Date(data.lastUpdated).toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    month: 'long',
+                    day: 'numeric'
                 });
                 renderTasks(data);
             } catch (error) {
