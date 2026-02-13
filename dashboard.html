@@ -394,6 +394,91 @@
             display: none !important;
         }
         
+        /* Research Section */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .research-item {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+        
+        .research-item:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+        
+        .research-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        body.dark .research-title {
+            color: #f5f5f7;
+        }
+        
+        .research-summary {
+            font-size: 14px;
+            color: #515154;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        body.dark .research-summary {
+            color: #c7c7cc;
+        }
+        
+        .research-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .research-tag {
+            padding: 6px 12px;
+            background: #f5f5f7;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #515154;
+        }
+        
+        .research-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #86868b;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f5;
+        }
+        
+        body.dark .research-meta {
+            border-top-color: #2c2c2e;
+        }
+        
+        .research-link {
+            color: #007aff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .research-link:hover {
+            text-decoration: underline;
+        }
+        
         @media (max-width: 768px) {
             .stats {
                 gap: 40px;
@@ -420,6 +505,7 @@
     <nav class="nav">
         <button class="nav-btn active" data-page="tasks">Tasks</button>
         <button class="nav-btn" data-page="journal">Journal</button>
+        <button class="nav-btn" data-page="research">Research</button>
     </nav>
     
     <header class="header">
@@ -467,6 +553,12 @@
         <div id="journalEntries"></div>
     </div>
     
+    <div id="researchPage" class="hidden">
+        <div class="research-grid" id="researchGrid">
+            <div class="empty-state">Loading research...</div>
+        </div>
+    </div>
+    
     <footer>
         <p>Automated by Nars</p>
     </footer>
@@ -495,6 +587,7 @@
                 this.classList.add('active');
                 document.getElementById('tasksPage').classList.toggle('hidden', currentPage !== 'tasks');
                 document.getElementById('journalPage').classList.toggle('hidden', currentPage !== 'journal');
+                document.getElementById('researchPage').classList.toggle('hidden', currentPage !== 'research');
             });
         });
         
@@ -575,12 +668,45 @@
             `).join('');
         }
         
+        async function loadResearch() {
+            try {
+                const response = await fetch('memory/research/index.json');
+                const data = await response.json();
+                renderResearch(data);
+            } catch (error) {
+                // If no index.json, show empty state
+                document.getElementById('researchGrid').innerHTML = '<div class="empty-state">No research reports yet</div>';
+            }
+        }
+        
+        function renderResearch(data) {
+            const container = document.getElementById('researchGrid');
+            if (!data.reports || data.reports.length === 0) {
+                container.innerHTML = '<div class="empty-state">No research reports yet</div>';
+                return;
+            }
+            container.innerHTML = data.reports.map(report => `
+                <div class="research-item">
+                    <div class="research-title">${report.title}</div>
+                    <div class="research-summary">${report.summary}</div>
+                    <div class="research-tags">
+                        ${report.tags.map(tag => `<span class="research-tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="research-meta">
+                        <span>${report.date}</span>
+                        <a href="${report.link}" target="_blank" class="research-link">View →</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
         loadTasks();
         loadJournal();
         
         setInterval(() => {
             loadTasks();
             if (currentPage === 'journal') loadJournal();
+            if (currentPage === 'research') loadResearch();
         }, 30000);
     </script>
 </body>
