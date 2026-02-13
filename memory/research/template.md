@@ -36,4 +36,18 @@ Brief overview (2-3 paragraphs)
 - Source 3
 
 ---
+
+## Evaluation Notes
+
+### Iteration History
+- **Draft 1**: [brief summary of feedback]
+- **Draft 2**: [brief summary of feedback]
+- **Final Draft**: [brief summary of feedback]
+
+### Final Evaluation
+- **Iterations**: [N]
+- **Quality Score**: [X]/100
+- **Status**: Ready to share / Needs revision
+
+---
 *Draft: [N] | Generated: [DATE] | Research Agent*

@@ -31,8 +31,8 @@
 
 | Score | Meaning | Action |
 |-------|---------|--------|
-| 90-100 | Excellent | Ready to share |
-| 75-89 | Good with minor gaps | Iterate on gaps |
+| 95-100 | Excellent | Ready to share |
+| 75-94 | Good with minor gaps | Iterate on gaps |
 | 60-74 | Partial coverage | Significant revision |
 | <60 | Not ready | Major rework |
 
@@ -45,7 +45,7 @@ Main Agent Evaluation
      ↓
 ┌────┴────┐
 ↓         ↓
-<75%      ≥75%
+<95%      ≥95%
 ↓         ↓
 Feedback  Ready
 → Issues  → Share
