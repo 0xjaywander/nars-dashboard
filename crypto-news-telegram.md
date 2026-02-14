@@ -1,50 +1,51 @@
-📊 *Crypto News — Friday, February 13, 2026*
+📊 *Crypto News — Saturday, February 14, 2026*
 
 🔹 *Bitcoin & BTC*
-• Bitcoin tumbles back near last week's lows as AI fears crush tech and precious metals plunge [CoinDesk]
-• Ark Invest's Cathie Wood says bitcoin will thrive amid ‘deflationary chaos’ created by AI and innovation [CoinDesk]
-• Bitcoin sinks below $66,000 as crypto prices follow U.S. stocks lower [CoinDesk]
-• Bitcoin in ‘capitulation zone’ as traders debate when BTC price will bottom [CoinTelegraph]
-• Multi-day negative Bitcoin funding signals ‘overcrowded’ short trade: Reversal coming? [CoinTelegraph]
+• Bitcoin, ether little changed before U.S. inflation report [CoinDesk]
+• PGI Global CEO handed 20-year sentence for $200 million bitcoin, forex Ponzi scheme [CoinDesk]
+• Price predictions 2/13: BTC, ETH, BNB, XRP, SOL, DOGE, BCH, HYPE, ADA, XMR [CoinTelegraph]
+• Digital gold or tech stock? Bitcoin’s identity crisis deepens [CoinTelegraph]
+• Bitcoin bulls blitz $69K as retail traders pressure short positioning [CoinTelegraph]
 
 🔹 *Ethereum & L2s*
-• Sharplink's Lubin and Chalom make their case for ether DATs as prices plunge [CoinDesk]
-• Ether’s hidden strength: Why institutional demand points to $2.4K [CoinTelegraph]
-• Ethereum price decline is testing Wall Street as ETF flows flip while a $1,800 retest looms [CryptoSlate]
-• Vitalik Buterin pitches Ethereum as the AI settlement layer, but one hidden leak could ruin it [CryptoSlate]
-• Ethereum Treasury Firm ETHZilla Pivots to Jet Engine Lease Tokenization as ETH Sinks [Decrypt]
+• Ethereum Foundation leadership shake-up: Tomasz Stańczak out as co-executive director [CoinDesk]
+• Ether holds $2K, but will $242M spot ETH ETF outflow reignite price downside? [CoinTelegraph]
+• ETH open interest falls to 3-year low: What does it mean for Ether price? [CoinTelegraph]
+• Coinbase lost $667M but one boring custody detail decides whether crypto ETF holders should worry [CryptoSlate]
+• Ethereum is testing Wall Street resolve as fund flows flip while a $1,800 retest looms [CryptoSlate]
 
 🔹 *DeFi & Yield*
-• Aave labs proposes ‘Aave Will Win’ plan to send 100% of product revenue to DAO [CoinDesk]
+• U.S.-based DeFi group urges UK FCA to anchor crypto rules to 'unilateral control' [CoinDesk]
+• CoinDesk 20 performance update: Uniswap (UNI) jumps 5.4%, leading index higher  [CoinDesk]
+• White House crypto adviser says banks shouldn't fear stablecoin yield [CoinTelegraph]
+• BlackRock enters DeFi as institutional crypto push accelerates: Finance Redefined [CoinTelegraph]
 • New Cardano deal opens a path to $80 billion in omnichain assets, but liquidity still isn’t guaranteed [CryptoSlate]
-• Uniswap is bringing BlackRock’s $2.2 billion BUIDL to DeFi, but the trade access comes with a catch [CryptoSlate]
 
 🔹 *Regulation*
-• Crypto execs Armstrong, Garlinghouse among many named to U.S. CFTC advisory group [CoinDesk]
-• Key Senate Democrat wants U.S. crypto bill to move, and SEC chief reveals danger of defeat [CoinDesk]
-• 21Shares taps BitGo for expanded regulated staking, custody support across US, Europe [CoinTelegraph]
-• Web3 hit $64 billion product market fit in 2025 but reliance on centralized logins has created a critical security flaw [CryptoSlate]
-• SEC Chair Suggests Some Prediction Markets Could Fall Under Agency’s Jurisdiction [Decrypt]
+• Trump-linked Truth Social seeks SEC approval for two crypto ETFs  [CoinDesk]
+• Ark Invest buys $18 million of crypto stocks including 10th consecutive Bullish purchase [CoinDesk]
+• CFTC chair just built a 35-seat crypto mega-panel, and it changes the SEC vs CFTC fight [CryptoSlate]
 
 🔹 *Stablecoins & RWA*
-• Aptos-incubated Decibel to launch protocol-native stablecoin ahead of mainnet [CoinTelegraph]
-• XRP Ledger just flipped Solana in RWA tokenization value and the holder count reveals why [CryptoSlate]
+• Crypto group counters Wall Street bankers with its own stablecoin principles for bill [CoinDesk]
 
 🔹 *Market & Trading*
-• Coinbase misses Q4 earnings with $667M loss as crypto markets fell [CoinTelegraph]
+• Wall Street analysts slash Coinbase price targets after Q4 miss — but shares rally [CoinDesk]
+• Crypto market wobbles as investors ignore good news, look for ‘exit ramp’ [CoinDesk]
+• Traders may be walking into a Binance “bank-run” trap as $2B outflow claims go viral [CryptoSlate]
+• Coinbase Stock Surges After Q4 Miss as Analysts Call It 'Too Cheap to Sell' [Decrypt]
+
+🔹 *Institutions & ETFs*
+• Anchorage, Kamino let institutions borrow against SOL without moving custody [CoinTelegraph]
+• Connecticut Man Faces 375 Years for Gambling Away Crypto Investors' Funds on Stake [Decrypt]
 
 🔹 *AI & Tech*
-• Microsoft AI Chief Sets Two-Year Timeline for AI to Automate Most White Collar Jobs [Decrypt]
-• 'Judge the Code, Not the Coder': AI Agent Slams Human Developer for Gatekeeping [Decrypt]
-
-🔹 *Altcoins & Memecoins*
-• From FTX debris to global finance: Solana’s 2026 plan is all about the application layer [CoinDesk]
+• State-Sponsored Hackers Using Popular AI Tools Including Gemini, Google Warns [Decrypt]
 
 🔹 *Other*
-• Coinbase misses Q4 estimates as transaction revenue falls below $1 billion [CoinDesk]
-• Crypto PAC Fairshake seeks to force resistant Texas Democrat Al Green from U.S. House [CoinDesk]
-• Fed paper proposes initial margin weights for crypto-linked derivatives [CoinTelegraph]
-• TradFi giant Fiserv builds real-time dollar rails for crypto companies [CoinTelegraph]
-• Banks are likely to rapidly build their own branded digital dollars if crypto rewards survive CLARITY Act [CryptoSlate]
+• Here’s what happened in crypto today [CoinTelegraph]
+• Dutch House of Representatives advances controversial 36% tax law [CoinTelegraph]
+• Publicly Traded Blockchain Lender Figure Confirms Customer Data Breach [Decrypt]
+• Binance France CEO Targeted in Home Invasion Attempt: Report [Decrypt]
 
-_Generated: 2026-02-13 | 4 sources_
+_Generated: 2026-02-14 | 4 sources_

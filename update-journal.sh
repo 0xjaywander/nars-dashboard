@@ -1,6 +1,7 @@
 #!/bin/bash
 # Daily journal update script
 # Creates a new journal entry at 9AM HKT daily
+# Triggers main agent to fill in the journal
 
 cd /home/nars/.openclaw/workspace
 
@@ -14,7 +15,7 @@ if grep -q "\"date\": \"$TODAY\"" journal.json; then
     exit 0
 fi
 
-# Create a simple daily check-in entry
+# Create a placeholder entry with minimal structure
 node -e "
 const fs = require('fs');
 const journal = JSON.parse(fs.readFileSync('journal.json', 'utf8'));
@@ -26,22 +27,17 @@ if (todayExists) {
     process.exit(0);
 }
 
-// Create new entry
+// Create empty entry - main agent will fill this in
 const newEntry = {
     date: '$TODAY',
     time: '$TIME_UTC',
-    whatIDid: [
-        'Daily crypto news digest delivered',
-        'Reviewed market insights and trends'
-    ],
-    keyLearnings: [
-        'Observations from daily crypto news analysis'
-    ],
+    whatIDid: [],
+    keyLearnings: [],
     collaborationImprovements: {
         whatICanDoBetter: [],
         whatBrianCanDoBetter: []
     },
-    howImFeeling: 'Ready for a new day of collaboration!'
+    howImFeeling: ''
 };
 
 // Add to beginning of entries
@@ -49,5 +45,8 @@ journal.entries.unshift(newEntry);
 journal.lastUpdated = new Date().toISOString();
 
 fs.writeFileSync('journal.json', JSON.stringify(journal, null, 2));
-console.log('Journal entry added for $TODAY');
+console.log('Journal placeholder created for $TODAY');
 "
+
+# Trigger main agent to fill in the journal
+openclaw gateway run --session main --system-event "Fill in today's journal entry ($TODAY). Complete the whatIDid, keyLearnings, collaborationImprovements, and howImFeeling sections based on your recent activities and reflections."
