@@ -8,21 +8,14 @@
         "description": "Run 'openclaw gateway restart' to apply M2.5 model switch",
         "since": "2026-02-15",
         "priority": "medium"
-      },
-      {
-        "id": "w2",
-        "title": "[WAITING] Install xvfb on VPS",
-        "description": "Run 'sudo apt-get install -y xvfb' to enable X browser automation",
-        "since": "2026-02-15",
-        "priority": "high"
       }
     ],
     "inProgress": [
       {
         "id": 1,
-        "title": "X browser automation",
-        "description": "Enable X/Twitter access - blocked by headless detection. Testing xvfb (waitng for install)",
-        "since": "2026-02-10",
+        "title": "X browser automation (TESTING)",
+        "description": "xvfb installed and working - can now access X via browser tool",
+        "since": "2026-02-15",
         "priority": "high"
       },
       {
