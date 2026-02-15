@@ -12,13 +12,6 @@
     ],
     "inProgress": [
       {
-        "id": 1,
-        "title": "X browser automation (TESTING)",
-        "description": "xvfb installed and working - can now access X via browser tool",
-        "since": "2026-02-15",
-        "priority": "high"
-      },
-      {
         "id": 6,
         "title": "Auto Dashboard Update System",
         "description": "Cron job runs daily at 9AM HKT, updates dashboard via GitHub/Vercel",
@@ -27,6 +20,12 @@
       }
     ],
     "completed": [
+      {
+        "id": 1,
+        "title": "X browser automation",
+        "description": "xvfb installed - can fetch X posts via headless browser on VPS",
+        "completedDate": "2026-02-15"
+      },
       {
         "id": 2,
         "title": "Telegram channel setup",
