@@ -35,7 +35,7 @@
         "id": 3b,
         "title": "Crypto news Telegram fix",
         "description": "Fixed cron delivery issue - added chat_id 5127620137",
-        "completedDate": "2026-02-15"
+        "completedDate": "2022026-02-15"
       },
       {
         "id": 4,
@@ -54,6 +54,36 @@
         "title": "Management Dashboard",
         "description": "Create visual dashboard at nars-dashboard.vercel.app",
         "completedDate": "2026-02-11"
+      },
+      {
+        "id": 8,
+        "title": "Multi-agent research workflow",
+        "description": "Set up main agent spawning research agent with evaluation loop",
+        "completedDate": "2026-02-13"
+      },
+      {
+        "id": 9,
+        "title": "Research quality criteria",
+        "description": "Document quality thresholds and iteration workflow",
+        "completedDate": "2026-02-13"
+      },
+      {
+        "id": 10,
+        "title": "Summarize CLI installation",
+        "description": "Install @steipete/summarize for YouTube/video transcription",
+        "completedDate": "2026-02-14"
+      },
+      {
+        "id": 11,
+        "title": "Daily journal workflow",
+        "description": "Cron job creates journal entries at 9AM HKT",
+        "completedDate": "2026-02-12"
+      },
+      {
+        "id": 12,
+        "title": "Browser automation setup",
+        "description": "Configure Chrome extension relay and local Chromium",
+        "completedDate": "2026-02-12"
       }
     ]
   }
