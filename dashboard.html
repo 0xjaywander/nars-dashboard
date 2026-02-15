@@ -593,8 +593,11 @@
         
         async function loadTasks() {
             try {
+                console.log('Fetching tasks.json...');
                 const response = await fetch('tasks.json');
+                console.log('Response status:', response.status);
                 const data = await response.json();
+                console.log('Data loaded:', data);
                 document.getElementById('lastUpdated').textContent = new Date(data.lastUpdated).toLocaleDateString('en-US', {
                     weekday: 'long',
                     month: 'long',
@@ -602,7 +605,10 @@
                 });
                 renderTasks(data);
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error loading tasks:', error);
+                document.getElementById('countNotStarted').textContent = '!';
+                document.getElementById('countInProgress').textContent = '!';
+                document.getElementById('countCompleted').textContent = '!';
             }
         }
         
