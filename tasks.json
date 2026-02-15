@@ -1,19 +1,20 @@
 {
   "lastUpdated": "2026-02-15T03:30:00Z",
   "tasks": {
-    "notStarted": [],
-    "waitingOnBrian": [
+    "notStarted": [
       {
         "id": "w1",
-        "title": "Gateway restart",
+        "title": "[WAITING] Gateway restart",
         "description": "Run 'openclaw gateway restart' to apply M2.5 model switch",
-        "since": "2026-02-15"
+        "since": "2026-02-15",
+        "priority": "medium"
       },
       {
         "id": "w2",
-        "title": "Install xvfb on VPS",
+        "title": "[WAITING] Install xvfb on VPS",
         "description": "Run 'sudo apt-get install -y xvfb' to enable X browser automation",
-        "since": "2026-02-15"
+        "since": "2026-02-15",
+        "priority": "high"
       }
     ],
     "inProgress": [
@@ -49,7 +50,7 @@
         "id": 3b,
         "title": "Crypto news Telegram fix",
         "description": "Fixed cron delivery issue - added chat_id 5127620137",
-        "completedDate": "2022026-02-15"
+        "completedDate": "2026-02-15"
       },
       {
         "id": 4,
