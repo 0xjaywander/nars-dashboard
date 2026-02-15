@@ -5,15 +5,15 @@
     "inProgress": [
       {
         "id": 1,
-        "title": "Twitter content integration",
-        "description": "Set up @0xjaywander to follow accounts and create daily Twitter digest",
+        "title": "X browser automation",
+        "description": "Enable X/Twitter access - blocked by headless detection. Testing xvfb (waitng for install)",
         "since": "2026-02-10",
         "priority": "high"
       },
       {
         "id": 6,
         "title": "Auto Dashboard Update System",
-        "description": "Cron job checks every 5 minutes for task changes and auto-pushes to GitHub/Vercel",
+        "description": "Cron job runs daily at 9AM HKT, updates dashboard via GitHub/Vercel",
         "since": "2026-02-12",
         "priority": "medium"
       }
@@ -28,8 +28,14 @@
       {
         "id": 3,
         "title": "Daily RSS crypto news",
-        "description": "9AM HKT automated crypto news digest via RSS feeds",
+        "description": "9AM HKT automated crypto news digest via RSS feeds (6 sources)",
         "completedDate": "2026-02-11"
+      },
+      {
+        "id": 3b,
+        "title": "Crypto news Telegram fix",
+        "description": "Fixed cron delivery issue - added chat_id 5127620137",
+        "completedDate": "2026-02-15"
       },
       {
         "id": 4,

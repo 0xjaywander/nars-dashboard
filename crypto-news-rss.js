@@ -23,7 +23,9 @@ const themes = {
     { name: 'CoinDesk', url: 'https://www.coindesk.com/arc/outboundfeeds/rss/' },
     { name: 'CoinTelegraph', url: 'https://cointelegraph.com/rss' },
     { name: 'CryptoSlate', url: 'https://cryptoslate.com/feed/' },
-    { name: 'Decrypt', url: 'https://decrypt.co/feed' }
+    { name: 'Decrypt', url: 'https://decrypt.co/feed' },
+    { name: 'CryptoPotato', url: 'https://cryptopotato.com/feed/' },
+    { name: 'BeInCrypto', url: 'https://beincrypto.com/feed/' }
   ];
 
   const categorizedNews = {};

@@ -17,6 +17,7 @@
 - API key serves as fallback when OAuth rate-limited
 - **Critical lesson (2026-02-13):** Never remove primary auth without verifying backup works first. Removing the API key caused auth failures → retry storm → rate limit. Fixed by restoring both auth methods.
 - Telegram channel connected for messaging
+- Brian's Telegram chat_id: 5127620137 (required for automated sends)
 - Subscription: MiniMax RMB 46/month plan (limits unverified)
 - Gateway token: $OPENCLAW_GATEWAY_TOKEN
 - X Research skill: installed, requires confirmation before each API call
@@ -69,6 +70,12 @@
 2. Verify error type before acting (auth vs rate limit vs quota)
 3. Check logs before making config changes
 4. Retry storms are dangerous - let failed requests fail rather than amplify
+
+### Telegram Crypto News Delivery Fix (2026-02-15)
+- **Issue:** Daily crypto news cron job ran but messages weren't delivered
+- **Root Cause:** Cron job (isolated session) needed explicit chat_id for Telegram; current context works but cron doesn't have it
+- **Fix:** Discovered Brian's chat_id: 5127620137, updated cron job payload to include explicit target
+- **Lesson:** When automating messages via cron/isolated sessions, must explicitly provide chat_id. "Brian" or session context doesn't work.
 
 ### Research Agent Quality Control (2026-02-13)
 - **Issue:** Research agent completed output but main agent never evaluated it before sharing
