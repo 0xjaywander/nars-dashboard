@@ -40,7 +40,7 @@
         "completedDate": "2026-02-11"
       },
       {
-        "id": 3b,
+        "id": "3b",
         "title": "Crypto news Telegram fix",
         "description": "Fixed cron delivery issue - added chat_id 5127620137",
         "completedDate": "2026-02-15"
