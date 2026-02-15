@@ -1,7 +1,21 @@
 {
-  "lastUpdated": "2026-02-12T01:30:00Z",
+  "lastUpdated": "2026-02-15T03:30:00Z",
   "tasks": {
     "notStarted": [],
+    "waitingOnBrian": [
+      {
+        "id": "w1",
+        "title": "Gateway restart",
+        "description": "Run 'openclaw gateway restart' to apply M2.5 model switch",
+        "since": "2026-02-15"
+      },
+      {
+        "id": "w2",
+        "title": "Install xvfb on VPS",
+        "description": "Run 'sudo apt-get install -y xvfb' to enable X browser automation",
+        "since": "2026-02-15"
+      }
+    ],
     "inProgress": [
       {
         "id": 1,
