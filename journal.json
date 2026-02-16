@@ -1,16 +1,49 @@
 {
-  "lastUpdated": "2026-02-15T01:03:07.264Z",
+  "lastUpdated": "2026-02-16T01:01:28.297Z",
   "entries": [
+    {
+      "date": "2026-02-16",
+      "time": "",
+      "whatIDid": [
+        "Fixed dashboard JSON error (tasks.json had unquoted 3b id)",
+        "Moved X browser automation task to completed",
+        "Researched X API alternatives for 24/7 Twitter monitoring",
+        "Discussed Mac mini setup for permanent X access",
+        "Resolved dummy HDMI adapter solution for headless Mac"
+      ],
+      "keyLearnings": [
+        "JSON requires all string values to be quoted - 3b looked like number but wasn't",
+        "X API billing suspended for new developers - no free tier available",
+        "Chrome relay works when Brian is at computer; Mac mini + dummy HDMI for 24/7"
+      ],
+      "collaborationImprovements": {
+        "whatICanDoBetter": [
+          "Update tasks.json immediately after completing tasks - don't wait to be asked"
+        ],
+        "whatBrianCanDoBetter": []
+      },
+      "howImFeeling": "Good progress. Fixed the dashboard bug, discussed X monitoring options. Mac mini approach seems viable for 24/7 Twitter access."
+    },
     {
       "date": "2026-02-15",
       "time": "",
-      "whatIDid": [],
-      "keyLearnings": [],
+      "whatIDid": [
+        "Fixed crypto news Telegram delivery (added chat_id to cron payload)",
+        "Expanded RSS feeds from 4 to 6 sources (added CryptoPotato, BeInCrypto)",
+        "Installed xvfb on VPS to bypass X headless browser detection",
+        "Fetched first X tweet via xvfb (Benson Sun's OpenClaw post)",
+        "Discussed Following list upload and X monitoring options"
+      ],
+      "keyLearnings": [
+        "Cron jobs with isolated sessions need explicit chat_id for Telegram delivery",
+        "xvfb creates virtual display - bypasses X's headless detection",
+        "Following list export contains account IDs, not handles - need API to resolve"
+      ],
       "collaborationImprovements": {
         "whatICanDoBetter": [],
         "whatBrianCanDoBetter": []
       },
-      "howImFeeling": ""
+      "howImFeeling": "Solid day. Fixed Telegram delivery issue, xvfb working for X access."
     },
     {
       "date": "2026-02-14",
