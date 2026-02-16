@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-15T03:30:00Z",
+  "lastUpdated": "2026-02-16T11:50:00Z",
   "tasks": {
     "notStarted": [
       {
@@ -7,6 +7,13 @@
         "title": "[WAITING] Gateway restart",
         "description": "Run 'openclaw gateway restart' to apply M2.5 model switch",
         "since": "2026-02-15",
+        "priority": "medium"
+      },
+      {
+        "id": "13",
+        "title": "Install yt-dlp for YouTube summaries",
+        "description": "Run: sudo apt-get update && sudo apt-get install -y yt-dlp",
+        "since": "2026-02-16",
         "priority": "medium"
       }
     ],
