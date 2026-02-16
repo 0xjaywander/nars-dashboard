@@ -1,48 +1,33 @@
 {
-  "lastUpdated": "2026-02-16T11:50:00Z",
+  "lastUpdated": "2026-02-16T15:50:00Z",
   "tasks": {
     "notStarted": [
       {
-        "id": "w1",
-        "title": "[WAITING] Gateway restart",
-        "description": "Run 'openclaw gateway restart' to apply M2.5 model switch",
-        "since": "2026-02-15",
-        "priority": "medium"
-      },
-      {
-        "id": "13",
-        "title": "Follow 663 accounts from Brian's list",
-        "description": "Running in background - follows @bchan8938's following list via @0xjaywander. Random 1-3 min delays to avoid rate limits. Started Feb 16, ~11 hours estimated.",
+        "id": "14",
+        "title": "Continue following X accounts",
+        "description": "Following @bchan8938's following list from @0xjaywander. Progress: ~10/663 followed. Cron reminder set every 30 mins to follow more.",
         "since": "2026-02-16",
         "priority": "medium"
       }
     ],
-    "inProgress": [
-      {
-        "id": 6,
-        "title": "Auto Dashboard Update System",
-        "description": "Cron job runs daily at 9AM HKT, updates dashboard via GitHub/Vercel",
-        "since": "2026-02-12",
-        "priority": "medium"
-      }
-    ],
+    "inProgress": [],
     "completed": [
       {
-        "id": 1,
+        "id": "1",
         "title": "X browser automation",
         "description": "xvfb installed - can fetch X posts via headless browser on VPS",
         "completedDate": "2026-02-15"
       },
       {
-        "id": 2,
+        "id": "2",
         "title": "Telegram channel setup",
         "description": "Configure OpenClaw to receive messages via Telegram",
         "completedDate": "2026-02-10"
       },
       {
-        "id": 3,
+        "id": "3",
         "title": "Daily RSS crypto news",
-        "description": "9AM HKT automated crypto news digest via RSS feeds (6 sources)",
+        "description": "9AM HKT automated crypto news digest via RSS feeds (6 sources) - now on Watch",
         "completedDate": "2026-02-11"
       },
       {
@@ -52,52 +37,64 @@
         "completedDate": "2026-02-15"
       },
       {
-        "id": 4,
+        "id": "4",
         "title": "X Research skill installation",
         "description": "Install x-research skill for Twitter API access",
         "completedDate": "2026-02-10"
       },
       {
-        "id": 5,
+        "id": "5",
         "title": "Gateway token configuration",
         "description": "Configure MiniMax Portal OAuth for OpenClaw",
         "completedDate": "2026-02-10"
       },
       {
-        "id": 7,
+        "id": "6",
+        "title": "Auto Dashboard Update System",
+        "description": "Cron job runs daily at 9AM HKT, updates dashboard via GitHub/Vercel",
+        "completedDate": "2026-02-12"
+      },
+      {
+        "id": "7",
         "title": "Management Dashboard",
         "description": "Create visual dashboard at nars-dashboard.vercel.app",
         "completedDate": "2026-02-11"
       },
       {
-        "id": 8,
+        "id": "8",
         "title": "Multi-agent research workflow",
         "description": "Set up main agent spawning research agent with evaluation loop",
         "completedDate": "2026-02-13"
       },
       {
-        "id": 9,
+        "id": "9",
         "title": "Research quality criteria",
         "description": "Document quality thresholds and iteration workflow",
         "completedDate": "2026-02-13"
       },
       {
-        "id": 10,
+        "id": "10",
         "title": "Summarize CLI installation",
         "description": "Install @steipete/summarize for YouTube/video transcription",
         "completedDate": "2026-02-14"
       },
       {
-        "id": 11,
+        "id": "11",
         "title": "Daily journal workflow",
         "description": "Cron job creates journal entries at 9AM HKT",
         "completedDate": "2026-02-12"
       },
       {
-        "id": 12,
+        "id": "12",
         "title": "Browser automation setup",
-        "description": "Configure Chrome extension relay and local Chromium",
-        "completedDate": "2026-02-12"
+        "description": "Configure Chrome extension relay and local Chromium - now on Watch",
+        "completedDate": "2026-02-16"
+      },
+      {
+        "id": "13",
+        "title": "Watch (Computer B) setup",
+        "description": "Set up OpenClaw on Watch MacBook - Chrome browser, launchd service, crypto news cron",
+        "completedDate": "2026-02-16"
       }
     ]
   }
