@@ -8,7 +8,7 @@
       "date": "2026-02-17",
       "status": "completed",
       "summary": "Comprehensive McKinsey-style report: Executive Summary, Technical Architecture (Gateway, channels, security, skills), Top 9 Use Cases with examples, Competitive Landscape (vs ChatGPT, Claude, Zapier, Make, Botpress), Implementation Considerations (setup, security, maintenance), Appendix with sources.",
-      "link": "https://raw.githubusercontent.com/0xjaywander/nars-dashboard/main/openclaw-research-v2.md"
+      "link": "https://github.com/0xjaywander/nars-dashboard/blob/main/openclaw-research-v2.md"
     },
     {
       "id": "security-audit-2026-02-17",
@@ -17,7 +17,7 @@
       "date": "2026-02-17",
       "status": "completed",
       "summary": "Risk Level: MEDIUM. Key findings: API credentials in config (MEDIUM), Browser profiles (MEDIUM), Cron jobs (LOW), Network exposure (LOW).",
-      "link": "https://raw.githubusercontent.com/0xjaywander/nars-dashboard/main/knowledge/security-audit-2026-02-17.md"
+      "link": "https://github.com/0xjaywander/nars-dashboard/blob/main/security-audit-2026-02-17.md"
     },
     {
       "id": "multi-agent-setup-guide",
@@ -26,7 +26,7 @@
       "date": "2026-02-17",
       "status": "completed",
       "summary": "Guide from @sitinme on setting up 8 AI employees with OpenClaw. Covers process isolation, multi-model strategy, workflow automation, and cost breakdown (~$100/month).",
-      "link": "https://raw.githubusercontent.com/0xjaywander/nars-dashboard/main/knowledge/multi-agent-setup-guide.md"
+      "link": "https://github.com/0xjaywander/nars-dashboard/blob/main/multi-agent-setup-guide.md"
     }
   ]
 }

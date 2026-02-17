@@ -697,8 +697,8 @@
                 return;
             }
             container.innerHTML = data.reports.map(report => `
-                <div class="research-item" onclick="window.open('${report.link}', '_blank')" style="cursor:pointer">
-                    <div class="research-title">${report.title}</div>
+                <div class="research-item">
+                    <div class="research-title"><a href="${report.link}" target="_blank" style="color:inherit;text-decoration:none">${report.title}</a></div>
                     <div class="research-summary">${report.summary}</div>
                     <div class="research-tags">
                         <span class="research-tag">${report.type}</span>
@@ -706,7 +706,7 @@
                     </div>
                     <div class="research-meta">
                         <span>${report.date}</span>
-                        <span class="research-link">View →</span>
+                        <a href="${report.link}" target="_blank" class="research-link">View →</a>
                     </div>
                 </div>
             `).join('');
