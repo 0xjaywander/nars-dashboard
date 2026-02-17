@@ -505,7 +505,6 @@
     <nav class="nav">
         <button class="nav-btn active" data-page="tasks">Tasks</button>
         <button class="nav-btn" data-page="journal">Journal</button>
-        <button class="nav-btn" data-page="research">Research</button>
     </nav>
     
     <header class="header">
@@ -553,12 +552,6 @@
         <div id="journalEntries"></div>
     </div>
     
-    <div id="researchPage" class="hidden">
-        <div class="research-grid" id="researchGrid">
-            <div class="empty-state">Loading research...</div>
-        </div>
-    </div>
-    
     <footer>
         <p>Automated by Nars</p>
     </footer>
@@ -587,7 +580,6 @@
                 this.classList.add('active');
                 document.getElementById('tasksPage').classList.toggle('hidden', currentPage !== 'tasks');
                 document.getElementById('journalPage').classList.toggle('hidden', currentPage !== 'journal');
-                document.getElementById('researchPage').classList.toggle('hidden', currentPage !== 'research');
             });
         });
         
@@ -664,6 +656,11 @@
                     <div class="journal-section">
                         <div class="journal-section-title">Key Learnings</div>
                         <ul>${entry.keyLearnings.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>` : ''}
+                    ${entry.whatILearnedAboutBrian ? `
+                    <div class="journal-section">
+                        <div class="journal-section-title">What I Learned About Brian</div>
+                        <ul>${entry.whatILearnedAboutBrian.map(item => `<li>${item}</li>`).join('')}</ul>
                     </div>` : ''}
                     ${entry.howImFeeling ? `
                     <div class="journal-section">
