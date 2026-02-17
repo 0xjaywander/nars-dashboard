@@ -505,6 +505,7 @@
     <nav class="nav">
         <button class="nav-btn active" data-page="tasks">Tasks</button>
         <button class="nav-btn" data-page="journal">Journal</button>
+        <button class="nav-btn" data-page="research">Research</button>
     </nav>
     
     <header class="header">
@@ -552,6 +553,12 @@
         <div id="journalEntries"></div>
     </div>
     
+    <div id="researchPage" class="hidden">
+        <div class="research-grid" id="researchGrid">
+            <div class="empty-state">Loading research...</div>
+        </div>
+    </div>
+    
     <footer>
         <p>Automated by Nars</p>
     </footer>
@@ -580,6 +587,7 @@
                 this.classList.add('active');
                 document.getElementById('tasksPage').classList.toggle('hidden', currentPage !== 'tasks');
                 document.getElementById('journalPage').classList.toggle('hidden', currentPage !== 'journal');
+                document.getElementById('researchPage').classList.toggle('hidden', currentPage !== 'research');
             });
         });
         
@@ -673,11 +681,11 @@
         
         async function loadResearch() {
             try {
-                const response = await fetch('memory/research/index.json');
+                const response = await fetch('research.json');
                 const data = await response.json();
                 renderResearch(data);
             } catch (error) {
-                // If no index.json, show empty state
+                // If no research.json, show empty state
                 document.getElementById('researchGrid').innerHTML = '<div class="empty-state">No research reports yet</div>';
             }
         }
@@ -693,11 +701,11 @@
                     <div class="research-title">${report.title}</div>
                     <div class="research-summary">${report.summary}</div>
                     <div class="research-tags">
-                        ${report.tags.map(tag => `<span class="research-tag">${tag}</span>`).join('')}
+                        <span class="research-tag">${report.type}</span>
+                        <span class="research-tag">${report.status}</span>
                     </div>
                     <div class="research-meta">
                         <span>${report.date}</span>
-                        <a href="${report.link}" target="_blank" class="research-link">View →</a>
                     </div>
                 </div>
             `).join('');
