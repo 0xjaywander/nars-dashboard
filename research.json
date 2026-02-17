@@ -1,14 +1,13 @@
 {
-  "lastUpdated": "2026-02-17T23:10:00.000Z",
+  "lastUpdated": "2026-02-17T23:22:00.000Z",
   "reports": [
     {
       "id": "openclow-research-v2",
       "title": "OpenClaw Research (McKinsey-Style)",
       "type": "research",
       "date": "2026-02-17",
-      "status": "in-progress",
-      "summary": "Comprehensive McKinsey-style report covering: Technical architecture, Top use cases with examples, Competitive landscape, Implementation considerations",
-      "fullReport": "~/.openclaw/workspace/openclaw-research-v2.md"
+      "status": "completed",
+      "summary": "Comprehensive McKinsey-style report: Executive Summary, Technical Architecture (Gateway, channels, security, skills), Top 9 Use Cases with examples, Competitive Landscape (vs ChatGPT, Claude, Zapier, Make, Botpress), Implementation Considerations (setup, security, maintenance), Appendix with sources."
     },
     {
       "id": "security-audit-2026-02-17",
@@ -16,8 +15,7 @@
       "type": "security",
       "date": "2026-02-17",
       "status": "completed",
-      "summary": "Risk Level: MEDIUM. Key findings: API credentials, browser profiles, cron jobs, network exposure.",
-      "fullReport": "~/.openclaw/workspace/knowledge/security-audit-2026-02-17.md"
+      "summary": "Risk Level: MEDIUM. Key findings: API credentials in config (MEDIUM), Browser profiles (MEDIUM), Cron jobs (LOW), Network exposure (LOW)."
     }
   ]
 }
