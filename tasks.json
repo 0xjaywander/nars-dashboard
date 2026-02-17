@@ -1,17 +1,41 @@
 {
-  "lastUpdated": "2026-02-16T15:50:00Z",
+  "lastUpdated": "2026-02-17T10:00:00Z",
   "tasks": {
     "notStarted": [],
     "inProgress": [
       {
-        "id": "14",
-        "title": "Continue following X accounts",
-        "description": "Following @bchan8938's following list from @0xjaywander. Progress: ~10/663 followed. Cron reminder set every 30 mins to follow more.",
-        "since": "2026-02-16",
+        "id": "18",
+        "title": "Gmail SMTP setup",
+        "description": "Enable app password for Gmail to allow sending emails via SMTP. Pending user to create app password in Google Account settings.",
+        "since": "2026-02-17",
         "priority": "medium"
       }
     ],
     "completed": [
+      {
+        "id": "17",
+        "title": "CSO Security Agent Setup",
+        "description": "Created dedicated CSO (Chief Security Officer) agent with security framework. Runs audits every 2 days.",
+        "completedDate": "2026-02-17"
+      },
+      {
+        "id": "16",
+        "title": "Knowledge Base Setup",
+        "description": "Created /knowledge/ folder for saving useful content. Convents: add 'save' to prompt to save content.",
+        "completedDate": "2026-02-17"
+      },
+      {
+        "id": "15",
+        "title": "OpenClaw Skills Installed",
+        "description": "Install summarize CLI via Homebrew for YouTube/video summarization",
+        "completedDate": "2026-02-17"
+      },
+      {
+        "id": "14",
+        "title": "X Following Analysis",
+        "description": "Analyzed @bchan8938 vs @0xjaywander following - found all 663 already followed. No action needed.",
+        "completedDate": "2026-02-17"
+      },
       {
         "id": "13",
         "title": "Watch (Computer B) setup",
