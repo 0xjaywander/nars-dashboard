@@ -918,14 +918,6 @@
             
             if (filtered.length > 0) selectMemory(0);
         }
-            
-            document.getElementById('memory-grid').innerHTML = results.length ? results.map(c => `
-                <div class="memory-card">
-                    <div class="memory-card-title">${c.title}</div>
-                    <div class="memory-card-preview">${c.preview}</div>
-                </div>
-            `).join('') : '<div class="empty-state"><p>No results found</p></div>';
-        }
         
         // Team
         function loadTeam() {
