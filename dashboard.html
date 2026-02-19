@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nars Dashboard</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
             --bg: #f5f5f7;
@@ -44,10 +40,12 @@
         
         .header {
             max-width: 1400px;
-            margin: 0 auto 30px;
+            margin: 0 auto 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
         }
         
         .header h1 {
@@ -70,18 +68,69 @@
             cursor: pointer;
             font-size: 14px;
             color: var(--text);
-            transition: all 0.2s;
         }
         
-        .theme-toggle:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
+        .theme-toggle:hover { background: var(--accent); color: white; border-color: var(--accent); }
+        
+        .auto-refresh-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text);
         }
+        
+        .auto-refresh-toggle.active { background: #00D142; color: white; border-color: #00D142; }
+        
+        /* Stats Bar */
+        .stats-bar {
+            max-width: 1400px;
+            margin: 0 auto 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+        
+        .stat-value { font-size: 28px; font-weight: 700; color: var(--accent); }
+        .stat-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        /* Quick Events */
+        .quick-events {
+            max-width: 1400px;
+            margin: 0 auto 24px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px 20px;
+            box-shadow: 0 2px 8px var(--shadow);
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .quick-event {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .quick-event .time { color: var(--accent); font-weight: 600; }
+        .quick-event .name { color: var(--text-secondary); }
         
         .nav-tabs {
             max-width: 1400px;
-            margin: 0 auto 30px;
+            margin: 0 auto 24px;
             display: flex;
             gap: 8px;
             border-bottom: 1px solid var(--border);
@@ -98,44 +147,19 @@
             color: var(--text-secondary);
             cursor: pointer;
             border-bottom: 2px solid transparent;
-            transition: all 0.2s;
             white-space: nowrap;
         }
         
-        .nav-tab:hover {
-            color: var(--text);
-        }
+        .nav-tab:hover { color: var(--text); }
+        .nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
         
-        .nav-tab.active {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-        }
-        
-        .main-content {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .page {
-            display: none;
-        }
-        
-        .page.active {
-            display: block;
-        }
+        .main-content { max-width: 1400px; margin: 0 auto; }
+        .page { display: none; }
+        .page.active { display: block; }
         
         /* Tasks */
-        .tasks-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-        
-        @media (max-width: 900px) {
-            .tasks-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        .tasks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        @media (max-width: 900px) { .tasks-grid { grid-template-columns: 1fr; } }
         
         .column {
             background: var(--card-bg);
@@ -164,32 +188,13 @@
             transition: all 0.2s;
         }
         
-        .task-card:hover {
-            background: var(--accent);
-            color: white;
-        }
-        
-        .task-title {
-            font-weight: 600;
-            font-size: 15px;
-            margin-bottom: 6px;
-        }
-        
-        .task-description {
-            font-size: 13px;
-            color: var(--text-secondary);
-            line-height: 1.4;
-        }
-        
-        .task-card:hover .task-description {
-            color: rgba(255, 255, 255, 0.8);
-        }
+        .task-card:hover { background: var(--accent); color: white; }
+        .task-title { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+        .task-description { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
+        .task-card:hover .task-description { color: rgba(255,255,255,0.8); }
         
         /* Journal */
-        .journal-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+        .journal-container { max-width: 900px; margin: 0 auto; }
         
         .journal-entry {
             background: var(--card-bg);
@@ -200,7 +205,7 @@
         }
         
         .journal-date {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--accent);
             margin-bottom: 16px;
@@ -219,11 +224,14 @@
             margin-bottom: 8px;
         }
         
-        .journal-section p {
+        .journal-section p, .journal-section ul {
             font-size: 14px;
             line-height: 1.6;
             color: var(--text);
         }
+        
+        .journal-section ul { margin-left: 20px; }
+        .journal-section li { margin-bottom: 4px; }
         
         /* Calendar */
         .calendar-header {
@@ -233,12 +241,7 @@
             margin-bottom: 24px;
         }
         
-        .calendar-nav {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        
+        .calendar-nav { display: flex; gap: 12px; align-items: center; }
         .calendar-nav button {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -246,18 +249,9 @@
             border-radius: 8px;
             cursor: pointer;
             color: var(--text);
-            font-size: 14px;
         }
-        
-        .calendar-nav button:hover {
-            background: var(--accent);
-            color: white;
-        }
-        
-        .calendar-month {
-            font-size: 24px;
-            font-weight: 600;
-        }
+        .calendar-nav button:hover { background: var(--accent); color: white; }
+        .calendar-month { font-size: 24px; font-weight: 600; }
         
         .calendar-grid {
             display: grid;
@@ -282,19 +276,9 @@
             box-shadow: 0 2px 8px var(--shadow);
         }
         
-        .calendar-day.other-month {
-            opacity: 0.4;
-        }
-        
-        .calendar-day.today {
-            border: 2px solid var(--accent);
-        }
-        
-        .day-number {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
+        .calendar-day.other-month { opacity: 0.4; }
+        .calendar-day.today { border: 2px solid var(--accent); }
+        .day-number { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
         
         .day-event {
             font-size: 11px;
@@ -309,15 +293,30 @@
             cursor: pointer;
         }
         
-        .day-event:hover {
-            background: var(--accent-hover);
-        }
+        .day-event:hover { background: var(--accent-hover); }
         
         /* Memory */
-        .search-container {
-            max-width: 800px;
-            margin: 0 auto;
+        .memory-container { max-width: 1000px; margin: 0 auto; }
+        
+        .memory-quick {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
         }
+        
+        .memory-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px var(--shadow);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .memory-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px var(--shadow); }
+        .memory-card-title { font-weight: 600; margin-bottom: 8px; font-size: 15px; }
+        .memory-card-snippet { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
         
         .search-box {
             width: 100%;
@@ -327,20 +326,12 @@
             border-radius: 16px;
             background: var(--card-bg);
             color: var(--text);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         
-        .search-box:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
+        .search-box:focus { outline: none; border-color: var(--accent); }
         
-        .search-results {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 20px var(--shadow);
-        }
+        .search-results { background: var(--card-bg); border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px var(--shadow); }
         
         .search-result {
             padding: 16px 0;
@@ -348,26 +339,10 @@
             cursor: pointer;
         }
         
-        .search-result:hover {
-            background: var(--bg);
-            margin: 0 -24px;
-            padding: 16px 24px;
-        }
-        
-        .search-result:last-child {
-            border-bottom: none;
-        }
-        
-        .search-result-title {
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-        
-        .search-result-snippet {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
+        .search-result:hover { background: var(--bg); margin: 0 -24px; padding: 16px 24px; }
+        .search-result:last-child { border-bottom: none; }
+        .search-result-title { font-weight: 600; margin-bottom: 6px; }
+        .search-result-snippet { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
         
         /* Team */
         .team-grid {
@@ -398,26 +373,10 @@
             margin: 0 auto 16px;
         }
         
-        .team-card h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        
-        .team-card .role {
-            font-size: 14px;
-            color: var(--accent);
-            margin-bottom: 8px;
-        }
-        
-        .team-card .status {
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-        
-        .team-card .status.active {
-            color: #00D142;
-        }
+        .team-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+        .team-card .role { font-size: 14px; color: var(--accent); margin-bottom: 8px; }
+        .team-card .status { font-size: 13px; color: var(--text-secondary); }
+        .team-card .status.active { color: #00D142; }
         
         /* Research */
         .research-grid {
@@ -435,23 +394,9 @@
             transition: all 0.2s;
         }
         
-        .research-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px var(--shadow);
-        }
-        
-        .research-card h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        
-        .research-card p {
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
+        .research-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px var(--shadow); }
+        .research-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+        .research-card p { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 12px; }
         
         .research-tag {
             display: inline-block;
@@ -476,11 +421,7 @@
             overflow-y: auto;
         }
         
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .modal.active { display: flex; align-items: center; justify-content: center; }
         
         .modal-content {
             background: var(--card-bg);
@@ -504,40 +445,14 @@
             color: var(--text-secondary);
         }
         
-        .modal-close:hover {
-            color: var(--text);
-        }
+        .modal-close:hover { color: var(--text); }
+        .modal-title { font-size: 24px; font-weight: 600; margin-bottom: 16px; }
+        .modal-body { font-size: 15px; line-height: 1.7; color: var(--text); }
+        .modal-body h4 { margin: 20px 0 8px; font-weight: 600; }
+        .modal-body ul { margin-left: 20px; }
+        .modal-body li { margin-bottom: 6px; }
         
-        .modal-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-        
-        .modal-body {
-            font-size: 15px;
-            line-height: 1.7;
-            color: var(--text);
-        }
-        
-        .modal-body h4 {
-            margin: 20px 0 8px;
-            font-weight: 600;
-        }
-        
-        .modal-body ul {
-            margin-left: 20px;
-        }
-        
-        .modal-body li {
-            margin-bottom: 6px;
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-secondary);
-        }
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-secondary); }
         
         .last-updated {
             text-align: center;
@@ -545,14 +460,45 @@
             color: var(--text-secondary);
             margin-top: 40px;
         }
+        
+        .loading { opacity: 0.6; }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>Nars 🐕</h1>
         <div class="header-controls">
+            <button class="auto-refresh-toggle" id="autoRefreshBtn" onclick="toggleAutoRefresh()">🔄 Auto</button>
             <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
         </div>
+    </div>
+    
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-card">
+            <div class="stat-value" id="stat-tasks">-</div>
+            <div class="stat-label">Active Tasks</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-journal">-</div>
+            <div class="stat-label">Journal Entries</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-research">-</div>
+            <div class="stat-label">Research</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-crons">-</div>
+            <div class="stat-label">Cron Jobs</div>
+        </div>
+    </div>
+    
+    <!-- Quick Events -->
+    <div class="quick-events" id="quickEvents">
+        <strong>Next:</strong>
+        <div class="quick-event"><span class="time">9:00 AM</span><span class="name">Crypto News</span></div>
+        <div class="quick-event"><span class="time">9:00 AM</span><span class="name">Degen Daily</span></div>
+        <div class="quick-event"><span class="time">12:00 PM</span><span class="name">Degen Browse</span></div>
     </div>
     
     <div class="nav-tabs">
@@ -567,24 +513,13 @@
     <div class="main-content">
         <div id="tasks" class="page active">
             <div class="tasks-grid">
-                <div class="column">
-                    <h2>Not Started</h2>
-                    <div id="tasks-not-started"></div>
-                </div>
-                <div class="column">
-                    <h2>In Progress</h2>
-                    <div id="tasks-in_progress"></div>
-                </div>
-                <div class="column">
-                    <h2>Completed</h2>
-                    <div id="tasks-completed"></div>
-                </div>
+                <div class="column"><h2>Not Started</h2><div id="tasks-not-started"></div></div>
+                <div class="column"><h2>In Progress</h2><div id="tasks-in_progress"></div></div>
+                <div class="column"><h2>Completed</h2><div id="tasks-completed"></div></div>
             </div>
         </div>
         
-        <div id="journal" class="page">
-            <div class="journal-container" id="journal-entries"></div>
-        </div>
+        <div id="journal" class="page"><div class="journal-container" id="journal-entries"></div></div>
         
         <div id="calendar" class="page">
             <div class="calendar-header">
@@ -598,27 +533,18 @@
         </div>
         
         <div id="memory" class="page">
-            <div class="search-container">
+            <div class="memory-container">
+                <div class="memory-quick" id="memory-quick"></div>
                 <input type="text" class="search-box" placeholder="Search memories..." id="memory-search" onkeyup="searchMemory()">
-                <div class="search-results" id="memory-results">
-                    <div class="empty-state">
-                        <p>Search your memories</p>
-                        <p style="font-size: 14px;">Type to search through all memory files</p>
-                    </div>
-                </div>
+                <div class="search-results" id="memory-results"></div>
             </div>
         </div>
         
-        <div id="team" class="page">
-            <div class="team-grid" id="team-members"></div>
-        </div>
+        <div id="team" class="page"><div class="team-grid" id="team-members"></div></div>
         
-        <div id="research" class="page">
-            <div class="research-grid" id="research-items"></div>
-        </div>
+        <div id="research" class="page"><div class="research-grid" id="research-items"></div></div>
     </div>
     
-    <!-- Modal -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">×</button>
@@ -627,19 +553,28 @@
         </div>
     </div>
     
-    <div class="last-updated">
-        Last updated: <span id="update-time"></span>
-    </div>
+    <div class="last-updated">Last updated: <span id="update-time"></span></div>
     
     <script>
+        let autoRefresh = false;
+        let refreshInterval = null;
+        
         // Theme
         function toggleTheme() {
             document.body.classList.toggle('dark');
             localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
         }
+        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
         
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark');
+        // Auto Refresh
+        function toggleAutoRefresh() {
+            autoRefresh = !autoRefresh;
+            document.getElementById('autoRefreshBtn').classList.toggle('active', autoRefresh);
+            if (autoRefresh) {
+                refreshInterval = setInterval(loadAllData, 30000);
+            } else {
+                clearInterval(refreshInterval);
+            }
         }
         
         // Navigation
@@ -656,70 +591,48 @@
             document.getElementById('modal-body').innerHTML = content;
             document.getElementById('modal').classList.add('active');
         }
+        function closeModal() { document.getElementById('modal').classList.remove('active'); }
+        document.getElementById('modal').addEventListener('click', function(e) { if(e.target === this) closeModal(); });
         
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
+        // Load all data
+        async function loadAllData() {
+            document.body.classList.add('loading');
+            await Promise.all([loadTasks(), loadJournal(), loadCalendar(), loadMemory(), loadTeam(), loadResearch()]);
+            document.getElementById('update-time').textContent = new Date().toLocaleTimeString();
+            document.body.classList.remove('loading');
         }
-        
-        document.getElementById('modal').addEventListener('click', function(e) {
-            if (e.target === this) closeModal();
-        });
         
         // Tasks
         async function loadTasks() {
             try {
                 const response = await fetch('tasks.json');
                 const data = await response.json();
-                
                 let notStarted = [], inProgress = [], completed = [];
-                
-                if (data.tasks) {
-                    notStarted = data.tasks.notStarted || [];
-                    inProgress = data.tasks.inProgress || [];
-                    completed = data.tasks.completed || [];
-                }
-                
-                const renderTasks = (tasks) => tasks.map(t => 
-                    `<div class="task-card"><div class="task-title">${t.title}</div><div class="task-description">${t.description || ''}</div></div>`
-                ).join('') || '<div class="empty-state"><p>No tasks</p></div>';
-                
+                if (data.tasks) { notStarted = data.tasks.notStarted || []; inProgress = data.tasks.inProgress || []; completed = data.tasks.completed || []; }
+                const renderTasks = (tasks) => tasks.map(t => `<div class="task-card"><div class="task-title">${t.title}</div><div class="task-description">${t.description || ''}</div></div>`).join('') || '<div class="empty-state"><p>No tasks</p></div>';
                 document.getElementById('tasks-not-started').innerHTML = renderTasks(notStarted);
                 document.getElementById('tasks-in_progress').innerHTML = renderTasks(inProgress);
                 document.getElementById('tasks-completed').innerHTML = renderTasks(completed);
-            } catch (e) {
-                console.error('Tasks error:', e);
-            }
+                document.getElementById('stat-tasks').textContent = notStarted.length + inProgress.length;
+            } catch (e) { console.error('Tasks error:', e); }
         }
         
-        // Journal - load from memory files
+        // Journal
         async function loadJournal() {
-            const journalFiles = [
-                '2026-02-18.md', '2026-02-17.md', '2026-02-15.md', 
-                '2026-02-13.md', '2026-02-12.md', '2026-02-11.md', '2026-02-10.md'
-            ];
-            
+            const journalFiles = ['2026-02-18.md', '2026-02-17.md', '2026-02-15.md', '2026-02-13.md', '2026-02-12.md', '2026-02-11.md', '2026-02-10.md'];
             const entries = [];
-            
             for (const file of journalFiles) {
                 try {
                     const resp = await fetch('memory/' + file);
                     if (resp.ok) {
                         const text = await resp.text();
                         const dateMatch = text.match(/^# (\d{4}-\d{2}-\d{2})/m);
-                        if (dateMatch) {
-                            entries.push({
-                                date: dateMatch[1],
-                                content: text
-                            });
-                        }
+                        if (dateMatch) entries.push({ date: dateMatch[1], content: text });
                     }
-                } catch(e) {
-                    console.log('Failed to load:', file, e);
-                }
+                } catch(e) {}
             }
-            
-            // Sort by date descending
             entries.sort((a, b) => b.date.localeCompare(a.date));
+            document.getElementById('stat-journal').textContent = entries.length;
             
             if (entries.length === 0) {
                 document.getElementById('journal-entries').innerHTML = '<div class="empty-state"><p>No journal entries yet</p></div>';
@@ -727,133 +640,133 @@
             }
             
             document.getElementById('journal-entries').innerHTML = entries.map(e => {
-                let content = e.content
-                    .replace(/^# .*/gm, '') // Remove title
-                    .replace(/^## /gm, '<br><strong>').replace(/\n/g, '</strong><br>')
-                    .replace(/^- /gm, '• ');
-                
-                return `
-                    <div class="journal-entry">
-                        <div class="journal-date">${e.date}</div>
-                        <div class="journal-section">
-                            <pre style="font-family: inherit; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${content}</pre>
-                        </div>
-                    </div>
-                `;
+                let html = `<div class="journal-entry"><div class="journal-date">${e.date}</div>`;
+                let content = e.content.replace(/^# .*/gm, '').replace(/^## /gm, '\n__SECTION__').replace(/^- /gm, '• ');
+                const sections = content.split('__SECTION__').filter(s => s.trim());
+                sections.forEach(section => {
+                    const lines = section.trim().split('\n');
+                    const title = lines[0].trim();
+                    const body = lines.slice(1).join('<br>').replace(/• /g, '<br>• ');
+                    if (title) html += `<div class="journal-section"><div class="journal-section-title">${title}</div><p>${body}</p></div>`;
+                });
+                return html + '</div>';
             }).join('');
         }
         
         // Calendar
         let currentMonth = new Date();
-        
-        function changeMonth(delta) {
-            currentMonth.setMonth(currentMonth.getMonth() + delta);
-            renderCalendar();
-        }
+        function changeMonth(delta) { currentMonth.setMonth(currentMonth.getMonth() + delta); renderCalendar(); }
         
         function renderCalendar() {
             const year = currentMonth.getFullYear();
             const month = currentMonth.getMonth();
-            
-            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                              'July', 'August', 'September', 'October', 'November', 'December'];
-            
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
             document.getElementById('calendar-month').textContent = `${monthNames[month]} ${year}`;
-            
             const firstDay = new Date(year, month, 1);
             const lastDay = new Date(year, month + 1, 0);
             const startDay = firstDay.getDay();
             const totalDays = lastDay.getDate();
-            
             const today = new Date();
             const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
             
-            // Cron jobs scheduled:
-            // - daily-crypto-news: 9AM HKT daily
-            // - degen-daily: 9AM HKT daily  
-            // - degen-browse-12pm: 12PM HKT daily
-            // - degen-browse-8pm: 8PM HKT daily
-            // - degen-browse-2am: 2AM HKT daily
-            // - cso-security-audit: 10AM every 2 days
-            // - audio-storage-check: 10AM Sundays
-            
-            const events = {
-                // Daily events - show on all days
-                'daily': [
-                    {title: 'Crypto News', time: '9AM'},
-                    {title: 'Degen Daily', time: '9AM'},
-                    {title: 'Degen Browse', time: '12PM'},
-                    {title: 'Degen Browse', time: '8PM'},
-                    {title: 'Degen Browse', time: '2AM'}
-                ]
-            };
+            const events = { 'daily': [{title: 'Crypto News', time: '9AM'}, {title: 'Degen Daily', time: '9AM'}, {title: 'Degen Browse', time: '12PM'}, {title: 'Degen Browse', time: '8PM'}, {title: 'Degen Browse', time: '2AM'}] };
             
             let html = '';
-            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            dayNames.forEach(d => html += `<div class="calendar-day-header">${d}</div>`);
+            ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(d => html += `<div class="calendar-day-header">${d}</div>`);
             
-            // Previous month days
             const prevMonth = new Date(year, month, 0);
-            for (let i = startDay - 1; i >= 0; i--) {
-                html += `<div class="calendar-day other-month"><div class="day-number">${prevMonth.getDate() - i}</div></div>`;
-            }
+            for (let i = startDay - 1; i >= 0; i--) html += `<div class="calendar-day other-month"><div class="day-number">${prevMonth.getDate() - i}</div></div>`;
             
-            // Current month days
             for (let day = 1; day <= totalDays; day++) {
                 const isToday = isCurrentMonth && day === today.getDate();
-                const dayEvents = events.daily || [];
-                
                 html += `<div class="calendar-day ${isToday ? 'today' : ''}"><div class="day-number">${day}</div>`;
-                dayEvents.forEach(e => {
-                    html += `<div class="day-event" title="${e.title} - ${e.time}">${e.title} ${e.time}</div>`;
-                });
+                events.daily.forEach(e => html += `<div class="day-event">${e.title} ${e.time}</div>`);
                 html += '</div>';
             }
             
-            // Next month days
             const remaining = 42 - (startDay + totalDays);
-            for (let i = 1; i <= remaining; i++) {
-                html += `<div class="calendar-day other-month"><div class="day-number">${i}</div></div>`;
-            }
+            for (let i = 1; i <= remaining; i++) html += `<div class="calendar-day other-month"><div class="day-number">${i}</div></div>`;
             
             document.getElementById('calendar-grid').innerHTML = html;
+            document.getElementById('stat-crons').textContent = '8';
         }
         
         // Memory
         let researchData = [];
         
+        async function loadMemory() {
+            // Quick view
+            const quickFiles = ['SOUL.md', 'MEMORY.md', 'IDENTITY.md', 'USER.md'];
+            const quickCards = [];
+            for (const file of quickFiles) {
+                try {
+                    const resp = await fetch(file);
+                    if (resp.ok) {
+                        const text = await resp.text();
+                        const title = file.replace('.md', '');
+                        quickCards.push({ title, snippet: text.substring(0, 150).replace(/[#*]/g, '') + '...' });
+                    }
+                } catch(e) {}
+            }
+            document.getElementById('memory-quick').innerHTML = quickCards.map(c => `
+                <div class="memory-card" onclick="openMemory('${c.title}')">
+                    <div class="memory-card-title">${c.title}</div>
+                    <div class="memory-card-snippet">${c.snippet}</div>
+                </div>
+            `).join('');
+            
+            // Search
+            document.getElementById('memory-results').innerHTML = '<div class="empty-state"><p>Type to search memories</p></div>';
+        }
+        
+        async function openMemory(title) {
+            try {
+                const resp = await fetch(title + '.md');
+                if (resp.ok) {
+                    const text = await resp.text();
+                    openModal(title, `<pre style="white-space: pre-wrap; font-size: 14px; line-height: 1.6;">${text}</pre>`);
+                }
+            } catch(e) {}
+        }
+        
+        async function searchMemory() {
+            const query = document.getElementById('memory-search').value.toLowerCase();
+            const resultsDiv = document.getElementById('memory-results');
+            if (query.length < 2) { resultsDiv.innerHTML = '<div class="empty-state"><p>Type to search</p></div>'; return; }
+            
+            const memoryFiles = ['SOUL.md', 'MEMORY.md', 'IDENTITY.md', 'USER.md', 'AGENTS.md', 'TOOLS.md', 'memory/2026-02-18.md', 'memory/2026-02-17.md'];
+            const results = [];
+            for (const file of memoryFiles) {
+                try {
+                    const resp = await fetch(file);
+                    if (resp.ok) {
+                        const text = await resp.text();
+                        if (text.toLowerCase().includes(query)) {
+                            const lines = text.split('\n').filter(l => l.toLowerCase().includes(query));
+                            results.push({ title: file.replace('.md', '').replace('memory/', ''), snippet: lines.slice(0,2).join(' ').substring(0,150) + '...' });
+                        }
+                    }
+                } catch(e) {}
+            }
+            resultsDiv.innerHTML = results.length ? results.map(r => `<div class="search-result"><div class="search-result-title">${r.title}</div><div class="search-result-snippet">${r.snippet}</div></div>`).join('') : '<div class="empty-state"><p>No results</p></div>';
+        }
+        
+        // Research
         async function loadResearch() {
             try {
                 const response = await fetch('research.json');
                 const data = await response.json();
                 researchData = data.reports || data || [];
-                
-                document.getElementById('research-items').innerHTML = researchData.map(i => `
-                    <div class="research-card" onclick="openResearch('${i.id}')">
-                        <h3>${i.title}</h3>
-                        <p>${i.summary}</p>
-                        <span class="research-tag">${i.type || 'research'}</span>
-                        <span class="research-tag">${i.date || ''}</span>
-                    </div>
-                `).join('');
-            } catch (e) {
-                console.error('Research error:', e);
-            }
+                document.getElementById('stat-research').textContent = researchData.length;
+                document.getElementById('research-items').innerHTML = researchData.map(i => `<div class="research-card" onclick="openResearch('${i.id}')"><h3>${i.title}</h3><p>${i.summary}</p><span class="research-tag">${i.type || 'research'}</span><span class="research-tag">${i.date || ''}</span></div>`).join('');
+            } catch (e) { console.error('Research error:', e); }
         }
         
         function openResearch(id) {
             const item = researchData.find(r => r.id === id);
             if (!item) return;
-            
-            let content = `<p><strong>Date:</strong> ${item.date || 'N/A'}</p>`;
-            content += `<p><strong>Type:</strong> ${item.type || 'research'}</p>`;
-            content += `<p><strong>Status:</strong> ${item.status || 'completed'}</p>`;
-            content += `<h4>Summary</h4><p>${item.summary}</p>`;
-            
-            if (item.link) {
-                content += `<p><a href="${item.link}" target="_blank" style="color: var(--accent);">View Full Report →</a></p>`;
-            }
-            
+            let content = `<p><strong>Date:</strong> ${item.date || 'N/A'}</p><p><strong>Type:</strong> ${item.type || 'research'}</p><p><strong>Status:</strong> ${item.status || 'completed'}</p><h4>Summary</h4><p>${item.summary}</p>`;
+            if (item.link) content += `<p><a href="${item.link}" target="_blank" style="color: var(--accent);">View Full Report →</a></p>`;
             openModal(item.title, content);
         }
         
@@ -864,73 +777,11 @@
                 { name: 'Research Agent', role: 'Research', status: 'On-demand', emoji: '🔍' },
                 { name: 'CSO Agent', role: 'Security', status: 'Scheduled', emoji: '🛡️' },
             ];
-            
-            document.getElementById('team-members').innerHTML = members.map(m => `
-                <div class="team-card">
-                    <div class="team-avatar">${m.emoji}</div>
-                    <h3>${m.name}</h3>
-                    <div class="role">${m.role}</div>
-                    <div class="status ${m.status.toLowerCase()}">● ${m.status}</div>
-                </div>
-            `).join('');
-        }
-        
-        // Memory Search
-        async function searchMemory() {
-            const query = document.getElementById('memory-search').value.toLowerCase();
-            const resultsDiv = document.getElementById('memory-results');
-            
-            if (query.length < 2) {
-                resultsDiv.innerHTML = '<div class="empty-state"><p>Search your memories</p><p style="font-size: 14px;">Type to search</p></div>';
-                return;
-            }
-            
-            // Search in all memory files
-            const memoryFiles = [
-                'SOUL.md', 'MEMORY.md', 'IDENTITY.md', 'USER.md', 'AGENTS.md', 'TOOLS.md',
-                'memory/2026-02-18.md', 'memory/2026-02-17.md', 'memory/2026-02-15.md',
-                'memory/2026-02-13.md', 'memory/2026-02-12.md', 'memory/2026-02-11.md', 'memory/2026-02-10.md'
-            ];
-            const results = [];
-            
-            for (const file of memoryFiles) {
-                try {
-                    const resp = await fetch(file);
-                    if (resp.ok) {
-                        const text = await resp.text();
-                        if (text.toLowerCase().includes(query)) {
-                            const lines = text.split('\n').filter(l => l.toLowerCase().includes(query));
-                            results.push({
-                                title: file.replace('.md', '').replace('memory/', ''),
-                                snippet: lines.slice(0, 2).join(' ').substring(0, 150) + '...'
-                            });
-                        }
-                    }
-                } catch(e) {
-                    console.log('Search error:', file, e);
-                }
-            }
-            
-            if (results.length === 0) {
-                resultsDiv.innerHTML = '<div class="empty-state"><p>No results found</p></div>';
-                return;
-            }
-            
-            resultsDiv.innerHTML = results.map(r => `
-                <div class="search-result">
-                    <div class="search-result-title">${r.title}</div>
-                    <div class="search-result-snippet">${r.snippet}</div>
-                </div>
-            `).join('');
+            document.getElementById('team-members').innerHTML = members.map(m => `<div class="team-card"><div class="team-avatar">${m.emoji}</div><h3>${m.name}</h3><div class="role">${m.role}</div><div class="status ${m.status.toLowerCase()}">● ${m.status}</div></div>`).join('');
         }
         
         // Init
-        document.getElementById('update-time').textContent = new Date().toLocaleString();
-        loadTasks();
-        loadJournal();
-        renderCalendar();
-        loadTeam();
-        loadResearch();
+        loadAllData();
     </script>
 </body>
 </html>
