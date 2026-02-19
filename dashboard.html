@@ -326,7 +326,16 @@
         .memory-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 4px;
+        }
+        
+        .memory-section-header {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            padding: 12px 8px 6px;
         }
         
         .memory-list-item {
@@ -843,9 +852,12 @@
         // Memory
         async function loadMemory() {
             // Files to show in sidebar - sorted by date (newest first)
-            const files = [
+            const dailyFiles = [
                 { file: 'memory/2026-02-18.md', title: 'Feb 18', isDate: true },
                 { file: 'memory/2026-02-17.md', title: 'Feb 17', isDate: true },
+            ];
+            
+            const constitutionalFiles = [
                 { file: 'SOUL.md', title: 'SOUL', isDate: false },
                 { file: 'MEMORY.md', title: 'Memory', isDate: false },
                 { file: 'IDENTITY.md', title: 'Identity', isDate: false },
@@ -853,15 +865,30 @@
                 { file: 'AGENTS.md', title: 'Agents', isDate: false },
             ];
             
-            window.memoryFiles = files;
+            window.memoryFiles = [...dailyFiles, ...constitutionalFiles];
+            const files = [
+                ...dailyFiles,
+                ...constitutionalFiles
+            ];
             
-            // Render sidebar list
-            document.getElementById('memory-list').innerHTML = files.map((f, idx) => `
+            // Render with section headers
+            let html = '<div class="memory-section-header">📅 Daily Memories</div>';
+            html += dailyFiles.map((f, idx) => `
                 <div class="memory-list-item ${idx === 0 ? 'active' : ''}" onclick="selectMemory(${idx})">
                     <div class="memory-list-item-title">${f.title}</div>
-                    <div class="memory-list-item-date">${f.isDate ? 'Daily Memory' : 'Config'}</div>
+                    <div class="memory-list-item-date">Daily Log</div>
                 </div>
             `).join('');
+            
+            html += '<div class="memory-section-header">📚 Constitutional Docs</div>';
+            html += constitutionalFiles.map((f, idx) => `
+                <div class="memory-list-item" onclick="selectMemory(${dailyFiles.length + idx})">
+                    <div class="memory-list-item-title">${f.title}</div>
+                    <div class="memory-list-item-date">Constitution</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('memory-list').innerHTML = html;
             
             // Load first file
             selectMemory(0);
@@ -893,10 +920,12 @@
         async function searchMemory() {
             const query = document.getElementById('memory-search').value.toLowerCase();
             
-            // Filter/sort based on query
-            const allFiles = [
+            const dailyFiles = [
                 { file: 'memory/2026-02-18.md', title: 'Feb 18', isDate: true },
                 { file: 'memory/2026-02-17.md', title: 'Feb 17', isDate: true },
+            ];
+            
+            const constitutionalFiles = [
                 { file: 'SOUL.md', title: 'SOUL', isDate: false },
                 { file: 'MEMORY.md', title: 'Memory', isDate: false },
                 { file: 'IDENTITY.md', title: 'Identity', isDate: false },
@@ -904,19 +933,38 @@
                 { file: 'AGENTS.md', title: 'Agents', isDate: false },
             ];
             
-            let filtered = allFiles;
+            let filteredDaily = dailyFiles;
+            let filteredConst = constitutionalFiles;
+            
             if (query) {
-                filtered = allFiles.filter(f => f.title.toLowerCase().includes(query));
+                filteredDaily = dailyFiles.filter(f => f.title.toLowerCase().includes(query));
+                filteredConst = constitutionalFiles.filter(f => f.title.toLowerCase().includes(query));
             }
             
-            document.getElementById('memory-list').innerHTML = filtered.map((f, idx) => `
-                <div class="memory-list-item ${idx === 0 ? 'active' : ''}" onclick="selectMemory(${idx})">
-                    <div class="memory-list-item-title">${f.title}</div>
-                    <div class="memory-list-item-date">${f.isDate ? 'Daily Memory' : 'Config'}</div>
-                </div>
-            `).join('');
+            let html = '';
+            if (filteredDaily.length > 0) {
+                html += '<div class="memory-section-header">📅 Daily Memories</div>';
+                html += filteredDaily.map((f, idx) => `
+                    <div class="memory-list-item ${idx === 0 ? 'active' : ''}" onclick="selectMemory(${idx})">
+                        <div class="memory-list-item-title">${f.title}</div>
+                        <div class="memory-list-item-date">Daily Log</div>
+                    </div>
+                `).join('');
+            }
             
-            if (filtered.length > 0) selectMemory(0);
+            if (filteredConst.length > 0) {
+                html += '<div class="memory-section-header">📚 Constitutional Docs</div>';
+                html += filteredConst.map((f, idx) => `
+                    <div class="memory-list-item" onclick="selectMemory(${filteredDaily.length + idx})">
+                        <div class="memory-list-item-title">${f.title}</div>
+                        <div class="memory-list-item-date">Constitution</div>
+                    </div>
+                `).join('');
+            }
+            
+            document.getElementById('memory-list').innerHTML = html;
+            
+            if (filteredDaily.length + filteredConst.length > 0) selectMemory(0);
         }
         
         // Team
