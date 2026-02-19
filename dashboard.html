@@ -693,64 +693,54 @@
         
         // Journal - load from memory files
         async function loadJournal() {
-            try {
-                const entries = [];
-                
-                // Try journal.json first
+            const journalFiles = [
+                '2026-02-18.md', '2026-02-17.md', '2026-02-15.md', 
+                '2026-02-13.md', '2026-02-12.md', '2026-02-11.md', '2026-02-10.md'
+            ];
+            
+            const entries = [];
+            
+            for (const file of journalFiles) {
                 try {
-                    const resp = await fetch('journal.json');
-                    const data = await resp.json();
-                    if (data.entries) entries.push(...data.entries);
-                } catch(e) {}
-                
-                // Also load from memory/*.md files
-                const memoryFiles = [
-                    '2026-02-10.md', '2026-02-11.md', '2026-02-12.md', '2026-02-13.md',
-                    '2026-02-15.md', '2026-02-17.md', '2026-02-18.md'
-                ];
-                
-                for (const file of memoryFiles) {
-                    try {
-                        const resp = await fetch('memory/' + file);
-                        if (resp.ok) {
-                            const text = await resp.text();
-                            const dateMatch = text.match(/## (\d{4}-\d{2}-\d{2})/);
-                            if (dateMatch) {
-                                entries.push({
-                                    date: dateMatch[1],
-                                    content: text
-                                });
-                            }
+                    const resp = await fetch('memory/' + file);
+                    if (resp.ok) {
+                        const text = await resp.text();
+                        const dateMatch = text.match(/^# (\d{4}-\d{2}-\d{2})/m);
+                        if (dateMatch) {
+                            entries.push({
+                                date: dateMatch[1],
+                                content: text
+                            });
                         }
-                    } catch(e) {}
+                    }
+                } catch(e) {
+                    console.log('Failed to load:', file, e);
                 }
-                
-                // Sort by date descending
-                entries.sort((a, b) => b.date.localeCompare(a.date));
-                
-                if (entries.length === 0) {
-                    document.getElementById('journal-entries').innerHTML = '<div class="empty-state"><p>No journal entries yet</p></div>';
-                    return;
-                }
-                
-                document.getElementById('journal-entries').innerHTML = entries.slice(0, 30).map(e => {
-                    // Convert markdown to HTML for display
-                    let content = e.content || '';
-                    content = content.replace(/^## /gm, '<h4>').replace(/\n/g, '<br>');
-                    
-                    return `
-                        <div class="journal-entry">
-                            <div class="journal-date">${e.date}</div>
-                            <div class="journal-section">
-                                <pre style="font-family: inherit; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${content}</pre>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            } catch (e) {
-                console.error('Journal error:', e);
-                document.getElementById('journal-entries').innerHTML = '<div class="empty-state"><p>Error loading journal</p></div>';
             }
+            
+            // Sort by date descending
+            entries.sort((a, b) => b.date.localeCompare(a.date));
+            
+            if (entries.length === 0) {
+                document.getElementById('journal-entries').innerHTML = '<div class="empty-state"><p>No journal entries yet</p></div>';
+                return;
+            }
+            
+            document.getElementById('journal-entries').innerHTML = entries.map(e => {
+                let content = e.content
+                    .replace(/^# .*/gm, '') // Remove title
+                    .replace(/^## /gm, '<br><strong>').replace(/\n/g, '</strong><br>')
+                    .replace(/^- /gm, '• ');
+                
+                return `
+                    <div class="journal-entry">
+                        <div class="journal-date">${e.date}</div>
+                        <div class="journal-section">
+                            <pre style="font-family: inherit; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${content}</pre>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
         
         // Calendar
@@ -778,14 +768,24 @@
             const today = new Date();
             const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
             
-            // Events
+            // Cron jobs scheduled:
+            // - daily-crypto-news: 9AM HKT daily
+            // - degen-daily: 9AM HKT daily  
+            // - degen-browse-12pm: 12PM HKT daily
+            // - degen-browse-8pm: 8PM HKT daily
+            // - degen-browse-2am: 2AM HKT daily
+            // - cso-security-audit: 10AM every 2 days
+            // - audio-storage-check: 10AM Sundays
+            
             const events = {
-                '9': [{title: 'Crypto News', time: '9AM'}, {title: 'Degen Daily', time: '9AM'}],
-                '12': [{title: 'Degen Browse', time: '12PM'}],
-                '14': [{title: 'Degen Browse', time: '2PM'}],
-                '18': [{title: 'Degen Browse', time: '8PM'}],
-                '20': [{title: 'Degen Browse', time: '8PM'}],
-                '2': [{title: 'Degen Browse', time: '2AM'}]
+                // Daily events - show on all days
+                'daily': [
+                    {title: 'Crypto News', time: '9AM'},
+                    {title: 'Degen Daily', time: '9AM'},
+                    {title: 'Degen Browse', time: '12PM'},
+                    {title: 'Degen Browse', time: '8PM'},
+                    {title: 'Degen Browse', time: '2AM'}
+                ]
             };
             
             let html = '';
@@ -801,8 +801,7 @@
             // Current month days
             for (let day = 1; day <= totalDays; day++) {
                 const isToday = isCurrentMonth && day === today.getDate();
-                const dayStr = day.toString();
-                const dayEvents = events[dayStr] || [];
+                const dayEvents = events.daily || [];
                 
                 html += `<div class="calendar-day ${isToday ? 'today' : ''}"><div class="day-number">${day}</div>`;
                 dayEvents.forEach(e => {
@@ -886,24 +885,30 @@
                 return;
             }
             
-            // Search in memory files
-            const memoryFiles = ['2026-02-17.md', '2026-02-18.md', 'SOUL.md', 'MEMORY.md', 'IDENTITY.md', 'USER.md'];
+            // Search in all memory files
+            const memoryFiles = [
+                'SOUL.md', 'MEMORY.md', 'IDENTITY.md', 'USER.md', 'AGENTS.md', 'TOOLS.md',
+                'memory/2026-02-18.md', 'memory/2026-02-17.md', 'memory/2026-02-15.md',
+                'memory/2026-02-13.md', 'memory/2026-02-12.md', 'memory/2026-02-11.md', 'memory/2026-02-10.md'
+            ];
             const results = [];
             
             for (const file of memoryFiles) {
                 try {
-                    const resp = await fetch('memory/' + file);
+                    const resp = await fetch(file);
                     if (resp.ok) {
                         const text = await resp.text();
                         if (text.toLowerCase().includes(query)) {
                             const lines = text.split('\n').filter(l => l.toLowerCase().includes(query));
                             results.push({
-                                title: file.replace('.md', ''),
+                                title: file.replace('.md', '').replace('memory/', ''),
                                 snippet: lines.slice(0, 2).join(' ').substring(0, 150) + '...'
                             });
                         }
                     }
-                } catch(e) {}
+                } catch(e) {
+                    console.log('Search error:', file, e);
+                }
             }
             
             if (results.length === 0) {
