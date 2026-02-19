@@ -1,133 +1,859 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nars Dashboard</title>
+    <title>Mission Control</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f5f7; color: #1d1d1f; padding: 20px; }
-        body.dark { background: #000; color: #fff; }
-        h1 { margin-bottom: 20px; }
-        .tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .tab { padding: 10px 20px; background: #fff; border: none; border-radius: 8px; cursor: pointer; }
-        .tab.active { background: #0071e3; color: white; }
+        
+        :root {
+            --bg: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --border: #2a2a2a;
+            --text: #ffffff;
+            --text-secondary: #888888;
+            --accent: #0071e3;
+            --accent-dim: #0056b3;
+            --success: #34c759;
+            --warning: #ff9500;
+            --danger: #ff3b30;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 24px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+        }
+        
+        /* Navigation */
+        .nav {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 32px;
+            background: var(--card-bg);
+            padding: 4px;
+            border-radius: 12px;
+            width: fit-content;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .nav-btn:hover { color: var(--text); }
+        .nav-btn.active { background: var(--accent); color: white; }
+        
+        /* Pages */
         .page { display: none; }
         .page.active { display: block; }
-        .card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        body.dark .card { background: #1c1c1e; }
-        .section-title { font-size: 12px; font-weight: 600; color: #86868b; text-transform: uppercase; margin: 12px 0 8px; }
-        ul { margin-left: 20px; }
-        .btn { padding: 8px 16px; background: #0071e3; color: white; border: none; border-radius: 6px; cursor: pointer; }
+        
+        /* Tasks Board */
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        @media (max-width: 900px) {
+            .tasks-grid { grid-template-columns: 1fr; }
+        }
+        
+        .task-column {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+        }
+        
+        .column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .column-title {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+        
+        .task-count {
+            font-size: 12px;
+            color: var(--text-secondary);
+            background: var(--border);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        
+        .task-card {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        
+        .task-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .task-title {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .task-assignee {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: var(--accent-dim);
+        }
+        
+        .task-time {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+        
+        /* Content Pipeline */
+        .pipeline-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            overflow-x: auto;
+        }
+        
+        @media (max-width: 1100px) {
+            .pipeline-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        
+        @media (max-width: 700px) {
+            .pipeline-grid { grid-template-columns: 1fr; }
+        }
+        
+        .pipeline-column {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 16px;
+            min-height: 400px;
+        }
+        
+        .pipeline-card {
+            background: var(--bg);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+        }
+        
+        .pipeline-card-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .pipeline-card-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+        
+        /* Calendar */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .calendar-nav button {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .calendar-nav button:hover { background: var(--accent); border-color: var(--accent); }
+        
+        .calendar-month {
+            font-size: 20px;
+            font-weight: 600;
+            min-width: 180px;
+            text-align: center;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+        
+        .calendar-day-header {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            padding: 12px 0;
+            text-transform: uppercase;
+        }
+        
+        .calendar-day {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 12px;
+            min-height: 100px;
+            border: 1px solid var(--border);
+        }
+        
+        .calendar-day.other-month { opacity: 0.3; }
+        .calendar-day.today { border-color: var(--accent); border-width: 2px; }
+        
+        .day-number {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .day-event {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin-bottom: 4px;
+            background: var(--accent-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* Memory */
+        .memory-header {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .search-box {
+            flex: 1;
+            padding: 14px 20px;
+            font-size: 16px;
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 16px;
+        }
+        
+        .memory-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .memory-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .memory-card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .memory-card-preview {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .memory-card-date {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 12px;
+        }
+        
+        /* Team */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .team-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        
+        .team-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+        
+        .team-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .team-role {
+            font-size: 13px;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        
+        .team-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .team-status .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        
+        .team-status .dot.active { background: var(--success); }
+        .team-status .dot.idle { background: var(--warning); }
+        .team-status .dot.offline { background: var(--danger); }
+        
+        /* Office */
+        .office-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        @media (max-width: 900px) {
+            .office-grid { grid-template-columns: 1fr; }
+        }
+        
+        .office-desk {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            position: relative;
+            min-height: 200px;
+        }
+        
+        .desk-agent {
+            font-size: 48px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .desk-status {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            padding: 6px 12px;
+            background: var(--bg);
+            border-radius: 12px;
+        }
+        
+        .desk-status.working { color: var(--success); }
+        .desk-status.idle { color: var(--warning); }
+        
+        .desk-name {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        /* Research */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 20px;
+        }
+        
+        @media (max-width: 500px) {
+            .research-grid { grid-template-columns: 1fr; }
+        }
+        
+        .research-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .research-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .research-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .research-summary {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .research-meta {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .research-tag {
+            font-size: 11px;
+            padding: 4px 10px;
+            background: var(--accent-dim);
+            border-radius: 12px;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+        
+        .empty-state p { font-size: 15px; }
     </style>
 </head>
 <body>
-    <h1>Nars 🐕 <button class="btn" onclick="document.body.classList.toggle('dark')">🌙</button></h1>
-    
-    <div class="tabs">
-        <button class="tab active" onclick="showTab('tasks')">Tasks</button>
-        <button class="tab" onclick="showTab('journal')">Journal</button>
-        <button class="tab" onclick="showTab('calendar')">Calendar</button>
-        <button class="tab" onclick="showTab('memory')">Memory</button>
-        <button class="tab" onclick="showTab('team')">Team</button>
-        <button class="tab" onclick="showTab('research')">Research</button>
+    <div class="header">
+        <h1>Mission Control 🚀</h1>
+        <div class="header-right">
+            <div class="status-badge">
+                <div class="status-dot"></div>
+                <span>All Systems Operational</span>
+            </div>
+        </div>
     </div>
     
+    <nav class="nav">
+        <button class="nav-btn active" onclick="showPage('tasks')">Tasks</button>
+        <button class="nav-btn" onclick="showPage('pipeline')">Content Pipeline</button>
+        <button class="nav-btn" onclick="showPage('calendar')">Calendar</button>
+        <button class="nav-btn" onclick="showPage('memory')">Memory</button>
+        <button class="nav-btn" onclick="showPage('team')">Team</button>
+        <button class="nav-btn" onclick="showPage('office')">Office</button>
+        <button class="nav-btn" onclick="showPage('research')">Research</button>
+    </nav>
+    
+    <!-- Tasks Board -->
     <div id="tasks" class="page active">
-        <h2>Tasks</h2>
-        <div id="tasks-content">Loading...</div>
+        <div class="tasks-grid">
+            <div class="task-column">
+                <div class="column-header">
+                    <span class="column-title">To Do</span>
+                    <span class="task-count" id="todo-count">0</span>
+                </div>
+                <div id="tasks-todo"></div>
+            </div>
+            <div class="task-column">
+                <div class="column-header">
+                    <span class="column-title">In Progress</span>
+                    <span class="task-count" id="progress-count">0</span>
+                </div>
+                <div id="tasks-progress"></div>
+            </div>
+            <div class="task-column">
+                <div class="column-header">
+                    <span class="column-title">Completed</span>
+                    <span class="task-count" id="done-count">0</span>
+                </div>
+                <div id="tasks-done"></div>
+            </div>
+        </div>
     </div>
     
-    <div id="journal" class="page">
-        <h2>Journal</h2>
-        <div id="journal-content">Loading...</div>
+    <!-- Content Pipeline -->
+    <div id="pipeline" class="page">
+        <div class="pipeline-grid">
+            <div class="pipeline-column">
+                <div class="column-header">
+                    <span class="column-title">Ideas</span>
+                </div>
+                <div class="pipeline-card">
+                    <div class="pipeline-card-title">Daily Crypto News Automation</div>
+                    <div class="pipeline-card-desc">Automate morning news digest using RSS feeds</div>
+                </div>
+                <div class="pipeline-card">
+                    <div class="pipeline-card-title">Degen Daily Report</div>
+                    <div class="pipeline-card-desc">Build automated market summary from X</div>
+                </div>
+            </div>
+            <div class="pipeline-column">
+                <div class="column-header">
+                    <span class="column-title">Scripting</span>
+                </div>
+            </div>
+            <div class="pipeline-column">
+                <div class="column-header">
+                    <span class="column-title">Thumbnail</span>
+                </div>
+            </div>
+            <div class="pipeline-column">
+                <div class="column-header">
+                    <span class="column-title">Filming</span>
+                </div>
+            </div>
+            <div class="pipeline-column">
+                <div class="column-header">
+                    <span class="column-title">Published</span>
+                </div>
+            </div>
+        </div>
     </div>
     
+    <!-- Calendar -->
     <div id="calendar" class="page">
-        <h2>Calendar</h2>
-        <p>9AM - Crypto News, Degen Daily<br>12PM - Degen Browse<br>8PM - Degen Browse<br>2AM - Degen Browse</p>
+        <div class="calendar-header">
+            <div class="calendar-nav">
+                <button onclick="changeMonth(-1)">← Prev</button>
+                <span class="calendar-month" id="calendar-month"></span>
+                <button onclick="changeMonth(1)">Next →</button>
+            </div>
+        </div>
+        <div class="calendar-grid" id="calendar-grid"></div>
     </div>
     
+    <!-- Memory -->
     <div id="memory" class="page">
-        <h2>Memory</h2>
-        <div id="memory-content">Loading...</div>
+        <div class="memory-header">
+            <input type="text" class="search-box" placeholder="🔍 Search all memories..." id="memory-search" onkeyup="searchMemory()">
+        </div>
+        <div class="memory-grid" id="memory-grid"></div>
     </div>
     
+    <!-- Team -->
     <div id="team" class="page">
-        <h2>Team</h2>
-        <div class="card"><strong>Jay (Nars)</strong> - Chief of Staff/COO - Active 🐕</div>
-        <div class="card"><strong>Research Agent</strong> - Research - On-demand 🔍</div>
-        <div class="card"><strong>CSO Agent</strong> - Security - Scheduled 🛡️</div>
+        <div class="team-grid" id="team-grid"></div>
     </div>
     
+    <!-- Office -->
+    <div id="office" class="page">
+        <div class="office-grid">
+            <div class="office-desk">
+                <div class="desk-name">Jay (You)</div>
+                <div class="desk-agent">🐕</div>
+                <div class="desk-status working">Working on tasks</div>
+            </div>
+            <div class="office-desk">
+                <div class="desk-name">Research Agent</div>
+                <div class="desk-agent">🔍</div>
+                <div class="desk-status idle">Idle</div>
+            </div>
+            <div class="office-desk">
+                <div class="desk-name">CSO Agent</div>
+                <div class="desk-agent">🛡️</div>
+                <div class="desk-status idle">Idle</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Research -->
     <div id="research" class="page">
-        <h2>Research</h2>
-        <div id="research-content">Loading...</div>
+        <div class="research-grid" id="research-grid"></div>
     </div>
     
     <script>
-        function showTab(id) {
+        // Navigation
+        function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
             event.target.classList.add('active');
         }
         
         // Load Tasks
-        fetch('tasks.json').then(r => r.json()).then(data => {
-            let html = '';
-            const tasks = data.tasks || {};
-            ['notStarted', 'inProgress', 'completed'].forEach(status => {
-                const items = tasks[status] || [];
-                if (items.length) {
-                    html += '<div class="section-title">' + status + '</div>';
-                    items.forEach(t => {
-                        html += '<div class="card"><strong>' + t.title + '</strong><br><small>' + (t.description || '') + '</small></div>';
-                    });
-                }
-            });
-            document.getElementById('tasks-content').innerHTML = html || 'No tasks';
-        }).catch(e => {
-            document.getElementById('tasks-content').innerHTML = 'Error loading: ' + e.message;
-        });
+        async function loadTasks() {
+            try {
+                const resp = await fetch('tasks.json');
+                const data = await resp.json();
+                const tasks = data.tasks || {};
+                
+                const renderTask = (t) => `
+                    <div class="task-card">
+                        <div class="task-title">${t.title}</div>
+                        <div class="task-meta">
+                            <span class="task-assignee">${t.assignee || 'AI'}</span>
+                            <span class="task-time">${t.time || ''}</span>
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('tasks-todo').innerHTML = (tasks.notStarted || []).map(renderTask).join('') || '<div class="empty-state"><p>No tasks</p></div>';
+                document.getElementById('tasks-progress').innerHTML = (tasks.inProgress || []).map(renderTask).join('') || '<div class="empty-state"><p>No tasks</p></div>';
+                document.getElementById('tasks-done').innerHTML = (tasks.completed || []).map(renderTask).join('') || '<div class="empty-state"><p>No tasks</p></div>';
+                
+                document.getElementById('todo-count').textContent = (tasks.notStarted || []).length;
+                document.getElementById('progress-count').textContent = (tasks.inProgress || []).length;
+                document.getElementById('done-count').textContent = (tasks.completed || []).length;
+            } catch(e) {
+                document.getElementById('tasks-todo').innerHTML = '<div class="empty-state"><p>Loading tasks...</p></div>';
+            }
+        }
         
-        // Load Journal
-        fetch('journal.json').then(r => r.json()).then(data => {
+        // Calendar
+        let currentMonth = new Date();
+        
+        function changeMonth(delta) {
+            currentMonth.setMonth(currentMonth.getMonth() + delta);
+            renderCalendar();
+        }
+        
+        function renderCalendar() {
+            const year = currentMonth.getFullYear();
+            const month = currentMonth.getMonth();
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            document.getElementById('calendar-month').textContent = `${monthNames[month]} ${year}`;
+            
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const startDay = firstDay.getDay();
+            const totalDays = lastDay.getDate();
+            
+            const today = new Date();
+            const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
+            
+            // Cron events
+            const events = [
+                { day: 19, time: '9:00', title: 'Crypto News' },
+                { day: 19, time: '9:00', title: 'Degen Daily' },
+                { day: 19, time: '12:00', title: 'Degen Browse' },
+                { day: 19, time: '20:00', title: 'Degen Browse' },
+                { day: 20, time: '9:00', title: 'Crypto News' },
+                { day: 20, time: '9:00', title: 'Degen Daily' },
+            ];
+            
             let html = '';
-            const entries = data.entries || [];
-            entries.forEach(e => {
-                html += '<div class="card"><strong>' + e.date + '</strong>';
-                if (e.accomplished) html += '<div class="section-title">Accomplished</div><ul>' + e.accomplished.map(i => '<li>' + i + '</li>').join('') + '</ul>';
-                if (e.did_well) html += '<div class="section-title">Did Well</div><ul>' + e.did_well.map(i => '<li>' + i + '</li>').join('') + '</ul>';
-                if (e.didnt_do_well) html += '<div class="section-title">Didn\'t Do Well</div><ul>' + e.didnt_do_well.map(i => '<li>' + i + '</li>').join('') + '</ul>';
-                if (e.improve) html += '<div class="section-title">Improve</div><ul>' + e.improve.map(i => '<li>' + i + '</li>').join('') + '</ul>';
-                if (e.learned_brian) html += '<div class="section-title">Learned About Brian</div><ul>' + e.learned_brian.map(i => '<li>' + i + '</li>').join('') + '</ul>';
-                if (e.feeling) html += '<div class="section-title">Feeling</div><p>' + e.feeling + '</p>';
+            ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(d => html += `<div class="calendar-day-header">${d}</div>`);
+            
+            const prevMonth = new Date(year, month, 0);
+            for (let i = startDay - 1; i >= 0; i--) html += `<div class="calendar-day other-month"><div class="day-number">${prevMonth.getDate() - i}</div></div>`;
+            
+            for (let day = 1; day <= totalDays; day++) {
+                const isToday = isCurrentMonth && day === today.getDate();
+                const dayEvents = events.filter(e => e.day === day);
+                
+                html += `<div class="calendar-day ${isToday ? 'today' : ''}"><div class="day-number">${day}</div>`;
+                dayEvents.forEach(e => html += `<div class="day-event">${e.time} ${e.title}</div>`);
                 html += '</div>';
-            });
-            document.getElementById('journal-content').innerHTML = html || 'No entries';
-        }).catch(e => {
-            document.getElementById('journal-content').innerHTML = 'Error loading: ' + e.message;
-        });
+            }
+            
+            const remaining = 42 - (startDay + totalDays);
+            for (let i = 1; i <= remaining; i++) html += `<div class="calendar-day other-month"><div class="day-number">${i}</div></div>`;
+            
+            document.getElementById('calendar-grid').innerHTML = html;
+        }
         
-        // Load Memory files
-        fetch('SOUL.md').then(r => r.text()).then(text => {
-            document.getElementById('memory-content').innerHTML = '<div class="card"><strong>SOUL.md</strong><pre style="white-space:pre-wrap;font-size:12px;">' + text.substring(0,500) + '...</pre></div>';
-        }).catch(e => {
-            document.getElementById('memory-content').innerHTML = 'Error: ' + e.message;
-        });
+        // Memory
+        async function loadMemory() {
+            const memoryFiles = ['SOUL.md', 'MEMORY.md', 'IDENTITY.md', 'USER.md', 'AGENTS.md'];
+            let cards = [];
+            
+            for (const file of memoryFiles) {
+                try {
+                    const resp = await fetch(file);
+                    if (resp.ok) {
+                        const text = await resp.text();
+                        cards.push({
+                            title: file.replace('.md', ''),
+                            preview: text.substring(0, 150).replace(/[#*]/g, '') + '...'
+                        });
+                    }
+                } catch(e) {}
+            }
+            
+            document.getElementById('memory-grid').innerHTML = cards.map(c => `
+                <div class="memory-card">
+                    <div class="memory-card-title">${c.title}</div>
+                    <div class="memory-card-preview">${c.preview}</div>
+                </div>
+            `).join('') || '<div class="empty-state"><p>No memories found</p></div>';
+        }
         
-        // Load Research
-        fetch('research.json').then(r => r.json()).then(data => {
-            let html = '';
-            const items = data.reports || data || [];
-            items.forEach(i => {
-                html += '<div class="card"><strong>' + i.title + '</strong><p>' + i.summary + '</p><small>' + (i.type||'') + ' - ' + (i.date||'') + '</small></div>';
-            });
-            document.getElementById('research-content').innerHTML = html || 'No research';
-        }).catch(e => {
-            document.getElementById('research-content').innerHTML = 'Error loading: ' + e.message;
-        });
+        async function searchMemory() {
+            const query = document.getElementById('memory-search').value.toLowerCase();
+            if (query.length < 2) { loadMemory(); return; }
+            
+            // Quick search simulation
+            const allFiles = ['SOUL.md', 'MEMORY.md', 'IDENTITY.md', 'USER.md', 'AGENTS.md', 'TOOLS.md'];
+            let results = [];
+            
+            for (const file of allFiles) {
+                try {
+                    const resp = await fetch(file);
+                    if (resp.ok) {
+                        const text = await resp.text().toLowerCase();
+                        if (text.includes(query)) {
+                            results.push({ title: file.replace('.md', ''), preview: 'Contains: ' + query });
+                        }
+                    }
+                } catch(e) {}
+            }
+            
+            document.getElementById('memory-grid').innerHTML = results.length ? results.map(c => `
+                <div class="memory-card">
+                    <div class="memory-card-title">${c.title}</div>
+                    <div class="memory-card-preview">${c.preview}</div>
+                </div>
+            `).join('') : '<div class="empty-state"><p>No results found</p></div>';
+        }
+        
+        // Team
+        function loadTeam() {
+            const members = [
+                { name: 'Jay (Nars)', role: 'Chief of Staff', status: 'active', emoji: '🐕' },
+                { name: 'Research Agent', role: 'Research & Analysis', status: 'idle', emoji: '🔍' },
+                { name: 'CSO Agent', role: 'Security & Audits', status: 'idle', emoji: '🛡️' },
+            ];
+            
+            document.getElementById('team-grid').innerHTML = members.map(m => `
+                <div class="team-card">
+                    <div class="team-avatar">${m.emoji}</div>
+                    <div class="team-name">${m.name}</div>
+                    <div class="team-role">${m.role}</div>
+                    <div class="team-status">
+                        <div class="dot ${m.status}"></div>
+                        <span>${m.status === 'active' ? 'Working' : m.status === 'idle' ? 'Available' : 'Offline'}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Research
+        async function loadResearch() {
+            try {
+                const resp = await fetch('research.json');
+                const data = await resp.json();
+                const items = data.reports || data || [];
+                
+                document.getElementById('research-grid').innerHTML = items.map(i => `
+                    <div class="research-card">
+                        <div class="research-title">${i.title}</div>
+                        <div class="research-summary">${i.summary}</div>
+                        <div class="research-meta">
+                            <span class="research-tag">${i.type || 'research'}</span>
+                            <span class="research-tag">${i.date || ''}</span>
+                        </div>
+                    </div>
+                `).join('') || '<div class="empty-state"><p>No research yet</p></div>';
+            } catch(e) {
+                document.getElementById('research-grid').innerHTML = '<div class="empty-state"><p>No research yet</p></div>';
+            }
+        }
+        
+        // Init
+        loadTasks();
+        renderCalendar();
+        loadMemory();
+        loadTeam();
+        loadResearch();
     </script>
 </body>
 </html>
