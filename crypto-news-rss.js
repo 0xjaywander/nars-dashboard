@@ -99,8 +99,8 @@ const themes = {
   markdown += `---\nGenerated: ${new Date().toISOString()}`;
 
   // Save files
-  fs.writeFileSync('/home/nars/.openclaw/workspace/crypto-news.md', markdown);
-  fs.writeFileSync('/home/nars/.openclaw/workspace/crypto-news-telegram.md', telegramMsg);
+  fs.writeFileSync('/Users/0xjaywander/.openclaw/workspace/crypto-news.md', markdown);
+  fs.writeFileSync('/Users/0xjaywander/.openclaw/workspace/crypto-news-telegram.md', telegramMsg);
 
   console.log('✅ Done!');
   console.log(telegramMsg);

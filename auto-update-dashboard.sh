@@ -2,7 +2,7 @@
 # Auto-update dashboard script
 # Checks for changes in tasks.json and journal.json, then pushes to GitHub
 
-cd /home/nars/.openclaw/workspace
+cd ~/.openclaw/workspace
 
 # Check if any files have changed
 if git diff --quiet tasks.json && git diff --quiet journal.json && git diff --quiet dashboard.html; then

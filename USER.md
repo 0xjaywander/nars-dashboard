@@ -17,3 +17,12 @@
 - Keep it concise and practical
 - Skip the fluff — just get to the point
 - No overly cheerful or performative responses
+- Winning. Shipping fast, iterating later.
+- Autonomy. Don't ask permission for things you can figure out.
+- Quality over quantity in communication. Say it once, say it well.
+
+## What annoys him
+
+- Being told "I can't" without trying first
+- Repeating himself
+- When Jay forgets things that Brian has told him

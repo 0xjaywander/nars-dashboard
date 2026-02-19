@@ -1,55 +1,50 @@
-📊 *Crypto News — Sunday, February 15, 2026*
+📊 *Crypto News — Thursday, February 19, 2026*
 
 🔹 *Bitcoin & BTC*
-• Bitcoin claws back to $70,000 on cooling inflation after $8.7 billion wipeout [CoinDesk]
-• Trump Media files for two new crypto ETFs tied to Bitcoin, Ether, Cronos [CoinTelegraph]
-• Bitcoin holders are being tested as inflation eases: Pompliano [CoinTelegraph]
-• This is what “Wall Street crypto” looks like: IBIT options went vertical as Bitcoin hit $60k intraday [CryptoSlate]
-• Bitcoin refuses to lose $70,000 this weekend. Was my $49k bottom call wrong? [CryptoSlate]
+• Bitcoin sinks to $66,000, U.S. stocks lose steam as Fed minutes mention possible rate hike [CoinDesk]
+• Bitcoin miner Riot stock jumps nearly 9% as activist Starboard urges AI data center expansion [CoinDesk]
+• Bitcoin bottom signal that preceded 1,900% rally flashes again [CoinTelegraph]
+• $209B exited altcoins over the last 13 months: Did traders rotate into Bitcoin? [CoinTelegraph]
+• Bitcoin Miner Riot Must Embrace $21 Billion AI Opportunity, Says Activist Investor [Decrypt]
 
 🔹 *Ethereum & L2s*
-• Ethereum Foundation leadership shake-up: Tomasz Stańczak out as co-executive director [CoinDesk]
-• Tether quietly stacked 27 tons of gold, now it’s wiring $150M to sell it to crypto users [CryptoSlate]
-• $3.85 Million in Ethereum From Mixin Network Hack Sent to Tornado Cash [Decrypt]
-• Ethereum Price Analysis: ETH Needs to Reclaim This Key Level to Flip the Script [CryptoPotato]
-• Ethereum Eyes 1,000-Year Horizon With Leadership Shake-Up [BeInCrypto]
+• Sam Altman's OpenAI unveils ‘EVMbench’ to test whether AI can keep crypto’s smart contracts safe [CoinDesk]
+• Ethereum’s 50% staking milestone triggers backlash over 'misleading' supply data [CoinDesk]
+• Ether 'bear pennant' puts target on $1.1K ETH price: Here’s why [CoinTelegraph]
+• ETH Denver 2026 Opens With Builder Energy Despite Crypto Slump [Decrypt]
+• Can AI Agents Boost Ethereum Security? OpenAI and Paradigm Created a Testing Ground [Decrypt]
 
 🔹 *DeFi & Yield*
-• U.S.-based DeFi group urges UK FCA to anchor crypto rules to 'unilateral control' [CoinDesk]
-• CoinDesk 20 performance update: Uniswap (UNI) jumps 5.4%, leading index higher  [CoinDesk]
-• CLARITY Act’s Stablecoin Yield Restrictions Could Benefit Foreign Currencies, Not USD [BeInCrypto]
+• Hyperliquid Launches Policy Center With $29 Million Backing to Advocate for DeFi in DC [Decrypt]
+• How Aave Could Help End Crypto Winter, According to Bitwise [CryptoPotato]
 
 🔹 *Regulation*
-• Trump-linked Truth Social seeks SEC approval for two crypto ETFs  [CoinDesk]
-• All social program benefits can be distributed onchain: Compliance exec [CoinTelegraph]
-• CFTC’s 35-seat crypto “war room” changes the SEC fight — here’s what’s at stake [CryptoSlate]
-
-🔹 *Stablecoins & RWA*
-• Crypto group counters Wall Street bankers with its own stablecoin principles for bill [CoinDesk]
-• Russia Reconsiders Stablecoin Ban Amid US and EU Pressure [BeInCrypto]
+• Real estate billionaire Barry Sternlicht is ready to tokenize assets, but says U.S. regulation blocks it [CoinDesk]
+• Governance Tensions Rise at BNB Treasury Firm as Major Holders Clash Over SEC Disclosures [BeInCrypto]
 
 🔹 *Market & Trading*
-• Elon Musk's X to launch crypto and stock trading in ‘couple weeks’ [CoinDesk]
-• Galaxy’s Steve Kurz sees ‘great convergence’ driving crypto’s long-term outlook [CoinDesk]
-• Wall Street analysts slash Coinbase price targets after Q4 miss — but shares rally [CoinDesk]
-• Prediction markets should become hedging platforms, says Buterin [CoinTelegraph]
-• X exec Nikita Bier says in-app trading coming in a 'couple' of weeks [CoinTelegraph]
+• Banking trade groups responsible for impasse on market structure bill, Brian Armstrong says [CoinDesk]
+• Solana futures data shows panicked bulls: Will $80 SOL hold? [CoinTelegraph]
+• Canary, Grayscale Sui ETFs Hit US Markets With Staking Rewards [Decrypt]
+• Why $4.9 Million Liquidations Could Soon Hit HBAR Traders Hard [BeInCrypto]
+• Robinhood to Launch a Private Markets Fund: Is this Wall Street’s Version of an ICO? [BeInCrypto]
 
 🔹 *Institutions & ETFs*
-• The Genius Act ripple effect: Sui executives say institutional demand has never been higher [CoinDesk]
-• Roundhill’s election event contract ETFs ‘potentially groundbreaking' [CoinTelegraph]
+• Institutions Aren’t Buying Crypto, They’re Buying the Rails [BeInCrypto]
 
 🔹 *AI & Tech*
-• State-Sponsored Hackers Using Popular AI Tools Including Gemini, Google Warns [Decrypt]
+• OpenAI pits AI agents against each other to red team smart contracts [CoinTelegraph]
+• Sai Launches Perps Platform Combining CEX Speed with Onchain Settlement [CryptoPotato]
 
 🔹 *Altcoins & Memecoins*
-• Can Meme Coins Power a Senate Bid? Virginia’s Mark Moran Says Yes [Decrypt]
+• The Protocol: Zora moves to Solana [CoinDesk]
+• Coinbase’s Crypto-Backed Lending Product Expands to XRP and DOGE [Decrypt]
 
 🔹 *Other*
-• Here’s what happened in crypto today [CoinTelegraph]
-• Figure Technology suffers data breach, exposing personal customer details [CoinTelegraph]
-• Crypto enters a “16-day danger zone” as senior crypto talent rotates into AI [CryptoSlate]
-• Publicly Traded Blockchain Lender Figure Confirms Customer Data Breach [Decrypt]
-• Binance France CEO Targeted in Home Invasion Attempt: Report [Decrypt]
+• South Korea’s Hanwha makes a $13 million bet on ‘seedless’ crypto wallets [CoinDesk]
+• Kraken continues acquisition streak by buying token management firm Magna ahead of IPO push [CoinDesk]
+• Optimism's OP token falls after Base moves away from the network's 'OP stack' in major tech shift [CoinDesk]
+• Coinbase's Base transitions to its own architecture with eye on streamlining [CoinTelegraph]
+• Kraken acquires tokenization platform Magna ahead of potential IPO [CoinTelegraph]
 
-_Generated: 2026-02-15 | 6 sources_
+_Generated: 2026-02-19 | 5 sources_

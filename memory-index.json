@@ -1,0 +1,10 @@
+[
+  {"title": "OpenClaw Setup", "path": "SOUL.md", "snippet": "MiniMax portal configured with OAuth and API key backup"},
+  {"title": "Identity", "path": "IDENTITY.md", "snippet": "Jay is Chief of Staff and COO"},
+  {"title": "User Preferences", "path": "USER.md", "snippet": "Brian prefers concise communication"},
+  {"title": "X Account", "path": "MEMORY.md", "snippet": "0xjaywander is MY X account, logged in via browser"},
+  {"title": "Degen Daily", "path": "MEMORY.md", "snippet": "Browse timeline 12pm/8pm/2am, synthesize 9AM"},
+  {"title": "Security Notes", "path": "MEMORY.md", "snippet": "Password stored in ~/.x_password with 600 permissions"},
+  {"title": "Cron Jobs", "path": "MEMORY.md", "snippet": "Daily crypto news at 9AM, degen browse 12/8/2"},
+  {"title": "Camofox", "path": "MEMORY.md", "snippet": "Installed for x-tweet-fetcher integration"}
+]

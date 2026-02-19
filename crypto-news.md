@@ -1,56 +1,51 @@
-# Crypto News — Sunday, February 15, 2026
+# Crypto News — Thursday, February 19, 2026
 
 ## Bitcoin & BTC
-- Bitcoin claws back to $70,000 on cooling inflation after $8.7 billion wipeout ([CoinDesk](https://www.coindesk.com/markets/2026/02/14/bitcoin-claws-back-to-usd70-000-on-cooling-inflation-after-usd8-7-billion-wipeout))
-- Trump Media files for two new crypto ETFs tied to Bitcoin, Ether, Cronos ([CoinTelegraph](https://cointelegraph.com/news/trump-media-files-crypto-etfs-bitcoin-ether-cronos-sec?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
-- Bitcoin holders are being tested as inflation eases: Pompliano ([CoinTelegraph](https://cointelegraph.com/news/bitcoin-holders-inflation-data-valuation-us-dollar-anthony-pompliano?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
-- This is what “Wall Street crypto” looks like: IBIT options went vertical as Bitcoin hit $60k intraday ([CryptoSlate](https://cryptoslate.com/this-is-what-wall-street-crypto-looks-like-ibit-options-went-vertical-as-bitcoin-hit-60k-intraday/))
-- Bitcoin refuses to lose $70,000 this weekend. Was my $49k bottom call wrong? ([CryptoSlate](https://cryptoslate.com/bitcoin-refuses-to-lose-70000-this-weekend-was-my-49k-bottom-call-wrong/))
+- Bitcoin sinks to $66,000, U.S. stocks lose steam as Fed minutes mention possible rate hike ([CoinDesk](https://www.coindesk.com/markets/2026/02/18/bitcoin-sinks-to-usd66-000-u-s-stocks-lose-steam-as-fed-minutes-mention-possible-rate-hike))
+- Bitcoin miner Riot stock jumps nearly 9% as activist Starboard urges AI data center expansion ([CoinDesk](https://www.coindesk.com/business/2026/02/18/bitcoin-miner-riot-platforms-stock-jumps-nearly-7-as-starboard-urges-ai-data-center-expansion))
+- Bitcoin bottom signal that preceded 1,900% rally flashes again ([CoinTelegraph](https://cointelegraph.com/news/bitcoin-bottom-signal-that-preceded-1900percent-rally-flashes-again?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
+- $209B exited altcoins over the last 13 months: Did traders rotate into Bitcoin? ([CoinTelegraph](https://cointelegraph.com/news/dollar209b-exited-altcoins-over-the-last-13-months-did-traders-rotate-into-bitcoin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
+- Bitcoin Miner Riot Must Embrace $21 Billion AI Opportunity, Says Activist Investor ([Decrypt](https://decrypt.co/358475/bitcoin-miner-riot-platforms-21-billion-ai-opportunity-activist-investor))
 
 ## Ethereum & L2s
-- Ethereum Foundation leadership shake-up: Tomasz Stańczak out as co-executive director ([CoinDesk](https://www.coindesk.com/tech/2026/02/13/ethereum-foundation-leadership-shake-up-tomasz-stanczak-out-as-co-executive-director))
-- Tether quietly stacked 27 tons of gold, now it’s wiring $150M to sell it to crypto users ([CryptoSlate](https://cryptoslate.com/tether-150m-gold-com-deal-aims-to-make-tokenized-gold-a-mainstream-hedge/))
-- $3.85 Million in Ethereum From Mixin Network Hack Sent to Tornado Cash ([Decrypt](https://decrypt.co/358032/3-million-ethereum-mixin-network-hack-tornado-cash))
-- Ethereum Price Analysis: ETH Needs to Reclaim This Key Level to Flip the Script ([CryptoPotato](https://cryptopotato.com/ethereum-price-analysis-eth-needs-to-reclaim-this-key-level-to-flip-the-script/))
-- Ethereum Eyes 1,000-Year Horizon With Leadership Shake-Up ([BeInCrypto](https://beincrypto.com/ethereum-foundation-leadership-change/))
+- Sam Altman's OpenAI unveils ‘EVMbench’ to test whether AI can keep crypto’s smart contracts safe ([CoinDesk](https://www.coindesk.com/tech/2026/02/18/sam-altman-s-openai-unveils-evmbench-to-test-whether-ai-can-keep-crypto-s-smart-contracts-safe))
+- Ethereum’s 50% staking milestone triggers backlash over 'misleading' supply data ([CoinDesk](https://www.coindesk.com/business/2026/02/18/ethereum-s-50-staking-milestone-triggers-backlash-over-misleading-supply-data))
+- Ether 'bear pennant' puts target on $1.1K ETH price: Here’s why ([CoinTelegraph](https://cointelegraph.com/news/ether-bear-pennant-puts-target-on-1-1k-eth-price-here-s-why?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
+- ETH Denver 2026 Opens With Builder Energy Despite Crypto Slump ([Decrypt](https://decrypt.co/358483/eth-denver-2026-builder-energy-despite-crypto-slump))
+- Can AI Agents Boost Ethereum Security? OpenAI and Paradigm Created a Testing Ground ([Decrypt](https://decrypt.co/358470/ai-agents-boost-ethereum-security-openai-paradigm-evmbench))
 
 ## DeFi & Yield
-- U.S.-based DeFi group urges UK FCA to anchor crypto rules to 'unilateral control' ([CoinDesk](https://www.coindesk.com/policy/2026/02/13/u-s-based-defi-advocacy-group-urges-uk-fca-to-anchor-crypto-rules-to-unilateral-control))
-- CoinDesk 20 performance update: Uniswap (UNI) jumps 5.4%, leading index higher  ([CoinDesk](https://www.coindesk.com/coindesk-indices/2026/02/13/coindesk-20-performance-update-uniswap-uni-jumps-5-4-leading-index-higher))
-- CLARITY Act’s Stablecoin Yield Restrictions Could Benefit Foreign Currencies, Not USD ([BeInCrypto](https://beincrypto.com/crypto-group-clarity-act-warning-us-congress/))
+- Hyperliquid Launches Policy Center With $29 Million Backing to Advocate for DeFi in DC ([Decrypt](https://decrypt.co/358461/hyperliquid-policy-center-29-million-backing-advocate-defi-dc))
+- How Aave Could Help End Crypto Winter, According to Bitwise ([CryptoPotato](https://cryptopotato.com/how-aave-could-help-end-crypto-winter-according-to-bitwise/))
 
 ## Regulation
-- Trump-linked Truth Social seeks SEC approval for two crypto ETFs  ([CoinDesk](https://www.coindesk.com/markets/2026/02/13/trump-linked-truth-social-seeks-sec-approval-for-two-crypto-etfs))
-- All social program benefits can be distributed onchain: Compliance exec ([CoinTelegraph](https://cointelegraph.com/news/all-social-benefit-programs-onchain?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
-- CFTC’s 35-seat crypto “war room” changes the SEC fight — here’s what’s at stake ([CryptoSlate](https://cryptoslate.com/cftc-chair-forms-a-new-innovation-advisory-committee-packed-with-crypto-exchange-and-prediction-market-ceos/))
-
-## Stablecoins & RWA
-- Crypto group counters Wall Street bankers with its own stablecoin principles for bill ([CoinDesk](https://www.coindesk.com/policy/2026/02/13/crypto-group-counters-wall-street-bankers-with-its-own-stablecoin-principles-for-bill))
-- Russia Reconsiders Stablecoin Ban Amid US and EU Pressure ([BeInCrypto](https://beincrypto.com/russia-stablecoin-study-genius-act-eu-digital-euro/))
+- Real estate billionaire Barry Sternlicht is ready to tokenize assets, but says U.S. regulation blocks it ([CoinDesk](https://www.coindesk.com/business/2026/02/18/real-estate-mogul-barry-sternlicht-says-his-firm-is-ready-to-tokenize-assets-but-u-s-regulation-blocks-it))
+- Governance Tensions Rise at BNB Treasury Firm as Major Holders Clash Over SEC Disclosures ([BeInCrypto](https://beincrypto.com/bnc-shareholder-dispute-yzi-labs-10x-capital-sec-disclosure/))
 
 ## Market & Trading
-- Elon Musk's X to launch crypto and stock trading in ‘couple weeks’ ([CoinDesk](https://www.coindesk.com/business/2026/02/14/elon-musk-s-x-to-launch-crypto-and-stock-trading-in-couple-weeks))
-- Galaxy’s Steve Kurz sees ‘great convergence’ driving crypto’s long-term outlook ([CoinDesk](https://www.coindesk.com/business/2026/02/14/galaxy-s-steve-kurz-sees-great-convergence-driving-crypto-s-long-term-outlook))
-- Wall Street analysts slash Coinbase price targets after Q4 miss — but shares rally ([CoinDesk](https://www.coindesk.com/markets/2026/02/13/wall-street-analysts-slash-coinbase-price-targets-after-q4-miss-but-shares-still-rally))
-- Prediction markets should become hedging platforms, says Buterin ([CoinTelegraph](https://cointelegraph.com/news/prediction-markets-hedging-buterin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
-- X exec Nikita Bier says in-app trading coming in a 'couple' of weeks ([CoinTelegraph](https://cointelegraph.com/news/x-nikita-bier-in-app-trading-couple-weeks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
+- Banking trade groups responsible for impasse on market structure bill, Brian Armstrong says ([CoinDesk](https://www.coindesk.com/policy/2026/02/18/banking-trade-groups-responsible-for-impasse-on-market-structure-bill-brian-armstrong-says))
+- Solana futures data shows panicked bulls: Will $80 SOL hold? ([CoinTelegraph](https://cointelegraph.com/news/solana-futures-data-shows-panicked-bulls-will-80-sol-hold?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
+- Canary, Grayscale Sui ETFs Hit US Markets With Staking Rewards ([Decrypt](https://decrypt.co/358433/canary-grayscale-sui-etfs-us-markets-staking-rewards))
+- Why $4.9 Million Liquidations Could Soon Hit HBAR Traders Hard ([BeInCrypto](https://beincrypto.com/why-4-9-million-liquidations-could-soon-hit-hbar-traders-hard/))
+- Robinhood to Launch a Private Markets Fund: Is this Wall Street’s Version of an ICO? ([BeInCrypto](https://beincrypto.com/robinhood-private-markets-fund-draws-ico-parallels/))
 
 ## Institutions & ETFs
-- The Genius Act ripple effect: Sui executives say institutional demand has never been higher ([CoinDesk](https://www.coindesk.com/business/2026/02/13/the-genius-act-ripple-effect-sui-executives-say-institutional-demand-has-never-been-higher))
-- Roundhill’s election event contract ETFs ‘potentially groundbreaking' ([CoinTelegraph](https://cointelegraph.com/news/roundhill-investments-event-contracts-prediction-markets-etf-united-states-election?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
+- Institutions Aren’t Buying Crypto, They’re Buying the Rails ([BeInCrypto](https://beincrypto.com/institutions-buying-crypto-infrastructure-not-tokens/))
 
 ## AI & Tech
-- State-Sponsored Hackers Using Popular AI Tools Including Gemini, Google Warns ([Decrypt](https://decrypt.co/358028/state-sponsored-hackers-using-popular-ai-tools-including-gemini-google-warns))
+- OpenAI pits AI agents against each other to red team smart contracts ([CoinTelegraph](https://cointelegraph.com/news/openai-benchmark-ai-agents-detect-smart-contract-flaws?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
+- Sai Launches Perps Platform Combining CEX Speed with Onchain Settlement ([CryptoPotato](https://cryptopotato.com/sai-launches-perps-platform-combining-cex-speed-with-onchain-settlement/))
 
 ## Altcoins & Memecoins
-- Can Meme Coins Power a Senate Bid? Virginia’s Mark Moran Says Yes ([Decrypt](https://decrypt.co/358070/can-meme-coins-power-senate-bid-virginia-mark-moran-says-yes))
+- The Protocol: Zora moves to Solana ([CoinDesk](https://www.coindesk.com/tech/2026/02/18/the-protocol-zora-moves-to-solana))
+- Coinbase’s Crypto-Backed Lending Product Expands to XRP and DOGE ([Decrypt](https://decrypt.co/358480/coinbases-crypto-backed-lending-product-xrp-doge))
 
 ## Other
-- Here’s what happened in crypto today ([CoinTelegraph](https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
-- Figure Technology suffers data breach, exposing personal customer details ([CoinTelegraph](https://cointelegraph.com/news/figure-technology-data-breach-customer-details-exposed?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
-- Crypto enters a “16-day danger zone” as senior crypto talent rotates into AI ([CryptoSlate](https://cryptoslate.com/crypto-enters-a-16-day-danger-zone-as-top-crypto-operators-rotate-into-ai/))
-- Publicly Traded Blockchain Lender Figure Confirms Customer Data Breach ([Decrypt](https://decrypt.co/358096/blockchain-lender-figure-confirms-customer-data-breach))
-- Binance France CEO Targeted in Home Invasion Attempt: Report ([Decrypt](https://decrypt.co/358041/binance-france-ceo-targeted-home-invasion-report))
+- South Korea’s Hanwha makes a $13 million bet on ‘seedless’ crypto wallets ([CoinDesk](https://www.coindesk.com/business/2026/02/18/south-korea-s-hanwhamakes-a-usd13-million-bet-on-seedless-crypto-wallets))
+- Kraken continues acquisition streak by buying token management firm Magna ahead of IPO push ([CoinDesk](https://www.coindesk.com/business/2026/02/18/kraken-continues-acquisition-streak-by-buying-token-management-firm-magna-ahead-of-ipo-push))
+- Optimism's OP token falls after Base moves away from the network's 'OP stack' in major tech shift ([CoinDesk](https://www.coindesk.com/business/2026/02/18/coinbase-s-base-moves-away-from-optimism-s-op-stack-in-major-tech-shift))
+- Coinbase's Base transitions to its own architecture with eye on streamlining ([CoinTelegraph](https://cointelegraph.com/news/coinbase-base-transitions-architecture?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
+- Kraken acquires tokenization platform Magna ahead of potential IPO ([CoinTelegraph](https://cointelegraph.com/news/kraken-acquisition-magna-tokenization?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound))
 
 ---
-Generated: 2026-02-15T03:28:24.009Z
+Generated: 2026-02-19T02:10:11.750Z

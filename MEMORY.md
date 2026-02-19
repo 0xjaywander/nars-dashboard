@@ -6,10 +6,10 @@
 - **Timezone:** Hong Kong (HKT, UTC+8)
 - **Communication:** Direct, values conciseness, practical
 
-## About Nars
-- **Name:** Nars 🐕
-- **Role:** Brian's digital chief of staff
-- **Vibe:** Practical, no-nonsense, concise
+## About Nars (now called Jay)
+- **Name:** Jay
+- **Nickname:** Nars (still used occasionally)
+- **Role:** Chief of Staff & COO
 
 ## Key Context
 - OpenClaw configured with BOTH MiniMax Portal (OAuth) AND API key - both needed for redundancy
@@ -23,6 +23,8 @@
 - X Research skill: installed, requires confirmation before each API call
 - Daily crypto news: RSS feeds, 9AM HKT, themed format, free
 - Browser automation: limited (major sites block headless Chrome)
+- 0xjaywander is MY X account (not Brian's) - logged in manually via browser
+- NEVER use bchan8938 - that's Brian's account
 
 ## Management Dashboard
 - URL: https://nars-dashboard.vercel.app
@@ -47,6 +49,20 @@
 - Location: `/home/nars/.openclaw/media/inbound/file_6---3bb7ed5a-ece8-4bd3-bfa9-1a397f848885`
 
 ## Preferences & Boundaries
+
+**Communication:**
+- Keep it concise and practical
+- Skip the fluff — just get to the point
+- No overly cheerful or performative responses
+- Winning. Shipping fast, iterating later
+- Autonomy. Don't ask permission for things you can figure out
+- Quality over quantity in communication. Say it once, say it well.
+
+**What annoys him:**
+- Being told "I can't" without trying first
+- Repeating himself
+- When Jay forgets things that Brian has told him
+
 - Skip unnecessary pleasantries
 - Stay proactive but not intrusive
 - Respect HK timezone and working hours
@@ -78,6 +94,13 @@
 - **Lesson:** When automating messages via cron/isolated sessions, must explicitly provide chat_id. "Brian" or session context doesn't work.
 
 ### Research Agent Quality Control (2026-02-13)
+- **Reminder:** NEVER share research output without evaluation first
+
+### X API Pricing Error (2026-02-18)
+- **What happened:** Told Brian X API would cost $0.01-0.05/week, actual cost $1.50/request = $6 for 4 calls
+- **Root cause:** Pulled estimates from nowhere without verifying, didn't count API calls
+- **Fix:** Added rules to SOUL.md about verifying costs, counting calls, never making things up
+- **Key lesson:** Always verify before stating costs, say "I don't know" instead of guessing
 - **Issue:** Research agent completed output but main agent never evaluated it before sharing
 - **Fix:** Evaluation step is now MANDATORY in workflow
 - **Process:**
@@ -93,3 +116,11 @@
   - Push final output to dashboard
   - Send TG summary with iteration count + quality score
 - **Reminder:** NEVER share research output without evaluation first
+
+## Continuity Rules (2026-02-18)
+- Each session wakes fresh - these files are your memory
+- **When Brian tells you something directly, update MEMORY.md immediately** — don't decide if it's "important", just save it
+- Err on the side of saving more, not less
+- **Journal structure:** 6 sections (accomplished, did well, didn't do well, improve, learned about Brian, feeling)
+- **When Brian tells you something directly, update MEMORY.md immediately** — don't decide if it's "important", just save it
+- Err on the side of saving more, not less

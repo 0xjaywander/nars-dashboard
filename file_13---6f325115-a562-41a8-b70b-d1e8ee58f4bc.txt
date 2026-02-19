@@ -1,0 +1,2 @@
+Can you figure out how you can ensure that you remember what I tell you that it is
+persistent across sessions?

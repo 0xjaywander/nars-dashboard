@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:09,440
+Can you figure out how you can ensure that you remember what I tell you that it is
+
+2
+00:00:09,440 --> 00:00:11,440
+persistent across sessions?
+
