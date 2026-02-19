@@ -1,865 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nars Dashboard</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --bg: #f5f5f7;
-            --card-bg: #ffffff;
-            --text: #1d1d1f;
-            --text-secondary: #86868b;
-            --accent: #0071e3;
-            --accent-hover: #0077ed;
-            --border: #d2d2d7;
-            --shadow: rgba(0, 0, 0, 0.1);
-        }
-        
-        body.dark {
-            --bg: #000000;
-            --card-bg: #1c1c1e;
-            --text: #f5f5f7;
-            --text-secondary: #98989d;
-            --accent: #0a84ff;
-            --accent-hover: #409cff;
-            --border: #38383a;
-            --shadow: rgba(0, 0, 0, 0.3);
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            min-height: 100vh;
-            color: var(--text);
-            padding: 60px 20px 40px;
-            transition: all 0.3s ease;
-        }
-        
-        .header {
-            max-width: 1400px;
-            margin: 0 auto 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-        
-        .header h1 {
-            font-size: 32px;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-        
-        .header-controls {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        
-        .theme-toggle {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            color: var(--text);
-        }
-        
-        .theme-toggle:hover { background: var(--accent); color: white; border-color: var(--accent); }
-        
-        .auto-refresh-toggle {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            color: var(--text);
-        }
-        
-        .auto-refresh-toggle.active { background: #00D142; color: white; border-color: #00D142; }
-        
-        /* Stats Bar */
-        .stats-bar {
-            max-width: 1400px;
-            margin: 0 auto 24px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-        }
-        
-        .stat-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 16px;
-            text-align: center;
-            box-shadow: 0 2px 8px var(--shadow);
-        }
-        
-        .stat-value { font-size: 28px; font-weight: 700; color: var(--accent); }
-        .stat-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
-        
-        /* Quick Events */
-        .quick-events {
-            max-width: 1400px;
-            margin: 0 auto 24px;
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 16px 20px;
-            box-shadow: 0 2px 8px var(--shadow);
-            display: flex;
-            gap: 24px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .quick-event {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-        }
-        
-        .quick-event .time { color: var(--accent); font-weight: 600; }
-        .quick-event .name { color: var(--text-secondary); }
-        
-        .nav-tabs {
-            max-width: 1400px;
-            margin: 0 auto 24px;
-            display: flex;
-            gap: 8px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        @media (max-width: 600px) {
-            .nav-tabs { gap: 4px; margin-bottom: 16px; }
-            .nav-tab { padding: 10px 14px; font-size: 13px; }
-            .quick-events { padding: 12px 16px; gap: 12px; }
-            .quick-event { font-size: 12px; }
-            .header { flex-direction: column; align-items: flex-start; }
-            .header h1 { font-size: 24px; }
-            .header-controls { width: 100%; justify-content: space-between; }
-            .stats-bar { grid-template-columns: repeat(2, 1fr); }
-            .stat-card { padding: 12px; }
-            .stat-value { font-size: 22px; }
-            .stat-label { font-size: 10px; }
-        }
-        
-        .nav-tab {
-            padding: 12px 24px;
-            background: none;
-            border: none;
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            white-space: nowrap;
-        }
-        
-        .nav-tab:hover { color: var(--text); }
-        .nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-        
-        .main-content { max-width: 1400px; margin: 0 auto; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f5f7; color: #1d1d1f; padding: 20px; }
+        body.dark { background: #000; color: #fff; }
+        h1 { margin-bottom: 20px; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab { padding: 10px 20px; background: #fff; border: none; border-radius: 8px; cursor: pointer; }
+        .tab.active { background: #0071e3; color: white; }
         .page { display: none; }
         .page.active { display: block; }
-        
-        /* Tasks */
-        .tasks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-        @media (max-width: 900px) { .tasks-grid { grid-template-columns: 1fr; } }
-        
-        .column {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 4px 20px var(--shadow);
-        }
-        
-        .column h2 {
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .task-card {
-            background: var(--bg);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .task-card:hover { background: var(--accent); color: white; }
-        .task-title { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
-        .task-description { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
-        .task-card:hover .task-description { color: rgba(255,255,255,0.8); }
-        
-        /* Journal */
-        .journal-container { max-width: 900px; margin: 0 auto; }
-        
-        .journal-entry {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px var(--shadow);
-        }
-        
-        .journal-date {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 16px;
-        }
-        
-        .journal-section {
-            margin-bottom: 16px;
-        }
-        
-        .journal-section-title {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
-        
-        .journal-section p, .journal-section ul {
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--text);
-        }
-        
-        .journal-section ul { margin-left: 20px; }
-        .journal-section li { margin-bottom: 4px; }
-        
-        /* Calendar */
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-        
-        .calendar-nav { display: flex; gap: 12px; align-items: center; }
-        .calendar-nav button {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            color: var(--text);
-        }
-        .calendar-nav button:hover { background: var(--accent); color: white; }
-        .calendar-month { font-size: 24px; font-weight: 600; }
-        
-        /* Calendar - Mobile optimized */
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
-        }
-        
-        @media (max-width: 600px) {
-            .calendar-grid { gap: 2px; }
-            .calendar-day { padding: 4px; min-height: 50px; }
-            .day-number { font-size: 10px; margin-bottom: 2px; }
-            .day-event { font-size: 7px; padding: 2px 3px; border-radius: 3px; margin-bottom: 2px; line-height: 1.2; }
-            .calendar-day-header { font-size: 8px; padding: 6px 0; }
-            .calendar-month { font-size: 16px; }
-            .calendar-nav button { padding: 6px 10px; font-size: 12px; }
-            .calendar-header { flex-direction: column; gap: 12px; align-items: stretch; }
-            .calendar-nav { justify-content: space-between; }
-        }
-        
-        @media (max-width: 400px) {
-            .calendar-day { min-height: 40px; padding: 2px; }
-            .day-event { font-size: 6px; padding: 1px 2px; }
-            .day-number { font-size: 9px; }
-            .calendar-day-header { font-size: 7px; }
-        }
-        
-        .calendar-day-header {
-            text-align: center;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            padding: 12px 0;
-            text-transform: uppercase;
-        }
-        
-        .calendar-day {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 12px;
-            min-height: 100px;
-            box-shadow: 0 2px 8px var(--shadow);
-        }
-        
-        .calendar-day.other-month { opacity: 0.4; }
-        .calendar-day.today { border: 2px solid var(--accent); }
-        .day-number { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
-        
-        .day-event {
-            font-size: 11px;
-            background: var(--accent);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 6px;
-            margin-bottom: 4px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            cursor: pointer;
-        }
-        
-        .day-event:hover { background: var(--accent-hover); }
-        
-        /* Memory */
-        .memory-container { max-width: 1000px; margin: 0 auto; }
-        
-        .memory-quick {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 16px;
-            margin-bottom: 30px;
-        }
-        
-        .memory-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: 0 2px 8px var(--shadow);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .memory-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px var(--shadow); }
-        .memory-card-title { font-weight: 600; margin-bottom: 8px; font-size: 15px; }
-        .memory-card-snippet { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
-        
-        .search-box {
-            width: 100%;
-            padding: 16px 24px;
-            font-size: 18px;
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            background: var(--card-bg);
-            color: var(--text);
-            margin-bottom: 20px;
-        }
-        
-        .search-box:focus { outline: none; border-color: var(--accent); }
-        
-        .search-results { background: var(--card-bg); border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px var(--shadow); }
-        
-        .search-result {
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-        }
-        
-        .search-result:hover { background: var(--bg); margin: 0 -24px; padding: 16px 24px; }
-        .search-result:last-child { border-bottom: none; }
-        .search-result-title { font-weight: 600; margin-bottom: 6px; }
-        .search-result-snippet { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
-        
-        /* Team */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        
-        .team-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 20px var(--shadow);
-            text-align: center;
-        }
-        
-        .team-avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: var(--accent);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 600;
-            margin: 0 auto 16px;
-        }
-        
-        .team-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
-        .team-card .role { font-size: 14px; color: var(--accent); margin-bottom: 8px; }
-        .team-card .status { font-size: 13px; color: var(--text-secondary); }
-        .team-card .status.active { color: #00D142; }
-        
-        /* Research */
-        .research-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
-        }
-        
-        @media (max-width: 600px) {
-            .research-grid { grid-template-columns: 1fr; gap: 12px; }
-            .research-card { padding: 16px; }
-            .research-card h3 { font-size: 16px; }
-            .research-card p { font-size: 13px; }
-        }
-        
-        .research-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 20px var(--shadow);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .research-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px var(--shadow); }
-        .research-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
-        .research-card p { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 12px; }
-        
-        .research-tag {
-            display: inline-block;
-            padding: 4px 12px;
-            background: var(--accent);
-            color: white;
-            border-radius: 12px;
-            font-size: 12px;
-            margin-right: 8px;
-        }
-        
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            overflow-y: auto;
-        }
-        
-        .modal.active { display: flex; align-items: center; justify-content: center; }
-        
-        .modal-content {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 32px;
-            max-width: 800px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-secondary);
-        }
-        
-        .modal-close:hover { color: var(--text); }
-        .modal-title { font-size: 24px; font-weight: 600; margin-bottom: 16px; }
-        .modal-body { font-size: 15px; line-height: 1.7; color: var(--text); }
-        .modal-body h4 { margin: 20px 0 8px; font-weight: 600; }
-        .modal-body ul { margin-left: 20px; }
-        .modal-body li { margin-bottom: 6px; }
-        
-        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-secondary); }
-        
-        .last-updated {
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 40px;
-        }
-        
-        .loading { opacity: 0.6; }
+        .card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        body.dark .card { background: #1c1c1e; }
+        .section-title { font-size: 12px; font-weight: 600; color: #86868b; text-transform: uppercase; margin: 12px 0 8px; }
+        ul { margin-left: 20px; }
+        .btn { padding: 8px 16px; background: #0071e3; color: white; border: none; border-radius: 6px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Nars 🐕</h1>
-        <div class="header-controls">
-            <button class="auto-refresh-toggle" id="autoRefreshBtn" onclick="toggleAutoRefresh()">🔄 Auto</button>
-            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-        </div>
+    <h1>Nars 🐕 <button class="btn" onclick="document.body.classList.toggle('dark')">🌙</button></h1>
+    
+    <div class="tabs">
+        <button class="tab active" onclick="showTab('tasks')">Tasks</button>
+        <button class="tab" onclick="showTab('journal')">Journal</button>
+        <button class="tab" onclick="showTab('calendar')">Calendar</button>
+        <button class="tab" onclick="showTab('memory')">Memory</button>
+        <button class="tab" onclick="showTab('team')">Team</button>
+        <button class="tab" onclick="showTab('research')">Research</button>
     </div>
     
-    <!-- Stats Bar -->
-    <div class="stats-bar">
-        <div class="stat-card">
-            <div class="stat-value" id="stat-tasks">-</div>
-            <div class="stat-label">Active Tasks</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="stat-journal">-</div>
-            <div class="stat-label">Journal Entries</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="stat-research">-</div>
-            <div class="stat-label">Research</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="stat-crons">-</div>
-            <div class="stat-label">Cron Jobs</div>
-        </div>
+    <div id="tasks" class="page active">
+        <h2>Tasks</h2>
+        <div id="tasks-content">Loading...</div>
     </div>
     
-    <!-- Quick Events -->
-    <div class="quick-events" id="quickEvents">
-        <strong>Next:</strong>
-        <div class="quick-event"><span class="time">9:00 AM</span><span class="name">Crypto News</span></div>
-        <div class="quick-event"><span class="time">9:00 AM</span><span class="name">Degen Daily</span></div>
-        <div class="quick-event"><span class="time">12:00 PM</span><span class="name">Degen Browse</span></div>
+    <div id="journal" class="page">
+        <h2>Journal</h2>
+        <div id="journal-content">Loading...</div>
     </div>
     
-    <div class="nav-tabs">
-        <button class="nav-tab active" onclick="showPage('tasks')">Tasks</button>
-        <button class="nav-tab" onclick="showPage('journal')">Journal</button>
-        <button class="nav-tab" onclick="showPage('calendar')">Calendar</button>
-        <button class="nav-tab" onclick="showPage('memory')">Memory</button>
-        <button class="nav-tab" onclick="showPage('team')">Team</button>
-        <button class="nav-tab" onclick="showPage('research')">Research</button>
+    <div id="calendar" class="page">
+        <h2>Calendar</h2>
+        <p>9AM - Crypto News, Degen Daily<br>12PM - Degen Browse<br>8PM - Degen Browse<br>2AM - Degen Browse</p>
     </div>
     
-    <div class="main-content">
-        <div id="tasks" class="page active">
-            <div class="tasks-grid">
-                <div class="column"><h2>Not Started</h2><div id="tasks-not-started"></div></div>
-                <div class="column"><h2>In Progress</h2><div id="tasks-in_progress"></div></div>
-                <div class="column"><h2>Completed</h2><div id="tasks-completed"></div></div>
-            </div>
-        </div>
-        
-        <div id="journal" class="page"><div class="journal-container" id="journal-entries"></div></div>
-        
-        <div id="calendar" class="page">
-            <div class="calendar-header">
-                <div class="calendar-nav">
-                    <button onclick="changeMonth(-1)">← Prev</button>
-                    <span class="calendar-month" id="calendar-month"></span>
-                    <button onclick="changeMonth(1)">Next →</button>
-                </div>
-            </div>
-            <div class="calendar-grid" id="calendar-grid"></div>
-        </div>
-        
-        <div id="memory" class="page">
-            <div class="memory-container">
-                <div class="memory-quick" id="memory-quick"></div>
-                <input type="text" class="search-box" placeholder="Search memories..." id="memory-search" onkeyup="searchMemory()">
-                <div class="search-results" id="memory-results"></div>
-            </div>
-        </div>
-        
-        <div id="team" class="page"><div class="team-grid" id="team-members"></div></div>
-        
-        <div id="research" class="page"><div class="research-grid" id="research-items"></div></div>
+    <div id="memory" class="page">
+        <h2>Memory</h2>
+        <div id="memory-content">Loading...</div>
     </div>
     
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">×</button>
-            <h2 class="modal-title" id="modal-title"></h2>
-            <div class="modal-body" id="modal-body"></div>
-        </div>
+    <div id="team" class="page">
+        <h2>Team</h2>
+        <div class="card"><strong>Jay (Nars)</strong> - Chief of Staff/COO - Active 🐕</div>
+        <div class="card"><strong>Research Agent</strong> - Research - On-demand 🔍</div>
+        <div class="card"><strong>CSO Agent</strong> - Security - Scheduled 🛡️</div>
     </div>
     
-    <div class="last-updated">Last updated: <span id="update-time"></span></div>
+    <div id="research" class="page">
+        <h2>Research</h2>
+        <div id="research-content">Loading...</div>
+    </div>
     
     <script>
-        let autoRefresh = false;
-        let refreshInterval = null;
-        
-        // Theme
-        function toggleTheme() {
-            document.body.classList.toggle('dark');
-            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-        }
-        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
-        
-        // Auto Refresh
-        function toggleAutoRefresh() {
-            autoRefresh = !autoRefresh;
-            document.getElementById('autoRefreshBtn').classList.toggle('active', autoRefresh);
-            if (autoRefresh) {
-                refreshInterval = setInterval(loadAllData, 30000);
-            } else {
-                clearInterval(refreshInterval);
-            }
-        }
-        
-        // Navigation
-        function showPage(pageId) {
+        function showTab(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
             event.target.classList.add('active');
         }
         
-        // Modal
-        function openModal(title, content) {
-            document.getElementById('modal-title').textContent = title;
-            document.getElementById('modal-body').innerHTML = content;
-            document.getElementById('modal').classList.add('active');
-        }
-        function closeModal() { document.getElementById('modal').classList.remove('active'); }
-        document.getElementById('modal').addEventListener('click', function(e) { if(e.target === this) closeModal(); });
-        
-        // Load all data
-        async function loadAllData() {
-            document.body.classList.add('loading');
-            await Promise.all([loadTasks(), loadJournal(), loadCalendar(), loadMemory(), loadTeam(), loadResearch()]);
-            document.getElementById('update-time').textContent = new Date().toLocaleTimeString();
-            document.body.classList.remove('loading');
-        }
-        
-        // Tasks - with fallback
-        async function loadTasks() {
-            try {
-                const response = await fetch('tasks.json');
-                const data = await response.json();
-                let notStarted = [], inProgress = [], completed = [];
-                if (data.tasks) { 
-                    notStarted = data.tasks.notStarted || []; 
-                    inProgress = data.tasks.inProgress || []; 
-                    completed = data.tasks.completed || []; 
-                }
-                const renderTasks = (tasks) => tasks.map(t => `<div class="task-card"><div class="task-title">${t.title}</div><div class="task-description">${t.description || ''}</div></div>`).join('') || '<div class="empty-state"><p>No tasks</p></div>';
-                document.getElementById('tasks-not-started').innerHTML = renderTasks(notStarted);
-                document.getElementById('tasks-in_progress').innerHTML = renderTasks(inProgress);
-                document.getElementById('tasks-completed').innerHTML = renderTasks(completed);
-                document.getElementById('stat-tasks').textContent = notStarted.length + inProgress.length + completed.length;
-            } catch (e) { 
-                console.error('Tasks error:', e);
-                document.getElementById('stat-tasks').textContent = '0';
-            }
-        }
-        
-        // Journal - load from journal.json with 6-part structure
-        async function loadJournal() {
-            try {
-                const response = await fetch('journal.json');
-                const data = await response.json();
-                const entries = data.entries || [];
-                
-                document.getElementById('stat-journal').textContent = entries.length;
-                
-                if (entries.length === 0) {
-                    document.getElementById('journal-entries').innerHTML = '<div class="empty-state"><p>No journal entries yet</p></div>';
-                    return;
-                }
-                
-                // Sort by date descending
-                entries.sort((a, b) => b.date.localeCompare(a.date));
-                
-                document.getElementById('journal-entries').innerHTML = entries.map(e => {
-                    let html = `<div class="journal-entry"><div class="journal-date">${e.date}</div>`;
-                    
-                    // 6-part structure
-                    if (e.accomplished) {
-                        const items = Array.isArray(e.accomplished) ? e.accomplished : [e.accomplished];
-                        html += `<div class="journal-section"><div class="journal-section-title">Accomplished</div><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
-                    }
-                    if (e.did_well) {
-                        const items = Array.isArray(e.did_well) ? e.did_well : [e.did_well];
-                        html += `<div class="journal-section"><div class="journal-section-title">Did Well</div><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
-                    }
-                    if (e.didnt_do_well) {
-                        const items = Array.isArray(e.didnt_do_well) ? e.didnt_do_well : [e.didnt_do_well];
-                        html += `<div class="journal-section"><div class="journal-section-title">Didn't Do Well</div><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
-                    }
-                    if (e.improve) {
-                        const items = Array.isArray(e.improve) ? e.improve : [e.improve];
-                        html += `<div class="journal-section"><div class="journal-section-title">Improve</div><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
-                    }
-                    if (e.learned_brian) {
-                        const items = Array.isArray(e.learned_brian) ? e.learned_brian : [e.learned_brian];
-                        html += `<div class="journal-section"><div class="journal-section-title">Learned About Brian</div><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
-                    }
-                    if (e.feeling) {
-                        html += `<div class="journal-section"><div class="journal-section-title">Feeling</div><p>${e.feeling}</p></div>`;
-                    }
-                    
-                    return html + '</div>';
-                }).join('');
-            } catch (e) {
-                console.error('Journal error:', e);
-                document.getElementById('journal-entries').innerHTML = '<div class="empty-state"><p>Error loading journal</p></div>';
-            }
-        }
-        
-        // Calendar
-        let currentMonth = new Date();
-        function changeMonth(delta) { currentMonth.setMonth(currentMonth.getMonth() + delta); renderCalendar(); }
-        
-        function renderCalendar() {
-            const year = currentMonth.getFullYear();
-            const month = currentMonth.getMonth();
-            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            document.getElementById('calendar-month').textContent = `${monthNames[month]} ${year}`;
-            const firstDay = new Date(year, month, 1);
-            const lastDay = new Date(year, month + 1, 0);
-            const startDay = firstDay.getDay();
-            const totalDays = lastDay.getDate();
-            const today = new Date();
-            const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
-            
-            const events = { 'daily': [{title: 'Crypto News', time: '9AM'}, {title: 'Degen Daily', time: '9AM'}, {title: 'Degen Browse', time: '12PM'}, {title: 'Degen Browse', time: '8PM'}, {title: 'Degen Browse', time: '2AM'}] };
-            
+        // Load Tasks
+        fetch('tasks.json').then(r => r.json()).then(data => {
             let html = '';
-            ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(d => html += `<div class="calendar-day-header">${d}</div>`);
-            
-            const prevMonth = new Date(year, month, 0);
-            for (let i = startDay - 1; i >= 0; i--) html += `<div class="calendar-day other-month"><div class="day-number">${prevMonth.getDate() - i}</div></div>`;
-            
-            for (let day = 1; day <= totalDays; day++) {
-                const isToday = isCurrentMonth && day === today.getDate();
-                html += `<div class="calendar-day ${isToday ? 'today' : ''}"><div class="day-number">${day}</div>`;
-                events.daily.forEach(e => html += `<div class="day-event">${e.title} ${e.time}</div>`);
-                html += '</div>';
-            }
-            
-            const remaining = 42 - (startDay + totalDays);
-            for (let i = 1; i <= remaining; i++) html += `<div class="calendar-day other-month"><div class="day-number">${i}</div></div>`;
-            
-            document.getElementById('calendar-grid').innerHTML = html;
-            document.getElementById('stat-crons').textContent = '8';
-        }
-        
-        // Memory
-        let researchData = [];
-        
-        async function loadMemory() {
-            // Quick view
-            const quickFiles = ['SOUL.md', 'MEMORY.md', 'IDENTITY.md', 'USER.md'];
-            const quickCards = [];
-            for (const file of quickFiles) {
-                try {
-                    const resp = await fetch(file);
-                    if (resp.ok) {
-                        const text = await resp.text();
-                        const title = file.replace('.md', '');
-                        quickCards.push({ title, snippet: text.substring(0, 150).replace(/[#*]/g, '') + '...' });
-                    }
-                } catch(e) {}
-            }
-            document.getElementById('memory-quick').innerHTML = quickCards.map(c => `
-                <div class="memory-card" onclick="openMemory('${c.title}')">
-                    <div class="memory-card-title">${c.title}</div>
-                    <div class="memory-card-snippet">${c.snippet}</div>
-                </div>
-            `).join('');
-            
-            // Search
-            document.getElementById('memory-results').innerHTML = '<div class="empty-state"><p>Type to search memories</p></div>';
-        }
-        
-        async function openMemory(title) {
-            try {
-                const resp = await fetch(title + '.md');
-                if (resp.ok) {
-                    const text = await resp.text();
-                    openModal(title, `<pre style="white-space: pre-wrap; font-size: 14px; line-height: 1.6;">${text}</pre>`);
+            const tasks = data.tasks || {};
+            ['notStarted', 'inProgress', 'completed'].forEach(status => {
+                const items = tasks[status] || [];
+                if (items.length) {
+                    html += '<div class="section-title">' + status + '</div>';
+                    items.forEach(t => {
+                        html += '<div class="card"><strong>' + t.title + '</strong><br><small>' + (t.description || '') + '</small></div>';
+                    });
                 }
-            } catch(e) {}
-        }
+            });
+            document.getElementById('tasks-content').innerHTML = html || 'No tasks';
+        }).catch(e => {
+            document.getElementById('tasks-content').innerHTML = 'Error loading: ' + e.message;
+        });
         
-        async function searchMemory() {
-            const query = document.getElementById('memory-search').value.toLowerCase();
-            const resultsDiv = document.getElementById('memory-results');
-            if (query.length < 2) { resultsDiv.innerHTML = '<div class="empty-state"><p>Type to search</p></div>'; return; }
-            
-            const memoryFiles = ['SOUL.md', 'MEMORY.md', 'IDENTITY.md', 'USER.md', 'AGENTS.md', 'TOOLS.md', 'memory/2026-02-18.md', 'memory/2026-02-17.md'];
-            const results = [];
-            for (const file of memoryFiles) {
-                try {
-                    const resp = await fetch(file);
-                    if (resp.ok) {
-                        const text = await resp.text();
-                        if (text.toLowerCase().includes(query)) {
-                            const lines = text.split('\n').filter(l => l.toLowerCase().includes(query));
-                            results.push({ title: file.replace('.md', '').replace('memory/', ''), snippet: lines.slice(0,2).join(' ').substring(0,150) + '...' });
-                        }
-                    }
-                } catch(e) {}
-            }
-            resultsDiv.innerHTML = results.length ? results.map(r => `<div class="search-result"><div class="search-result-title">${r.title}</div><div class="search-result-snippet">${r.snippet}</div></div>`).join('') : '<div class="empty-state"><p>No results</p></div>';
-        }
+        // Load Journal
+        fetch('journal.json').then(r => r.json()).then(data => {
+            let html = '';
+            const entries = data.entries || [];
+            entries.forEach(e => {
+                html += '<div class="card"><strong>' + e.date + '</strong>';
+                if (e.accomplished) html += '<div class="section-title">Accomplished</div><ul>' + e.accomplished.map(i => '<li>' + i + '</li>').join('') + '</ul>';
+                if (e.did_well) html += '<div class="section-title">Did Well</div><ul>' + e.did_well.map(i => '<li>' + i + '</li>').join('') + '</ul>';
+                if (e.didnt_do_well) html += '<div class="section-title">Didn\'t Do Well</div><ul>' + e.didnt_do_well.map(i => '<li>' + i + '</li>').join('') + '</ul>';
+                if (e.improve) html += '<div class="section-title">Improve</div><ul>' + e.improve.map(i => '<li>' + i + '</li>').join('') + '</ul>';
+                if (e.learned_brian) html += '<div class="section-title">Learned About Brian</div><ul>' + e.learned_brian.map(i => '<li>' + i + '</li>').join('') + '</ul>';
+                if (e.feeling) html += '<div class="section-title">Feeling</div><p>' + e.feeling + '</p>';
+                html += '</div>';
+            });
+            document.getElementById('journal-content').innerHTML = html || 'No entries';
+        }).catch(e => {
+            document.getElementById('journal-content').innerHTML = 'Error loading: ' + e.message;
+        });
         
-        // Research - with fallback data
-        async function loadResearch() {
-            try {
-                const response = await fetch('research.json');
-                if (!response.ok) throw new Error('Failed to fetch research.json');
-                const data = await response.json();
-                researchData = data.reports || data || [];
-                if (!Array.isArray(researchData)) researchData = [];
-            } catch (e) {
-                console.error('Research error:', e);
-                researchData = [
-                    { id: 'default', title: 'OpenClaw Research', type: 'research', date: '2026-02-17', summary: 'McKinsey-style research on OpenClaw capabilities' },
-                    { id: 'security', title: 'Security Audit', type: 'security', date: '2026-02-17', summary: 'Security assessment findings' }
-                ];
-            }
-            document.getElementById('stat-research').textContent = researchData.length;
-            if (researchData.length === 0) {
-                document.getElementById('research-items').innerHTML = '<div class="empty-state"><p>No research yet</p></div>';
-            } else {
-                document.getElementById('research-items').innerHTML = researchData.map(i => `<div class="research-card" onclick="openResearch('${i.id}')"><h3>${i.title}</h3><p>${i.summary}</p><span class="research-tag">${i.type || 'research'}</span><span class="research-tag">${i.date || ''}</span></div>`).join('');
-            }
-        }
+        // Load Memory files
+        fetch('SOUL.md').then(r => r.text()).then(text => {
+            document.getElementById('memory-content').innerHTML = '<div class="card"><strong>SOUL.md</strong><pre style="white-space:pre-wrap;font-size:12px;">' + text.substring(0,500) + '...</pre></div>';
+        }).catch(e => {
+            document.getElementById('memory-content').innerHTML = 'Error: ' + e.message;
+        });
         
-        function openResearch(id) {
-            const item = researchData.find(r => r.id === id);
-            if (!item) return;
-            let content = `<p><strong>Date:</strong> ${item.date || 'N/A'}</p><p><strong>Type:</strong> ${item.type || 'research'}</p><p><strong>Status:</strong> ${item.status || 'completed'}</p><h4>Summary</h4><p>${item.summary}</p>`;
-            if (item.link) content += `<p><a href="${item.link}" target="_blank" style="color: var(--accent);">View Full Report →</a></p>`;
-            openModal(item.title, content);
-        }
-        
-        // Team - with default data
-        function loadTeam() {
-            const members = [
-                { name: 'Jay (Nars)', role: 'Chief of Staff / COO', status: 'Active', emoji: '🐕' },
-                { name: 'Research Agent', role: 'Research', status: 'On-demand', emoji: '🔍' },
-                { name: 'CSO Agent', role: 'Security', status: 'Scheduled', emoji: '🛡️' },
-            ];
-            document.getElementById('team-members').innerHTML = members.map(m => `<div class="team-card"><div class="team-avatar">${m.emoji}</div><h3>${m.name}</h3><div class="role">${m.role}</div><div class="status ${m.status.toLowerCase()}">● ${m.status}</div></div>`).join('');
-        }
-        
-        // Init
-        loadAllData();
+        // Load Research
+        fetch('research.json').then(r => r.json()).then(data => {
+            let html = '';
+            const items = data.reports || data || [];
+            items.forEach(i => {
+                html += '<div class="card"><strong>' + i.title + '</strong><p>' + i.summary + '</p><small>' + (i.type||'') + ' - ' + (i.date||'') + '</small></div>';
+            });
+            document.getElementById('research-content').innerHTML = html || 'No research';
+        }).catch(e => {
+            document.getElementById('research-content').innerHTML = 'Error loading: ' + e.message;
+        });
     </script>
 </body>
 </html>
