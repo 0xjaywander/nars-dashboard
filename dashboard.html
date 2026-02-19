@@ -753,7 +753,7 @@
         
         // Memory
         async function loadMemory() {
-            const memoryFiles = ['SOUL.md', 'MEMORY.md', 'IDENTITY.md', 'USER.md', 'AGENTS.md'];
+            window.memoryFiles = ['SOUL.md', 'MEMORY.md', 'IDENTITY.md', 'USER.md', 'AGENTS.md'];
             let cards = [];
             
             for (const file of memoryFiles) {
@@ -763,18 +763,38 @@
                         const text = await resp.text();
                         cards.push({
                             title: file.replace('.md', ''),
-                            preview: text.substring(0, 150).replace(/[#*]/g, '') + '...'
+                            preview: text.substring(0, 150).replace(/[#*]/g, '') + '...',
+                            content: text
                         });
                     }
                 } catch(e) {}
             }
             
+            window.memoryCards = cards;
             document.getElementById('memory-grid').innerHTML = cards.map(c => `
-                <div class="memory-card">
+                <div class="memory-card" onclick="openMemory('${c.title}')">
                     <div class="memory-card-title">${c.title}</div>
                     <div class="memory-card-preview">${c.preview}</div>
                 </div>
             `).join('') || '<div class="empty-state"><p>No memories found</p></div>';
+        }
+        
+        function openMemory(title) {
+            const c = window.memoryCards?.find(x => x.title === title);
+            if (!c) return;
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;display:flex;align-items:center;justify-content:center;';
+            modal.onclick = () => modal.remove();
+            
+            modal.innerHTML = `
+                <div style="background:#1a1a1a;padding:32px;border-radius:16px;max-width:700px;width:90%;max-height:80vh;overflow-y:auto;">
+                    <h2 style="margin-bottom:20px;font-size:24px;">${c.title}</h2>
+                    <pre style="white-space:pre-wrap;font-size:14px;line-height:1.6;color:#ccc;">${c.content}</pre>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
         }
         
         async function searchMemory() {
@@ -831,10 +851,10 @@
             try {
                 const resp = await fetch('research.json');
                 const data = await resp.json();
-                const items = data.reports || data || [];
+                window.researchData = data.reports || data || [];
                 
-                document.getElementById('research-grid').innerHTML = items.map(i => `
-                    <div class="research-card">
+                document.getElementById('research-grid').innerHTML = window.researchData.map((i, idx) => `
+                    <div class="research-card" onclick="openResearch(${idx})">
                         <div class="research-title">${i.title}</div>
                         <div class="research-summary">${i.summary}</div>
                         <div class="research-meta">
@@ -846,6 +866,26 @@
             } catch(e) {
                 document.getElementById('research-grid').innerHTML = '<div class="empty-state"><p>No research yet</p></div>';
             }
+        }
+        
+        function openResearch(idx) {
+            const i = window.researchData[idx];
+            if (!i) return;
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;display:flex;align-items:center;justify-content:center;';
+            modal.onclick = () => modal.remove();
+            
+            modal.innerHTML = `
+                <div style="background:#1a1a1a;padding:32px;border-radius:16px;max-width:600px;width:90%;max-height:80vh;overflow-y:auto;">
+                    <h2 style="margin-bottom:16px;font-size:24px;">${i.title}</h2>
+                    <p style="color:#888;margin-bottom:16px;font-size:14px;">${i.type || 'research'} • ${i.date || ''}</p>
+                    <p style="line-height:1.7;margin-bottom:20px;">${i.summary}</p>
+                    ${i.link ? `<a href="${i.link}" target="_blank" style="color:#0071e3;">View Full Report →</a>` : ''}
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
         }
         
         // Init
