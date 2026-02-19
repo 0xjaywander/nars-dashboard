@@ -1,123 +1,163 @@
 {
-  "lastUpdated": "2026-02-17T10:00:00Z",
+  "lastUpdated": "2026-02-19T04:08:00Z",
   "tasks": {
-    "notStarted": [],
+    "notStarted": [
+      {
+        "id": "22",
+        "title": "Update dashboard with current tasks",
+        "description": "Ensure all active projects are tracked in tasks.json with descriptions",
+        "assignee": "Jay",
+        "created": "2026-02-19"
+      },
+      {
+        "id": "21",
+        "title": "Set up Degen Daily automation",
+        "description": "Configure cron jobs to browse X timeline and generate daily degen report at 9AM",
+        "assignee": "Jay",
+        "created": "2026-02-19"
+      }
+    ],
     "inProgress": [
       {
-        "id": "18",
-        "title": "Gmail SMTP setup",
-        "description": "Enable app password for Gmail to allow sending emails via SMTP. Pending user to create app password in Google Account settings.",
-        "since": "2026-02-17",
-        "priority": "medium"
+        "id": "20",
+        "title": "Dashboard rebuild based on Alex Finn's Mission Control",
+        "description": "Redesign dashboard with Tasks, Content Pipeline, Calendar, Memory, Team, Office, Research tabs",
+        "assignee": "Jay",
+        "since": "2026-02-19"
+      },
+      {
+        "id": "19",
+        "title": "Install x-tweet-fetcher + Camofox",
+        "description": "Set up free X tweet fetching without API - used for Degen Daily",
+        "assignee": "Jay",
+        "since": "2026-02-19"
       }
     ],
     "completed": [
       {
+        "id": "18",
+        "title": "Gmail SMTP setup",
+        "description": "Enable app password for Gmail to allow sending emails via SMTP. Pending user to create app password in Google Account settings.",
+        "assignee": "Brian",
+        "completedDate": "2026-02-17"
+      },
+      {
         "id": "17",
         "title": "CSO Security Agent Setup",
         "description": "Created dedicated CSO (Chief Security Officer) agent with security framework. Runs audits every 2 days.",
+        "assignee": "Jay",
         "completedDate": "2026-02-17"
       },
       {
         "id": "16",
         "title": "Knowledge Base Setup",
-        "description": "Created /knowledge/ folder for saving useful content. Convents: add 'save' to prompt to save content.",
+        "description": "Created /knowledge/ folder for saving useful content.",
+        "assignee": "Jay",
         "completedDate": "2026-02-17"
       },
       {
         "id": "15",
         "title": "OpenClaw Skills Installed",
         "description": "Install summarize CLI via Homebrew for YouTube/video summarization",
+        "assignee": "Jay",
         "completedDate": "2026-02-17"
       },
       {
         "id": "14",
         "title": "X Following Analysis",
         "description": "Analyzed @bchan8938 vs @0xjaywander following - found all 663 already followed. No action needed.",
+        "assignee": "Jay",
         "completedDate": "2026-02-17"
       },
       {
         "id": "13",
         "title": "Watch (Computer B) setup",
         "description": "Set up OpenClaw on Watch MacBook - Chrome browser, launchd service, crypto news cron, GitHub push configured",
+        "assignee": "Jay",
         "completedDate": "2026-02-16"
       },
       {
         "id": "12",
         "title": "Browser automation setup",
         "description": "Configure Chrome extension relay and local Chromium - now on Watch",
+        "assignee": "Jay",
         "completedDate": "2026-02-16"
       },
       {
-        "id": "3b",
+        "id": "11",
         "title": "Crypto news Telegram fix",
         "description": "Fixed cron delivery issue - added chat_id 5127620137",
-        "completedDate": "2026-02-15"
-      },
-      {
-        "id": "1",
-        "title": "X browser automation",
-        "description": "xvfb installed - can fetch X posts via headless browser on VPS",
+        "assignee": "Jay",
         "completedDate": "2026-02-15"
       },
       {
         "id": "10",
+        "title": "X browser automation",
+        "description": "xvfb installed - can fetch X posts via headless browser on VPS",
+        "assignee": "Jay",
+        "completedDate": "2026-02-15"
+      },
+      {
+        "id": "9",
         "title": "Summarize CLI installation",
         "description": "Install @steipete/summarize for YouTube/video transcription",
+        "assignee": "Jay",
         "completedDate": "2026-02-14"
       },
       {
         "id": "8",
         "title": "Multi-agent research workflow",
         "description": "Set up main agent spawning research agent with evaluation loop",
+        "assignee": "Jay",
         "completedDate": "2026-02-13"
-      },
-      {
-        "id": "9",
-        "title": "Research quality criteria",
-        "description": "Document quality thresholds and iteration workflow",
-        "completedDate": "2026-02-13"
-      },
-      {
-        "id": "11",
-        "title": "Daily journal workflow",
-        "description": "Cron job creates journal entries at 9AM HKT",
-        "completedDate": "2026-02-12"
-      },
-      {
-        "id": "6",
-        "title": "Auto Dashboard Update System",
-        "description": "Cron job runs daily at 9AM HKT, updates dashboard via GitHub/Vercel",
-        "completedDate": "2026-02-12"
       },
       {
         "id": "7",
+        "title": "Research quality criteria",
+        "description": "Document quality thresholds and iteration workflow",
+        "assignee": "Jay",
+        "completedDate": "2026-02-13"
+      },
+      {
+        "id": "6",
+        "title": "Daily journal workflow",
+        "description": "Cron job creates journal entries at 9AM HKT",
+        "assignee": "Jay",
+        "completedDate": "2026-02-12"
+      },
+      {
+        "id": "5",
+        "title": "Auto Dashboard Update System",
+        "description": "Cron job runs daily at 9AM HKT, updates dashboard via GitHub/Vercel",
+        "assignee": "Jay",
+        "completedDate": "2026-02-12"
+      },
+      {
+        "id": "4",
         "title": "Management Dashboard",
         "description": "Create visual dashboard at nars-dashboard.vercel.app",
+        "assignee": "Jay",
         "completedDate": "2026-02-11"
       },
       {
         "id": "3",
         "title": "Daily RSS crypto news",
         "description": "9AM HKT automated crypto news digest via RSS feeds (6 sources) - now on Watch",
+        "assignee": "Jay",
         "completedDate": "2026-02-11"
       },
       {
         "id": "2",
         "title": "Telegram channel setup",
         "description": "Configure OpenClaw to receive messages via Telegram",
+        "assignee": "Jay",
         "completedDate": "2026-02-10"
       },
       {
-        "id": "4",
+        "id": "1",
         "title": "X Research skill installation",
         "description": "Install x-research skill for Twitter API access",
-        "completedDate": "2026-02-10"
-      },
-      {
-        "id": "5",
-        "title": "Gateway token configuration",
-        "description": "Configure MiniMax Portal OAuth for OpenClaw",
+        "assignee": "Jay",
         "completedDate": "2026-02-10"
       }
     ]

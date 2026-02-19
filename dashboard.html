@@ -153,7 +153,14 @@
         .task-title {
             font-size: 15px;
             font-weight: 500;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+        }
+        
+        .task-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            line-height: 1.4;
         }
         
         .task-meta {
@@ -678,9 +685,9 @@
                 const renderTask = (t) => `
                     <div class="task-card">
                         <div class="task-title">${t.title}</div>
+                        ${t.description ? `<div class="task-desc">${t.description}</div>` : ''}
                         <div class="task-meta">
-                            <span class="task-assignee">${t.assignee || 'AI'}</span>
-                            <span class="task-time">${t.time || ''}</span>
+                            <span class="task-assignee">${t.assignee || 'Brian'}</span>
                         </div>
                     </div>
                 `;
