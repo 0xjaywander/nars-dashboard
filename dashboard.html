@@ -302,9 +302,74 @@
         
         /* Memory */
         .memory-header {
+            display: none;
+        }
+        
+        .memory-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 24px;
+            height: calc(100vh - 200px);
+        }
+        
+        @media (max-width: 800px) {
+            .memory-layout { grid-template-columns: 1fr; }
+        }
+        
+        .memory-sidebar {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 16px;
+            overflow-y: auto;
+        }
+        
+        .memory-list {
             display: flex;
-            gap: 16px;
-            margin-bottom: 24px;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .memory-list-item {
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        
+        .memory-list-item:hover {
+            border-color: var(--accent);
+        }
+        
+        .memory-list-item.active {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+        
+        .memory-list-item-title {
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .memory-list-item-date {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+        
+        .memory-content {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            overflow-y: auto;
+        }
+        
+        .memory-content pre {
+            white-space: pre-wrap;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ccc;
         }
         
         .search-box {
@@ -541,12 +606,12 @@
     
     <nav class="nav">
         <button class="nav-btn active" onclick="showPage('tasks')">Tasks</button>
-        <button class="nav-btn" onclick="showPage('pipeline')">Content Pipeline</button>
         <button class="nav-btn" onclick="showPage('calendar')">Calendar</button>
         <button class="nav-btn" onclick="showPage('memory')">Memory</button>
         <button class="nav-btn" onclick="showPage('team')">Team</button>
         <button class="nav-btn" onclick="showPage('office')">Office</button>
         <button class="nav-btn" onclick="showPage('research')">Research</button>
+        <button class="nav-btn" onclick="showPage('pipeline')">Content Pipeline</button>
     </nav>
     
     <!-- Tasks Board -->
@@ -629,10 +694,15 @@
     
     <!-- Memory -->
     <div id="memory" class="page">
-        <div class="memory-header">
-            <input type="text" class="search-box" placeholder="🔍 Search all memories..." id="memory-search" onkeyup="searchMemory()">
+        <div class="memory-layout">
+            <div class="memory-sidebar">
+                <input type="text" class="search-box" placeholder="🔍 Search..." id="memory-search" onkeyup="searchMemory()" style="margin-bottom: 16px;">
+                <div class="memory-list" id="memory-list"></div>
+            </div>
+            <div class="memory-content" id="memory-content">
+                <div class="empty-state"><p>Select a memory file to view</p></div>
+            </div>
         </div>
-        <div class="memory-grid" id="memory-grid"></div>
     </div>
     
     <!-- Team -->
@@ -727,15 +797,22 @@
             const today = new Date();
             const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
             
-            // Cron events
-            const events = [
-                { day: 19, time: '9:00', title: 'Crypto News' },
-                { day: 19, time: '9:00', title: 'Degen Daily' },
-                { day: 19, time: '12:00', title: 'Degen Browse' },
-                { day: 19, time: '20:00', title: 'Degen Browse' },
-                { day: 20, time: '9:00', title: 'Crypto News' },
-                { day: 20, time: '9:00', title: 'Degen Daily' },
+            // Cron events - recurring daily
+            const dailyEvents = [
+                { time: '9:00', title: 'Crypto News' },
+                { time: '9:00', title: 'Degen Daily' },
+                { time: '12:00', title: 'Degen Browse' },
+                { time: '20:00', title: 'Degen Browse' },
+                { time: '2:00', title: 'Degen Browse' },
             ];
+            
+            // Weekly events
+            const weeklyEvents = {
+                0: [{ time: '10:00', title: 'Audio Check' }], // Sunday
+            };
+            
+            // Bi-weekly events (every 2 days)
+            const biweeklyDays = [19, 21, 23, 25, 27]; // Example days
             
             let html = '';
             ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(d => html += `<div class="calendar-day-header">${d}</div>`);
@@ -745,7 +822,12 @@
             
             for (let day = 1; day <= totalDays; day++) {
                 const isToday = isCurrentMonth && day === today.getDate();
-                const dayEvents = events.filter(e => e.day === day);
+                const date = new Date(year, month, day);
+                const dayOfWeek = date.getDay();
+                
+                // Collect events for this day
+                let dayEvents = [...dailyEvents];
+                if (weeklyEvents[dayOfWeek]) dayEvents.push(...weeklyEvents[dayOfWeek]);
                 
                 html += `<div class="calendar-day ${isToday ? 'today' : ''}"><div class="day-number">${day}</div>`;
                 dayEvents.forEach(e => html += `<div class="day-event">${e.time} ${e.title}</div>`);
@@ -760,69 +842,82 @@
         
         // Memory
         async function loadMemory() {
-            window.memoryFiles = ['SOUL.md', 'MEMORY.md', 'IDENTITY.md', 'USER.md', 'AGENTS.md'];
-            let cards = [];
+            // Files to show in sidebar - sorted by date (newest first)
+            const files = [
+                { file: '2026-02-18.md', title: 'Feb 18', isDate: true },
+                { file: '2026-02-17.md', title: 'Feb 17', isDate: true },
+                { file: 'SOUL.md', title: 'SOUL', isDate: false },
+                { file: 'MEMORY.md', title: 'Memory', isDate: false },
+                { file: 'IDENTITY.md', title: 'Identity', isDate: false },
+                { file: 'USER.md', title: 'User', isDate: false },
+                { file: 'AGENTS.md', title: 'Agents', isDate: false },
+            ];
             
-            for (const file of memoryFiles) {
-                try {
-                    const resp = await fetch(file);
-                    if (resp.ok) {
-                        const text = await resp.text();
-                        cards.push({
-                            title: file.replace('.md', ''),
-                            preview: text.substring(0, 150).replace(/[#*]/g, '') + '...',
-                            content: text
-                        });
-                    }
-                } catch(e) {}
-            }
+            window.memoryFiles = files;
             
-            window.memoryCards = cards;
-            document.getElementById('memory-grid').innerHTML = cards.map(c => `
-                <div class="memory-card" onclick="openMemory('${c.title}')">
-                    <div class="memory-card-title">${c.title}</div>
-                    <div class="memory-card-preview">${c.preview}</div>
+            // Render sidebar list
+            document.getElementById('memory-list').innerHTML = files.map((f, idx) => `
+                <div class="memory-list-item ${idx === 0 ? 'active' : ''}" onclick="selectMemory(${idx})">
+                    <div class="memory-list-item-title">${f.title}</div>
+                    <div class="memory-list-item-date">${f.isDate ? 'Daily Memory' : 'Config'}</div>
                 </div>
-            `).join('') || '<div class="empty-state"><p>No memories found</p></div>';
+            `).join('');
+            
+            // Load first file
+            selectMemory(0);
         }
         
-        function openMemory(title) {
-            const c = window.memoryCards?.find(x => x.title === title);
-            if (!c) return;
+        async function selectMemory(idx) {
+            const f = window.memoryFiles[idx];
+            if (!f) return;
             
-            const modal = document.createElement('div');
-            modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;display:flex;align-items:center;justify-content:center;';
-            modal.onclick = () => modal.remove();
+            // Update active state
+            document.querySelectorAll('.memory-list-item').forEach((el, i) => {
+                el.classList.toggle('active', i === idx);
+            });
             
-            modal.innerHTML = `
-                <div style="background:#1a1a1a;padding:32px;border-radius:16px;max-width:700px;width:90%;max-height:80vh;overflow-y:auto;">
-                    <h2 style="margin-bottom:20px;font-size:24px;">${c.title}</h2>
-                    <pre style="white-space:pre-wrap;font-size:14px;line-height:1.6;color:#ccc;">${c.content}</pre>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
+            // Load and show content
+            try {
+                const resp = await fetch(f.file);
+                if (resp.ok) {
+                    const text = await resp.text();
+                    document.getElementById('memory-content').innerHTML = `<pre>${text}</pre>`;
+                } else {
+                    document.getElementById('memory-content').innerHTML = '<div class="empty-state"><p>File not found</p></div>';
+                }
+            } catch(e) {
+                document.getElementById('memory-content').innerHTML = '<div class="empty-state"><p>Error loading file</p></div>';
+            }
         }
         
         async function searchMemory() {
             const query = document.getElementById('memory-search').value.toLowerCase();
-            if (query.length < 2) { loadMemory(); return; }
             
-            // Quick search simulation
-            const allFiles = ['SOUL.md', 'MEMORY.md', 'IDENTITY.md', 'USER.md', 'AGENTS.md', 'TOOLS.md'];
-            let results = [];
+            // Filter/sort based on query
+            const allFiles = [
+                { file: '2026-02-18.md', title: 'Feb 18', isDate: true },
+                { file: '2026-02-17.md', title: 'Feb 17', isDate: true },
+                { file: 'SOUL.md', title: 'SOUL', isDate: false },
+                { file: 'MEMORY.md', title: 'Memory', isDate: false },
+                { file: 'IDENTITY.md', title: 'Identity', isDate: false },
+                { file: 'USER.md', title: 'User', isDate: false },
+                { file: 'AGENTS.md', title: 'Agents', isDate: false },
+            ];
             
-            for (const file of allFiles) {
-                try {
-                    const resp = await fetch(file);
-                    if (resp.ok) {
-                        const text = await resp.text().toLowerCase();
-                        if (text.includes(query)) {
-                            results.push({ title: file.replace('.md', ''), preview: 'Contains: ' + query });
-                        }
-                    }
-                } catch(e) {}
+            let filtered = allFiles;
+            if (query) {
+                filtered = allFiles.filter(f => f.title.toLowerCase().includes(query));
             }
+            
+            document.getElementById('memory-list').innerHTML = filtered.map((f, idx) => `
+                <div class="memory-list-item ${idx === 0 ? 'active' : ''}" onclick="selectMemory(${idx})">
+                    <div class="memory-list-item-title">${f.title}</div>
+                    <div class="memory-list-item-date">${f.isDate ? 'Daily Memory' : 'Config'}</div>
+                </div>
+            `).join('');
+            
+            if (filtered.length > 0) selectMemory(0);
+        }
             
             document.getElementById('memory-grid').innerHTML = results.length ? results.map(c => `
                 <div class="memory-card">
