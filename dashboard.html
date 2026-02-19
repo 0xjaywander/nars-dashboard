@@ -253,10 +253,20 @@
         .calendar-nav button:hover { background: var(--accent); color: white; }
         .calendar-month { font-size: 24px; font-weight: 600; }
         
+        /* Calendar - Mobile optimized */
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
+            gap: 4px;
+        }
+        
+        @media (max-width: 600px) {
+            .calendar-grid { gap: 2px; }
+            .calendar-day { padding: 6px; min-height: 60px; }
+            .day-number { font-size: 11px; margin-bottom: 4px; }
+            .day-event { font-size: 8px; padding: 2px 4px; border-radius: 3px; margin-bottom: 2px; }
+            .calendar-day-header { font-size: 9px; padding: 8px 0; }
+            .calendar-month { font-size: 18px; }
         }
         
         .calendar-day-header {
@@ -602,55 +612,79 @@
             document.body.classList.remove('loading');
         }
         
-        // Tasks
+        // Tasks - with fallback
         async function loadTasks() {
             try {
                 const response = await fetch('tasks.json');
                 const data = await response.json();
                 let notStarted = [], inProgress = [], completed = [];
-                if (data.tasks) { notStarted = data.tasks.notStarted || []; inProgress = data.tasks.inProgress || []; completed = data.tasks.completed || []; }
+                if (data.tasks) { 
+                    notStarted = data.tasks.notStarted || []; 
+                    inProgress = data.tasks.inProgress || []; 
+                    completed = data.tasks.completed || []; 
+                }
                 const renderTasks = (tasks) => tasks.map(t => `<div class="task-card"><div class="task-title">${t.title}</div><div class="task-description">${t.description || ''}</div></div>`).join('') || '<div class="empty-state"><p>No tasks</p></div>';
                 document.getElementById('tasks-not-started').innerHTML = renderTasks(notStarted);
                 document.getElementById('tasks-in_progress').innerHTML = renderTasks(inProgress);
                 document.getElementById('tasks-completed').innerHTML = renderTasks(completed);
                 document.getElementById('stat-tasks').textContent = notStarted.length + inProgress.length;
-            } catch (e) { console.error('Tasks error:', e); }
+            } catch (e) { 
+                console.error('Tasks error:', e);
+                document.getElementById('stat-tasks').textContent = '0';
+            }
         }
         
-        // Journal
+        // Journal - load from journal.json with 6-part structure
         async function loadJournal() {
-            const journalFiles = ['2026-02-18.md', '2026-02-17.md', '2026-02-15.md', '2026-02-13.md', '2026-02-12.md', '2026-02-11.md', '2026-02-10.md'];
-            const entries = [];
-            for (const file of journalFiles) {
-                try {
-                    const resp = await fetch('memory/' + file);
-                    if (resp.ok) {
-                        const text = await resp.text();
-                        const dateMatch = text.match(/^# (\d{4}-\d{2}-\d{2})/m);
-                        if (dateMatch) entries.push({ date: dateMatch[1], content: text });
+            try {
+                const response = await fetch('journal.json');
+                const data = await response.json();
+                const entries = data.entries || [];
+                
+                document.getElementById('stat-journal').textContent = entries.length;
+                
+                if (entries.length === 0) {
+                    document.getElementById('journal-entries').innerHTML = '<div class="empty-state"><p>No journal entries yet</p></div>';
+                    return;
+                }
+                
+                // Sort by date descending
+                entries.sort((a, b) => b.date.localeCompare(a.date));
+                
+                document.getElementById('journal-entries').innerHTML = entries.map(e => {
+                    let html = `<div class="journal-entry"><div class="journal-date">${e.date}</div>`;
+                    
+                    // 6-part structure
+                    if (e.accomplished) {
+                        const items = Array.isArray(e.accomplished) ? e.accomplished : [e.accomplished];
+                        html += `<div class="journal-section"><div class="journal-section-title">Accomplished</div><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
                     }
-                } catch(e) {}
+                    if (e.did_well) {
+                        const items = Array.isArray(e.did_well) ? e.did_well : [e.did_well];
+                        html += `<div class="journal-section"><div class="journal-section-title">Did Well</div><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
+                    }
+                    if (e.didnt_do_well) {
+                        const items = Array.isArray(e.didnt_do_well) ? e.didnt_do_well : [e.didnt_do_well];
+                        html += `<div class="journal-section"><div class="journal-section-title">Didn't Do Well</div><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
+                    }
+                    if (e.improve) {
+                        const items = Array.isArray(e.improve) ? e.improve : [e.improve];
+                        html += `<div class="journal-section"><div class="journal-section-title">Improve</div><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
+                    }
+                    if (e.learned_brian) {
+                        const items = Array.isArray(e.learned_brian) ? e.learned_brian : [e.learned_brian];
+                        html += `<div class="journal-section"><div class="journal-section-title">Learned About Brian</div><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
+                    }
+                    if (e.feeling) {
+                        html += `<div class="journal-section"><div class="journal-section-title">Feeling</div><p>${e.feeling}</p></div>`;
+                    }
+                    
+                    return html + '</div>';
+                }).join('');
+            } catch (e) {
+                console.error('Journal error:', e);
+                document.getElementById('journal-entries').innerHTML = '<div class="empty-state"><p>Error loading journal</p></div>';
             }
-            entries.sort((a, b) => b.date.localeCompare(a.date));
-            document.getElementById('stat-journal').textContent = entries.length;
-            
-            if (entries.length === 0) {
-                document.getElementById('journal-entries').innerHTML = '<div class="empty-state"><p>No journal entries yet</p></div>';
-                return;
-            }
-            
-            document.getElementById('journal-entries').innerHTML = entries.map(e => {
-                let html = `<div class="journal-entry"><div class="journal-date">${e.date}</div>`;
-                let content = e.content.replace(/^# .*/gm, '').replace(/^## /gm, '\n__SECTION__').replace(/^- /gm, '• ');
-                const sections = content.split('__SECTION__').filter(s => s.trim());
-                sections.forEach(section => {
-                    const lines = section.trim().split('\n');
-                    const title = lines[0].trim();
-                    const body = lines.slice(1).join('<br>').replace(/• /g, '<br>• ');
-                    if (title) html += `<div class="journal-section"><div class="journal-section-title">${title}</div><p>${body}</p></div>`;
-                });
-                return html + '</div>';
-            }).join('');
         }
         
         // Calendar
@@ -751,15 +785,20 @@
             resultsDiv.innerHTML = results.length ? results.map(r => `<div class="search-result"><div class="search-result-title">${r.title}</div><div class="search-result-snippet">${r.snippet}</div></div>`).join('') : '<div class="empty-state"><p>No results</p></div>';
         }
         
-        // Research
+        // Research - with fallback data
         async function loadResearch() {
             try {
                 const response = await fetch('research.json');
                 const data = await response.json();
                 researchData = data.reports || data || [];
-                document.getElementById('stat-research').textContent = researchData.length;
-                document.getElementById('research-items').innerHTML = researchData.map(i => `<div class="research-card" onclick="openResearch('${i.id}')"><h3>${i.title}</h3><p>${i.summary}</p><span class="research-tag">${i.type || 'research'}</span><span class="research-tag">${i.date || ''}</span></div>`).join('');
-            } catch (e) { console.error('Research error:', e); }
+            } catch (e) {
+                researchData = [
+                    { id: 'default', title: 'OpenClaw Research', type: 'research', date: '2026-02-17', summary: 'McKinsey-style research on OpenClaw capabilities' },
+                    { id: 'security', title: 'Security Audit', type: 'security', date: '2026-02-17', summary: 'Security assessment findings' }
+                ];
+            }
+            document.getElementById('stat-research').textContent = researchData.length;
+            document.getElementById('research-items').innerHTML = researchData.length ? researchData.map(i => `<div class="research-card" onclick="openResearch('${i.id}')"><h3>${i.title}</h3><p>${i.summary}</p><span class="research-tag">${i.type || 'research'}</span><span class="research-tag">${i.date || ''}</span></div>`).join('') : '<div class="empty-state"><p>No research yet</p></div>';
         }
         
         function openResearch(id) {
@@ -770,7 +809,7 @@
             openModal(item.title, content);
         }
         
-        // Team
+        // Team - with default data
         function loadTeam() {
             const members = [
                 { name: 'Jay (Nars)', role: 'Chief of Staff / COO', status: 'Active', emoji: '🐕' },
