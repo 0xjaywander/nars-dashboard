@@ -527,25 +527,37 @@
         async function loadTasks() {
             try {
                 const response = await fetch('tasks.json');
-                const tasks = await response.json();
+                const data = await response.json();
                 
-                const notStarted = tasks.filter(t => t.status === 'not_started');
-                const inProgress = tasks.filter(t => t.status === 'in_progress');
-                const completed = tasks.filter(t => t.status === 'completed');
+                // Handle both formats
+                let notStarted = [], inProgress = [], completed = [];
                 
-                document.getElementById('tasks-not-started').innerHTML = notStarted.map(t => 
-                    `<div class="task-card"><div class="task-title">${t.title}</div><div class="task-description">${t.description}</div></div>`
-                ).join('');
+                if (data.tasks) {
+                    // New format with nested object
+                    notStarted = data.tasks.notStarted || [];
+                    inProgress = data.tasks.inProgress || [];
+                    completed = data.tasks.completed || [];
+                } else if (Array.isArray(data)) {
+                    // Old format with flat array
+                    notStarted = data.filter(t => t.status === 'not_started');
+                    inProgress = data.filter(t => t.status === 'in_progress');
+                    completed = data.filter(t => t.status === 'completed');
+                }
                 
-                document.getElementById('tasks-in-progress').innerHTML = inProgress.map(t => 
-                    `<div class="task-card"><div class="task-title">${t.title}</div><div class="task-description">${t.description}</div></div>`
-                ).join('');
+                document.getElementById('tasks-not-started').innerHTML = notStarted.length ? notStarted.map(t => 
+                    `<div class="task-card"><div class="task-title">${t.title}</div><div class="task-description">${t.description || ''}</div></div>`
+                ).join('') : '<div class="empty-state"><p>No tasks</p></div>';
                 
-                document.getElementById('tasks-completed').innerHTML = completed.map(t => 
-                    `<div class="task-card"><div class="task-title">${t.title}</div><div class="task-description">${t.description}</div></div>`
-                ).join('');
+                document.getElementById('tasks-in-progress').innerHTML = inProgress.length ? inProgress.map(t => 
+                    `<div class="task-card"><div class="task-title">${t.title}</div><div class="task-description">${t.description || ''}</div></div>`
+                ).join('') : '<div class="empty-state"><p>No tasks</p></div>';
+                
+                document.getElementById('tasks-completed').innerHTML = completed.length ? completed.map(t => 
+                    `<div class="task-card"><div class="task-title">${t.title}</div><div class="task-description">${t.description || ''}</div></div>`
+                ).join('') : '<div class="empty-state"><p>No tasks</p></div>';
             } catch (e) {
-                console.log('Tasks not loaded');
+                console.error('Tasks error:', e);
+                document.getElementById('tasks-not-started').innerHTML = '<div class="empty-state"><p>Error loading tasks</p></div>';
             }
         }
         
@@ -553,21 +565,29 @@
         async function loadJournal() {
             try {
                 const response = await fetch('journal.json');
-                const entries = await response.json();
+                const data = await response.json();
                 
-                document.getElementById('journal-entries').innerHTML = entries.map(e => `
+                const entries = data.entries || [];
+                
+                if (entries.length === 0) {
+                    document.getElementById('journal-entries').innerHTML = '<div class="empty-state"><p>No journal entries yet</p></div>';
+                    return;
+                }
+                
+                document.getElementById('journal-entries').innerHTML = entries.slice(0, 10).map(e => `
                     <div class="journal-entry">
                         <div class="journal-date">${e.date}</div>
-                        ${e.sections ? e.sections.map(s => `
-                            <div class="journal-section">
-                                <div class="journal-section-title">${s.title}</div>
-                                <p>${s.content}</p>
-                            </div>
-                        `).join('') : ''}
+                        ${e.accomplished ? `<div class="journal-section"><div class="journal-section-title">Accomplished</div><p>${Array.isArray(e.accomplished) ? e.accomplished.join(', ') : e.accomplished}</p></div>` : ''}
+                        ${e.did_well ? `<div class="journal-section"><div class="journal-section-title">Did Well</div><p>${Array.isArray(e.did_well) ? e.did_well.join(', ') : e.did_well}</p></div>` : ''}
+                        ${e.didnt_do_well ? `<div class="journal-section"><div class="journal-section-title">Didn't Do Well</div><p>${Array.isArray(e.didnt_do_well) ? e.didnt_do_well.join(', ') : e.didnt_do_well}</p></div>` : ''}
+                        ${e.improve ? `<div class="journal-section"><div class="journal-section-title">Improve</div><p>${Array.isArray(e.improve) ? e.improve.join(', ') : e.improve}</p></div>` : ''}
+                        ${e.learned_brian ? `<div class="journal-section"><div class="journal-section-title">Learned About Brian</div><p>${Array.isArray(e.learned_brian) ? e.learned_brian.join(', ') : e.learned_brian}</p></div>` : ''}
+                        ${e.feeling ? `<div class="journal-section"><div class="journal-section-title">Feeling</div><p>${e.feeling}</p></div>` : ''}
                     </div>
                 `).join('');
             } catch (e) {
-                document.getElementById('journal-entries').innerHTML = '<div class="empty-state"><p>No journal entries yet</p></div>';
+                console.error('Journal error:', e);
+                document.getElementById('journal-entries').innerHTML = '<div class="empty-state"><p>Error loading journal</p></div>';
             }
         }
         
@@ -656,17 +676,26 @@
         async function loadResearch() {
             try {
                 const response = await fetch('research.json');
-                const items = await response.json();
+                const data = await response.json();
+                
+                const items = data.reports || data || [];
+                
+                if (items.length === 0) {
+                    document.getElementById('research-items').innerHTML = '<div class="empty-state"><p>No research yet</p></div>';
+                    return;
+                }
                 
                 document.getElementById('research-items').innerHTML = items.map(i => `
                     <div class="research-card">
                         <h3>${i.title}</h3>
                         <p>${i.summary}</p>
-                        ${i.tags ? i.tags.map(t => `<span class="research-tag">${t}</span>`).join('') : ''}
+                        <span class="research-tag">${i.type || 'research'}</span>
+                        <span class="research-tag">${i.date || ''}</span>
                     </div>
                 `).join('');
             } catch (e) {
-                document.getElementById('research-items').innerHTML = '<div class="empty-state"><p>No research yet</p></div>';
+                console.error('Research error:', e);
+                document.getElementById('research-items').innerHTML = '<div class="empty-state"><p>Error loading research</p></div>';
             }
         }
         
