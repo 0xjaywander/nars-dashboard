@@ -136,6 +136,21 @@
             border-bottom: 1px solid var(--border);
             padding-bottom: 0;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        @media (max-width: 600px) {
+            .nav-tabs { gap: 4px; margin-bottom: 16px; }
+            .nav-tab { padding: 10px 14px; font-size: 13px; }
+            .quick-events { padding: 12px 16px; gap: 12px; }
+            .quick-event { font-size: 12px; }
+            .header { flex-direction: column; align-items: flex-start; }
+            .header h1 { font-size: 24px; }
+            .header-controls { width: 100%; justify-content: space-between; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .stat-card { padding: 12px; }
+            .stat-value { font-size: 22px; }
+            .stat-label { font-size: 10px; }
         }
         
         .nav-tab {
@@ -262,11 +277,21 @@
         
         @media (max-width: 600px) {
             .calendar-grid { gap: 2px; }
-            .calendar-day { padding: 6px; min-height: 60px; }
-            .day-number { font-size: 11px; margin-bottom: 4px; }
-            .day-event { font-size: 8px; padding: 2px 4px; border-radius: 3px; margin-bottom: 2px; }
-            .calendar-day-header { font-size: 9px; padding: 8px 0; }
-            .calendar-month { font-size: 18px; }
+            .calendar-day { padding: 4px; min-height: 50px; }
+            .day-number { font-size: 10px; margin-bottom: 2px; }
+            .day-event { font-size: 7px; padding: 2px 3px; border-radius: 3px; margin-bottom: 2px; line-height: 1.2; }
+            .calendar-day-header { font-size: 8px; padding: 6px 0; }
+            .calendar-month { font-size: 16px; }
+            .calendar-nav button { padding: 6px 10px; font-size: 12px; }
+            .calendar-header { flex-direction: column; gap: 12px; align-items: stretch; }
+            .calendar-nav { justify-content: space-between; }
+        }
+        
+        @media (max-width: 400px) {
+            .calendar-day { min-height: 40px; padding: 2px; }
+            .day-event { font-size: 6px; padding: 1px 2px; }
+            .day-number { font-size: 9px; }
+            .calendar-day-header { font-size: 7px; }
         }
         
         .calendar-day-header {
@@ -393,6 +418,13 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 20px;
+        }
+        
+        @media (max-width: 600px) {
+            .research-grid { grid-template-columns: 1fr; gap: 12px; }
+            .research-card { padding: 16px; }
+            .research-card h3 { font-size: 16px; }
+            .research-card p { font-size: 13px; }
         }
         
         .research-card {
@@ -627,7 +659,7 @@
                 document.getElementById('tasks-not-started').innerHTML = renderTasks(notStarted);
                 document.getElementById('tasks-in_progress').innerHTML = renderTasks(inProgress);
                 document.getElementById('tasks-completed').innerHTML = renderTasks(completed);
-                document.getElementById('stat-tasks').textContent = notStarted.length + inProgress.length;
+                document.getElementById('stat-tasks').textContent = notStarted.length + inProgress.length + completed.length;
             } catch (e) { 
                 console.error('Tasks error:', e);
                 document.getElementById('stat-tasks').textContent = '0';
@@ -789,16 +821,23 @@
         async function loadResearch() {
             try {
                 const response = await fetch('research.json');
+                if (!response.ok) throw new Error('Failed to fetch research.json');
                 const data = await response.json();
                 researchData = data.reports || data || [];
+                if (!Array.isArray(researchData)) researchData = [];
             } catch (e) {
+                console.error('Research error:', e);
                 researchData = [
                     { id: 'default', title: 'OpenClaw Research', type: 'research', date: '2026-02-17', summary: 'McKinsey-style research on OpenClaw capabilities' },
                     { id: 'security', title: 'Security Audit', type: 'security', date: '2026-02-17', summary: 'Security assessment findings' }
                 ];
             }
             document.getElementById('stat-research').textContent = researchData.length;
-            document.getElementById('research-items').innerHTML = researchData.length ? researchData.map(i => `<div class="research-card" onclick="openResearch('${i.id}')"><h3>${i.title}</h3><p>${i.summary}</p><span class="research-tag">${i.type || 'research'}</span><span class="research-tag">${i.date || ''}</span></div>`).join('') : '<div class="empty-state"><p>No research yet</p></div>';
+            if (researchData.length === 0) {
+                document.getElementById('research-items').innerHTML = '<div class="empty-state"><p>No research yet</p></div>';
+            } else {
+                document.getElementById('research-items').innerHTML = researchData.map(i => `<div class="research-card" onclick="openResearch('${i.id}')"><h3>${i.title}</h3><p>${i.summary}</p><span class="research-tag">${i.type || 'research'}</span><span class="research-tag">${i.date || ''}</span></div>`).join('');
+            }
         }
         
         function openResearch(id) {
