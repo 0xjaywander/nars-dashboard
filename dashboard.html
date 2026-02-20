@@ -904,25 +904,33 @@
             if (card.date) extra += `<div class="card-meta">Date: ${card.date}</div>`;
             
             const notesPreview = card.notes ? card.notes.substring(0, 100) + (card.notes.length > 100 ? '...' : '') : '';
-            const notesFull = card.notes ? card.notes.replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+            const notesEscaped = card.notes ? card.notes.replace(/'/g, "&#39;").replace(/"/g, "&quot;") : '';
             
             return `
-                <div class="pipeline-card" onclick="showCardModal('${card.title}', '${notesFull}', '${card.topic || ''}', '${card.platform || ''}', '${card.date || ''}')">
+                <div class="pipeline-card" data-title="${card.title || ''}" data-notes="${notesEscaped}" data-topic="${card.topic || ''}" data-platform="${card.platform || ''}" data-date="${card.date || ''}" data-url="${card.url || ''}" onclick="openPipelineCard(this)">
                     <div class="pipeline-card-title">${card.title}</div>
                     ${extra}
-                    ${notesPreview ? `<div class="card-notes-preview">${notesPreview}</div>` : ''}
+                    ${notesPreview ? `<div class="card-notes-preview">${notesPreview.replace(/'/g, "&#39;")}</div>` : ''}
                 </div>
             `;
         }
         
-        function showCardModal(title, notes, topic, platform, date) {
+        function openPipelineCard(el) {
+            const title = el.dataset.title;
+            const notes = el.dataset.notes.replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+            const topic = el.dataset.topic;
+            const platform = el.dataset.platform;
+            const date = el.dataset.date;
+            const url = el.dataset.url;
+            
             const modal = document.getElementById('card-modal');
             document.getElementById('modal-title').textContent = title;
             document.getElementById('modal-content').innerHTML = notes.replace(/\n/g, '<br>');
             document.getElementById('modal-meta').innerHTML = 
                 (topic ? `<div class="card-meta">Topic: ${topic}</div>` : '') +
                 (platform ? `<div class="card-meta">Platform: ${platform}</div>` : '') +
-                (date ? `<div class="card-meta">Date: ${date}</div>` : '');
+                (date ? `<div class="card-meta">Date: ${date}</div>` : '') +
+                (url ? `<div class="card-url"><a href="${url}" target="_blank">${url}</a></div>` : '');
             modal.style.display = 'flex';
         }
         
