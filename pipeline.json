@@ -1,15 +1,25 @@
 {
-  "ideas": [
+  "ideas": [],
+  "research": [
     {
       "id": "1",
-      "title": "RWA tokenization trends",
+      "title": "RWA Outlook in Asia (2026-2029)",
       "topic": "RWA",
       "platform": "X",
-      "date": "2026-02-20"
+      "date": "2026-02-20",
+      "notes": "Research complete."
     }
   ],
-  "research": [],
-  "drafts": [],
+  "drafts": [
+    {
+      "id": "1",
+      "title": "RWA Outlook in Asia (2026-2029)",
+      "topic": "RWA",
+      "platform": "X",
+      "date": "2026-02-20",
+      "notes": "Draft 1: 2026 is the pivot year. Not minted — mobile. The whole industry shifts from creating tokens to sustaining trading volume. Thats the move. (138 chars)\n\nDraft 2: HK. Singapore. Dubai. Three jurisdictions racing to be Asias RWA hub. Hong Kong has the funds. Singapore has Project Guardian. VARA in Dubai built the worlds first end-to-end framework. Place your bets. (224 chars)\n\nDraft 3: Money market funds are the breakout asset class. Yield-bearing + 24/7 liquidity + fractional access. Franklin Templeton, China Asset Management already in. The institutional wave is here. (209 chars)"
+    }
+  ],
   "review": [],
   "published": [],
   "analyzed": []
