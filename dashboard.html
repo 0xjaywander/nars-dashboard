@@ -184,12 +184,12 @@
         /* Content Pipeline */
         .pipeline-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             gap: 16px;
             overflow-x: auto;
         }
         
-        @media (max-width: 1100px) {
+        @media (max-width: 1400px) {
             .pipeline-grid { grid-template-columns: repeat(3, 1fr); }
         }
         
@@ -222,6 +222,42 @@
             font-size: 12px;
             color: var(--text-secondary);
             line-height: 1.4;
+        }
+        
+        .card-meta {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 6px;
+        }
+        
+        .card-url {
+            font-size: 11px;
+            margin-top: 6px;
+        }
+        
+        .card-url a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .card-url a:hover {
+            text-decoration: underline;
+        }
+        
+        .card-notes {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .card-feedback {
+            font-size: 12px;
+            color: var(--warning);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
         }
         
         /* Calendar */
@@ -653,34 +689,37 @@
                 <div class="column-header">
                     <span class="column-title">Ideas</span>
                 </div>
-                <div class="pipeline-card">
-                    <div class="pipeline-card-title">Daily Crypto News Automation</div>
-                    <div class="pipeline-card-desc">Automate morning news digest using RSS feeds</div>
-                </div>
-                <div class="pipeline-card">
-                    <div class="pipeline-card-title">Degen Daily Report</div>
-                    <div class="pipeline-card-desc">Build automated market summary from X</div>
-                </div>
+                <div id="pipeline-ideas"></div>
             </div>
             <div class="pipeline-column">
                 <div class="column-header">
-                    <span class="column-title">Scripting</span>
+                    <span class="column-title">Research</span>
                 </div>
+                <div id="pipeline-research"></div>
             </div>
             <div class="pipeline-column">
                 <div class="column-header">
-                    <span class="column-title">Thumbnail</span>
+                    <span class="column-title">Drafts</span>
                 </div>
+                <div id="pipeline-drafts"></div>
             </div>
             <div class="pipeline-column">
                 <div class="column-header">
-                    <span class="column-title">Filming</span>
+                    <span class="column-title">Review</span>
                 </div>
+                <div id="pipeline-review"></div>
             </div>
             <div class="pipeline-column">
                 <div class="column-header">
                     <span class="column-title">Published</span>
                 </div>
+                <div id="pipeline-published"></div>
+            </div>
+            <div class="pipeline-column">
+                <div class="column-header">
+                    <span class="column-title">Analyzed</span>
+                </div>
+                <div id="pipeline-analyzed"></div>
             </div>
         </div>
     </div>
@@ -748,6 +787,40 @@
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             event.target.classList.add('active');
+            
+            // Load data for specific pages
+            if (pageId === 'pipeline') loadPipeline();
+        }
+        
+        // Content Pipeline
+        async function loadPipeline() {
+            try {
+                const resp = await fetch('pipeline.json');
+                const data = await resp.json();
+                
+                const columns = ['ideas', 'research', 'drafts', 'review', 'published', 'analyzed'];
+                columns.forEach(col => {
+                    const cards = data[col] || [];
+                    document.getElementById(`pipeline-${col}`).innerHTML = cards.map(renderPipelineCard).join('') || '<div class="empty-state"><p>No items</p></div>';
+                });
+            } catch(e) {
+                console.error('Pipeline load error:', e);
+            }
+        }
+        
+        function renderPipelineCard(card) {
+            let extra = '';
+            if (card.topic) extra += `<div class="card-meta">Topic: ${card.topic}</div>`;
+            if (card.platform) extra += `<div class="card-meta">Platform: ${card.platform}</div>`;
+            if (card.url) extra += `<div class="card-url"><a href="${card.url}" target="_blank">${card.url}</a></div>`;
+            if (card.notes) extra += `<div class="card-notes">${card.notes}</div>`;
+            if (card.feedback) extra += `<div class="card-feedback">${card.feedback}</div>`;
+            return `
+                <div class="pipeline-card">
+                    <div class="pipeline-card-title">${card.title}</div>
+                    ${extra}
+                </div>
+            `;
         }
         
         // Load Tasks

@@ -122,5 +122,45 @@
 - **When Brian tells you something directly, update MEMORY.md immediately** — don't decide if it's "important", just save it
 - Err on the side of saving more, not less
 - **Journal structure:** 6 sections (accomplished, did well, didn't do well, improve, learned about Brian, feeling)
-- **When Brian tells you something directly, update MEMORY.md immediately** — don't decide if it's "important", just save it
-- Err on the side of saving more, not less
+
+## Content Pipeline Workflow (2026-02-20)
+
+**Agents (persistent, in `/agents/`):**
+- Research Agent — `/agents/research-agent/`
+- Branding Agent — `/agents/branding-agent/`
+- Analytics Agent — `/agents/analytics-agent/`
+- Security Agent — `/agents/security/`
+
+**Workflow:**
+
+1. **Brian gives idea** — Telegram: topic, angle, platform
+
+2. **Ideas → Research** — Jay moves card, tasks Research Agent
+   - Gathers information, data, sources
+   - Outputs to dashboard
+
+3. **Jay reviews Research output** — quality check
+   - If not ready → iterate with Research Agent
+   - If ready → move to Drafts
+
+4. **Research → Drafts** — Jay tasks Branding Agent
+   - Creates drafts based on research
+   - Outputs to dashboard
+
+5. **Jay reviews Drafts** — same quality threshold
+   - If not ready → iterate with Branding Agent
+   - If ready → move to Review
+
+6. **Review** — Jay presents to Brian (dashboard)
+
+7. **Brian posts** — sends URL to Jay
+
+8. **Review → Published** — Jay moves card with URL
+
+9. **Published → Analyzed** (24h later)
+   - Jay tasks Analytics Agent
+   - Adds feedback to dashboard content card
+
+10. **Jay moves to Analyzed**
+
+**Jay's role:** Central coordinator. Orchestrates agents, quality control, moves cards through all stages.

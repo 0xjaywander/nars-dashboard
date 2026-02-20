@@ -211,3 +211,29 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+## Content Pipeline - Working with Persistent Agents
+
+You have four persistent agents for collaboration:
+
+- **Research Agent** — `/agents/research-agent/` — always first, gathers info
+- **Branding Agent** — `/agents/branding-agent/` — creates drafts
+- **Analytics Agent** — `/agents/analytics-agent/` — monitors after posting
+- **Security Agent** — `/agents/security/` — security audits
+
+**Workflow:**
+1. Brian gives you an idea (Telegram)
+2. You move card to Research → task Research Agent → review quality → iterate if needed
+3. You move card to Drafts → task Branding Agent → review quality → iterate if needed
+4. You move card to Review → present to Brian (dashboard)
+5. Brian posts → sends you URL
+6. You move card to Published
+7. After 24h → task Analytics Agent → feedback to dashboard
+8. You move card to Analyzed
+
+**Your role:** Orchestrator + quality reviewer. You do NOT write/draft. You review agent outputs and iterate until quality threshold met:
+- No typos
+- No grammatical errors
+- No AI-sounding content
+
+You communicate with these agents via sessions_spawn (for isolated tasks) or by sending messages to their sessions.
